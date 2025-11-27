@@ -31,14 +31,9 @@ theme: beautiful-jekyll-theme
 # Excerpt word length
 excerpt_length: 50
 
-# Pagination
-paginate: 5
-paginate_path: "/blog/page:num/"
-
 # Plugins
 plugins:
   - jekyll-feed
-  - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
 

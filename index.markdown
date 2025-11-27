@@ -50,6 +50,9 @@ We combine:
 
 Our goal is to create a data-driven "cookbook" with actionable strategies for Reddit success. Each "recipe" will be backed by rigorous statistical analysis of real Reddit data.
 
+## Clustered Embeddings
+<div class="flourish-embed flourish-hierarchy" data-src="visualisation/25685009"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25685009/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
+
 ### Hate graph
 
 <div class="flourish-embed flourish-network" data-src="visualisation/25414151"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25414151/thumbnail" width="100%" alt="network visualization" /></noscript></div>

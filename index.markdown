@@ -54,6 +54,60 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
 
 <div class="flourish-embed flourish-network" data-src="visualisation/25414151"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25414151/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
+### Selector
+
+<ul class="nav nav-tabs" id="viewTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="view1-tab" data-toggle="tab" data-target="#view1" type="button" role="tab" aria-controls="view1" aria-selected="true">View 1</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="view2-tab" data-toggle="tab" data-target="#view2" type="button" role="tab" aria-controls="view2" aria-selected="false">View 2</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="view3-tab" data-toggle="tab" data-target="#view3" type="button" role="tab" aria-controls="view3" aria-selected="false">View 3</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="view4-tab" data-toggle="tab" data-target="#view4" type="button" role="tab" aria-controls="view4" aria-selected="false">View 4</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="view5-tab" data-toggle="tab" data-target="#view5" type="button" role="tab" aria-controls="view5" aria-selected="false">View 5</button>
+  </li>
+</ul>
+
+<div class="tab-content" id="viewTabsContent" style="margin-top: 20px;">
+  <div class="tab-pane fade show active" id="view1" role="tabpanel" aria-labelledby="view1-tab">
+    <h4>View 1 Content</h4>
+    <p>This is the content for View 1. You can add markdown or HTML here.</p>
+    <p>Add your visualizations, text, or any other content here.</p>
+  </div>
+  
+  <div class="tab-pane fade" id="view2" role="tabpanel" aria-labelledby="view2-tab">
+    <h4>View 2 Content</h4>
+    <p>This is the content for View 2.</p>
+    <p>Each view is independent and can contain different content.</p>
+  </div>
+  
+  <div class="tab-pane fade" id="view3" role="tabpanel" aria-labelledby="view3-tab">
+    <h4>View 3 Content</h4>
+    <p>This is the content for View 3.</p>
+    <p>You can add Flourish embeds, images, or any HTML/markdown here.</p>
+  </div>
+  
+  <div class="tab-pane fade" id="view4" role="tabpanel" aria-labelledby="view4-tab">
+    <h4>View 4 Content</h4>
+    <p>This is the content for View 4.</p>
+    <p>Keep adding your content here!</p>
+  </div>
+  
+  <div class="tab-pane fade" id="view5" role="tabpanel" aria-labelledby="view5-tab">
+    <h4>View 5 Content</h4>
+    <p>This is the content for View 5.</p>
+    <p>This is your last view - make it count!</p>
+  </div>
+</div>
+
+
+
 ### Coming Soon
 
 - Interactive visualizations of subreddit networks

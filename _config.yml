@@ -26,7 +26,7 @@ navbar-links:
 #   linkedin: yourprofile
 
 # Theme settings
-theme: beautiful-jekyll-theme
+remote_theme: daattali/beautiful-jekyll
 
 # Excerpt word length
 excerpt_length: 50
@@ -36,6 +36,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-remote-theme
 
 # Build settings
 markdown: kramdown

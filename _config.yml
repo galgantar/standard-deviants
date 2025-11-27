@@ -10,6 +10,9 @@ url: "https://galgantar.github.io"
 # Avatar / Profile picture (can be a local path or URL)
 # avatar: "/assets/img/avatar-icon.png"
 
+# Load Flourish script for visualizations
+head-extra: flourish-script.html
+
 # Navigation bar links
 navbar-links:
   GitHub Repo: "https://github.com/epfl-ada/ada-2025-project-standard-deviants-ada"

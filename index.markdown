@@ -53,6 +53,14 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
 ## Clustered Embeddings
 <div class="flourish-embed flourish-hierarchy" data-src="visualisation/25685009"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25685009/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
+### Cluster sentiment
+
+<div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+### Directed hate graph
+
+<div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
+
 ### Hate graph
 
 <div class="flourish-embed flourish-network" data-src="visualisation/25414151"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25414151/thumbnail" width="100%" alt="network visualization" /></noscript></div>

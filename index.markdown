@@ -129,10 +129,10 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
 
 <ul class="nav nav-tabs" id="viewTabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="view1-tab" data-toggle="tab" data-target="#view1" type="button" role="tab" aria-controls="view1" aria-selected="true">Gaming cluster</button>
+    <button class="nav-link active" id="view1-tab" data-toggle="tab" data-target="#view1" type="button" role="tab" aria-controls="view1" aria-selected="true">Gaming & Interactive Entertainment</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="view2-tab" data-toggle="tab" data-target="#view2" type="button" role="tab" aria-controls="view2" aria-selected="false">View 2</button>
+    <button class="nav-link" id="view2-tab" data-toggle="tab" data-target="#view2" type="button" role="tab" aria-controls="view2" aria-selected="false">Politics & Society </button>
   </li>
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="view3-tab" data-toggle="tab" data-target="#view3" type="button" role="tab" aria-controls="view3" aria-selected="false">View 3</button>
@@ -155,7 +155,7 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
   <div class="tab-pane fade" id="view2" role="tabpanel" aria-labelledby="view2-tab">
     <h4>View 2 Content</h4>
     <p>This is the content for View 2.</p>
-    <p>Each view is independent and can contain different content.</p>
+    <p><div class="flourish-embed flourish-scatter" data-src="visualisation/26563051"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26563051/thumbnail" width="100%" alt="scatter visualization" /></noscript></div></p>
   </div>
   
   <div class="tab-pane fade" id="view3" role="tabpanel" aria-labelledby="view3-tab">

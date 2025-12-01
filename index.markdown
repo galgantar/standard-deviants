@@ -153,24 +153,60 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
 
 ### Viral post by cluster
 
-<ul class="nav nav-tabs" id="viralTabs" role="tablist">
+<ul class="nav nav-tabs" id="viewTabsa" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="viral-view1-tab" data-toggle="tab" data-target="#viral-view1" type="button" role="tab" aria-controls="viral-view1" aria-selected="true">Gaming & Interactive Entertainment</button>
+    <button class="nav-link active" id="viewa1-tab" data-toggle="tab" data-target="#viewa1" type="button" role="tab" aria-controls="view1" aria-selected="true">Gaming & Interactive Entertainment</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="viral-view2-tab" data-toggle="tab" data-target="#viral-view2" type="button" role="tab" aria-controls="viral-view2" aria-selected="false">Politics & Society</button>
+    <button class="nav-link" id="viewa2-tab" data-toggle="tab" data-target="#viewa2" type="button" role="tab" aria-controls="view2" aria-selected="false">Politics & Society</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa3-tab" data-toggle="tab" data-target="#viewa3" type="button" role="tab" aria-controls="view3" aria-selected="false">Reddit Meta & Community</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa4-tab" data-toggle="tab" data-target="#viewa4" type="button" role="tab" aria-controls="view4" aria-selected="false">Lifestyle & Niche Interests</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa5-tab" data-toggle="tab" data-target="#viewa5" type="button" role="tab" aria-controls="view5" aria-selected="false">Sports & Athletics</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa6-tab" data-toggle="tab" data-target="#viewa6" type="button" role="tab" aria-controls="view6" aria-selected="false">Pop Culture & Media</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa7-tab" data-toggle="tab" data-target="#viewa7" type="button" role="tab" aria-controls="view7" aria-selected="false">Technology and Digital Culture</button>
   </li>
 </ul>
 
-<div class="tab-content" id="viralTabsContent" style="margin-top: 20px;">
-  <div class="tab-pane fade show active" id="viral-view1" role="tabpanel" aria-labelledby="viral-view1-tab">
+<div class="tab-content" id="viewTabsContenta" style="margin-top: 20px;">
+  <div class="tab-pane fade show active" id="viewa1" role="tabpanel" aria-labelledby="view1-tab">
+    <h4>View 1 Content</h4>
     <div class="flourish-embed flourish-scatter" data-src="visualisation/26561176"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26561176/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
   </div>
-  <div class="tab-pane fade" id="viral-view2" role="tabpanel" aria-labelledby="viral-view2-tab">
+  
+  <div class="tab-pane fade" id="viewa2" role="tabpanel" aria-labelledby="view2-tab">
+    <h4>View 2 Content</h4>
     <div class="flourish-embed flourish-scatter" data-src="visualisation/26563051"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26563051/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
   </div>
+  
+  <div class="tab-pane fade" id="viewa3" role="tabpanel" aria-labelledby="view3-tab">
+    <h4>View 3 Content</h4>
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26564979"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26564979/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  
+  <div class="tab-pane fade" id="viewa4" role="tabpanel" aria-labelledby="viewa4-tab">
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26565674"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26565674/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  
+  <div class="tab-pane fade" id="viewa5" role="tabpanel" aria-labelledby="viewa5-tab">
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26565719"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26565719/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  <div class="tab-pane fade" id="viewa6" role="tabpanel" aria-labelledby="viewa6-tab">
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26566023"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26566023/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  <div class="tab-pane fade" id="viewa7" role="tabpanel" aria-labelledby="viewa7-tab">
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26566068"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26566068/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
 </div>
-
 
 
 ### Coming Soon

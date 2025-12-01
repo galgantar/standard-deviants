@@ -143,6 +143,56 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
   </div>
 </div>
 
+### negativity upvotes 
+
+<div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/25923109"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25923109/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
+
+
+### Cluster Means
+<div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+### Viral post by cluster
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tabs + Flourish</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://public.flourish.studio/resources/embed.js"></script>
+  </head>
+  <body class="p-3">
+
+    <ul class="nav nav-tabs" id="viewTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="view1-tab"
+                data-bs-toggle="tab" data-bs-target="#view1"
+                type="button" role="tab" aria-controls="view1" aria-selected="true">
+          Gaming & Interactive Entertainment
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="view2-tab"
+                data-bs-toggle="tab" data-bs-target="#view2"
+                type="button" role="tab" aria-controls="view2" aria-selected="false">
+          Politics & Society
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-3" id="viewTabsContent">
+      <div class="tab-pane fade show active" id="view1" role="tabpanel" aria-labelledby="view1-tab">
+        <div class="flourish-embed flourish-scatter" data-src="visualisation/26561176"></div>
+      </div>
+      <div class="tab-pane fade" id="view2" role="tabpanel" aria-labelledby="view2-tab">
+        <div class="flourish-embed flourish-scatter" data-src="visualisation/26563051"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
+
 
 
 ### Coming Soon

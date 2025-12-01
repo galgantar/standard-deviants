@@ -117,7 +117,9 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
   </div>
 </div>
 
+### negativity upvotes 
 
+<div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/25923109"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25923109/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
 ### Coming Soon
 

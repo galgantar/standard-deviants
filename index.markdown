@@ -148,14 +148,14 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
 <div class="tab-content" id="viewTabsContent" style="margin-top: 20px;">
   <div class="tab-pane fade show active" id="view1" role="tabpanel" aria-labelledby="view1-tab">
     <h4>View 1 Content</h4>
-    <p>This is the content for View 1. You can add markdown or HTML here.</p>
     <p><div class="flourish-embed flourish-scatter" data-src="visualisation/26561176"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26561176/thumbnail" width="100%" alt="scatter visualization" /></noscript></div></p>
+    <p></p>
   </div>
   
   <div class="tab-pane fade" id="view2" role="tabpanel" aria-labelledby="view2-tab">
-    <h4>View 2 Content</h4>
+    <h4><div class="flourish-embed flourish-scatter" data-src="visualisation/26563051"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26563051/thumbnail" width="100%" alt="scatter visualization" /></noscript></div></h4>
     <p>This is the content for View 2.</p>
-    <p><div class="flourish-embed flourish-scatter" data-src="visualisation/26563051"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26563051/thumbnail" width="100%" alt="scatter visualization" /></noscript></div></p>
+    <p></p>
   </div>
   
   <div class="tab-pane fade" id="view3" role="tabpanel" aria-labelledby="view3-tab">

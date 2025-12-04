@@ -230,6 +230,7 @@ We perform TFIDF on the titles and than do a regular linear regression and plot 
 #TODO Jack - perform a propensity score matching
 
 
+{% include quiz.html %}
 
 ## About the Project
 

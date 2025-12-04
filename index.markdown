@@ -127,6 +127,8 @@ Define `is_viral` (0 or 1 - is the virality score among the top 1% in its own cl
 Explain the theory behind logistic regression.
 Train logistic regression use `smf.logreg` on the features that we have (post length), LIWC, ... visualize the coefficients, p-values
 
+<div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
 # Sentiment analyis
 
 We suspect that the sentiment plays a big role (TODO: Jane reviewrite better). Here is the general sentiment of communities:
@@ -221,6 +223,12 @@ We perform TFIDF on the titles and than do a regular linear regression and plot 
     <p><strong>Key Insights:</strong> Technology content shows the highest predictive power of all clusters, with 56.4% of upvote variance explained—more than double the lowest-performing cluster. This suggests that title word choice is particularly important for technology-related posts. Top positive predictors include "tipped" (with an exceptionally high coefficient of 12.9), "mlp", "rmylittlepony", "human", "disabler", and "kerbal", indicating strong associations with specific communities, games, or technical concepts. The presence of "rmylittlepony" alongside technical terms highlights the diverse nature of technology communities. Negative predictors like "exploration", "19th", "22nd", "tuesdays", and "macbook" suggest that certain descriptive terms, dates, or product mentions may be associated with lower engagement, possibly due to context or timing factors.</p>
   </div>
 </div>
+
+
+# Propensity score matching
+
+#TODO Jack - perform a propensity score matching
+
 
 
 ## About the Project

@@ -135,6 +135,7 @@ We suspect that the sentiment plays a big role (TODO: Jane reviewrite better). H
 
 
 TODO: henrik - fancy looking circular plot.
+<div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
 
 Gal also made a hate graph, which subreddits (not communities) hate each other.
 

@@ -223,6 +223,8 @@ We perform TFIDF on the titles and than do a regular linear regression and plot 
 </div>
 
 
+{% include quiz.html %}
+
 ## About the Project
 
 This project is part of the ADA (Applied Data Analysis) course at EPFL. Our team, the **Standard Deviants**, is passionate about understanding social media dynamics through data.

@@ -4,22 +4,13 @@ title: Toxic Stew
 subtitle: A cookbook on how to go viral on Reddit
 ---
 
-# Welcome to Toxic Stew
+# Introduction
 
-Ever wondered why some Reddit posts explode with thousands of upvotes while others languish in obscurity? We analyzed millions of Reddit posts to uncover the secret recipe for viral content.
+TODO: Jane
 
-## What We're Cooking
+# Dataset
 
-In this project, we're exploring:
-
-- **Timing is Everything**: When should you post for maximum visibility?
-- **The Perfect Title**: What makes a headline irresistible?
-- **Subreddit Strategies**: Each community has its own flavor
-- **Content Types**: What types of posts get the most engagement?
-- **The Controversy Factor**: Does stirring the pot boost engagement?
-- **Community Dynamics**: How do subreddits interact with each other?
-
-## The Ingredients
+## Base dataset
 
 Our analysis uses data from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
 
@@ -29,44 +20,131 @@ Our analysis uses data from the [Stanford SNAP Reddit datasets](https://snap.sta
 - User and subreddit embeddings
 - Temporal data spanning January 2014 to April 2017
 
-### Data Sources
-
-We're working with two primary datasets from Stanford SNAP:
-
 1. **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**: A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 
-2. **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)**: Vector representations of subreddits and users for advanced analysis.
+## Api enhancment
 
-## Our Approach
+We scrapped all that we could. We were scraping for 7 days...
 
-We combine:
-- **Network Analysis**: Understanding community relationships and influence
-- **Natural Language Processing**: Analyzing titles and content
-- **Sentiment Analysis**: Measuring emotional tone and controversy
-- **Temporal Analysis**: Identifying optimal posting times
-- **Machine Learning**: Predicting viral potential
+## Define virality
 
-## The Recipe
+We considered fiels `ups`, `num_comments`, `score` ($\text{max}(0, (\text{upvotes} - \text{downvotes}))$), `upvote_ratio`, `subreddit_subscribers`. Our final chosen metric for virality score is Virality RSS (RSS stands for relative score per subscriber) $\text{virality_rss} = (\text{score} / (\text{subreddit_subscribers}+1)) * 10000$ which incorporates the difference between upvotes and downvotes per 10k subscribesrs of that subreddit. TODO: talk about how this metrics helps us detect which posts got an above average amount of upvotes for their subreddit (eg a post in smaller subreddit with score 1000 is more "viral" than the post in super huge subreddit with score 2000).
 
-Our goal is to create a data-driven "cookbook" with actionable strategies for Reddit success. Each "recipe" will be backed by rigorous statistical analysis of real Reddit data.
+## Community detection
 
-## Clustered Embeddings
+We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddins for (TODO: around 9%). We then perform Leiden clustering with params (...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
+
+Click into the clusters to explore them.
+
+TODO: Jack include superclusters
+
 <div class="flourish-embed flourish-hierarchy" data-src="visualisation/25685009"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25685009/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
-### Cluster sentiment
+
+# Initial analysis
+
+TODO: plot of the Virality RSS distributino on log log scale. Prove that there exist viral post but of course their frequency is low.
+
+<div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+From this plot it seems like there is a difference between the mean of the virality score (Virality RSS) is different among communities. Lets do a statistical test to prove this. 
+
+... Description of how t-test works.
+
+TODO: Jane's plot for p-values (they are all below 0.5). This proves that the differences are statistically significant.
+
+# Temporal analysis
+
+First lets see what are some trending posts over time across communities:
+
+<ul class="nav nav-tabs" id="viewTabsa" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="viewa1-tab" data-toggle="tab" data-target="#viewa1" type="button" role="tab" aria-controls="view1" aria-selected="true">Gaming</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa2-tab" data-toggle="tab" data-target="#viewa2" type="button" role="tab" aria-controls="view2" aria-selected="false">Politics</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa3-tab" data-toggle="tab" data-target="#viewa3" type="button" role="tab" aria-controls="view3" aria-selected="false">Meta</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa4-tab" data-toggle="tab" data-target="#viewa4" type="button" role="tab" aria-controls="view4" aria-selected="false">Lifestyle</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa5-tab" data-toggle="tab" data-target="#viewa5" type="button" role="tab" aria-controls="view5" aria-selected="false">Sports</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa6-tab" data-toggle="tab" data-target="#viewa6" type="button" role="tab" aria-controls="view6" aria-selected="false">Pop Culture</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="viewa7-tab" data-toggle="tab" data-target="#viewa7" type="button" role="tab" aria-controls="view7" aria-selected="false">Technology</button>
+  </li>
+</ul>
+
+<div class="tab-content" id="viewTabsContenta" style="margin-top: 20px;">
+  <div class="tab-pane fade show active" id="viewa1" role="tabpanel" aria-labelledby="view1-tab">
+    <h4>View 1 Content</h4>
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26561176"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26561176/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  
+  <div class="tab-pane fade" id="viewa2" role="tabpanel" aria-labelledby="view2-tab">
+    <h4>View 2 Content</h4>
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26563051"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26563051/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  
+  <div class="tab-pane fade" id="viewa3" role="tabpanel" aria-labelledby="view3-tab">
+    <h4>View 3 Content</h4>
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26564979"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26564979/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  
+  <div class="tab-pane fade" id="viewa4" role="tabpanel" aria-labelledby="viewa4-tab">
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26565674"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26565674/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  
+  <div class="tab-pane fade" id="viewa5" role="tabpanel" aria-labelledby="viewa5-tab">
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26565719"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26565719/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  <div class="tab-pane fade" id="viewa6" role="tabpanel" aria-labelledby="viewa6-tab">
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26566023"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26566023/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+  <div class="tab-pane fade" id="viewa7" role="tabpanel" aria-labelledby="viewa7-tab">
+    <div class="flourish-embed flourish-scatter" data-src="visualisation/26566068"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26566068/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
+  </div>
+</div>
+
+
+Now lets also condsider the communitiy's popularity over time:
+
+TODO: Aziz change the race to be against clusters (7 clusters racing against each othe).
+
+<div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/25923109"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25923109/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
+
+
+# Virality factors
+
+TODO:
+Define `is_viral` (0 or 1 - is the virality score among the top 1% in its own cluster)
+Explain the theory behind logistic regression.
+Train logistic regression use `smf.logreg` on the features that we have (post length), LIWC, ... visualize the coefficients, p-values
+
+# Sentiment analyis
+
+We suspect that the sentiment plays a big role (TODO: Jane reviewrite better). Here is the general sentiment of communities:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-### Directed hate graph
+
+TODO: henrik - fancy looking circular plot.
+
+Gal also made a hate graph, which subreddits (not communities) hate each other.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
-### Hate graph
-
-<div class="flourish-embed flourish-network" data-src="visualisation/25414151"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25414151/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
 
-### Title words analysis
+# Textual analys
+
+We perform TFIDF on the titles and than do a regular linear regression and plot the results (explain linear regression theory), we used an R^2 metric (explain the theory) to asses the amount of variance explained
 
 <ul class="nav nav-tabs" id="viewTabs" role="tablist">
   <li class="nav-item" role="presentation">
@@ -143,79 +221,6 @@ Our goal is to create a data-driven "cookbook" with actionable strategies for Re
   </div>
 </div>
 
-### negativity upvotes 
-
-<div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/25923109"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25923109/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
-
-
-### Cluster Means
-<div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
-
-### Viral post by cluster
-
-<ul class="nav nav-tabs" id="viewTabsa" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="viewa1-tab" data-toggle="tab" data-target="#viewa1" type="button" role="tab" aria-controls="view1" aria-selected="true">Gaming & Interactive Entertainment</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="viewa2-tab" data-toggle="tab" data-target="#viewa2" type="button" role="tab" aria-controls="view2" aria-selected="false">Politics & Society</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="viewa3-tab" data-toggle="tab" data-target="#viewa3" type="button" role="tab" aria-controls="view3" aria-selected="false">Reddit Meta & Community</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="viewa4-tab" data-toggle="tab" data-target="#viewa4" type="button" role="tab" aria-controls="view4" aria-selected="false">Lifestyle & Niche Interests</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="viewa5-tab" data-toggle="tab" data-target="#viewa5" type="button" role="tab" aria-controls="view5" aria-selected="false">Sports & Athletics</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="viewa6-tab" data-toggle="tab" data-target="#viewa6" type="button" role="tab" aria-controls="view6" aria-selected="false">Pop Culture & Media</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="viewa7-tab" data-toggle="tab" data-target="#viewa7" type="button" role="tab" aria-controls="view7" aria-selected="false">Technology and Digital Culture</button>
-  </li>
-</ul>
-
-<div class="tab-content" id="viewTabsContenta" style="margin-top: 20px;">
-  <div class="tab-pane fade show active" id="viewa1" role="tabpanel" aria-labelledby="view1-tab">
-    <h4>View 1 Content</h4>
-    <div class="flourish-embed flourish-scatter" data-src="visualisation/26561176"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26561176/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
-  </div>
-  
-  <div class="tab-pane fade" id="viewa2" role="tabpanel" aria-labelledby="view2-tab">
-    <h4>View 2 Content</h4>
-    <div class="flourish-embed flourish-scatter" data-src="visualisation/26563051"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26563051/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
-  </div>
-  
-  <div class="tab-pane fade" id="viewa3" role="tabpanel" aria-labelledby="view3-tab">
-    <h4>View 3 Content</h4>
-    <div class="flourish-embed flourish-scatter" data-src="visualisation/26564979"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26564979/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
-  </div>
-  
-  <div class="tab-pane fade" id="viewa4" role="tabpanel" aria-labelledby="viewa4-tab">
-    <div class="flourish-embed flourish-scatter" data-src="visualisation/26565674"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26565674/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
-  </div>
-  
-  <div class="tab-pane fade" id="viewa5" role="tabpanel" aria-labelledby="viewa5-tab">
-    <div class="flourish-embed flourish-scatter" data-src="visualisation/26565719"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26565719/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
-  </div>
-  <div class="tab-pane fade" id="viewa6" role="tabpanel" aria-labelledby="viewa6-tab">
-    <div class="flourish-embed flourish-scatter" data-src="visualisation/26566023"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26566023/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
-  </div>
-  <div class="tab-pane fade" id="viewa7" role="tabpanel" aria-labelledby="viewa7-tab">
-    <div class="flourish-embed flourish-scatter" data-src="visualisation/26566068"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26566068/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
-  </div>
-</div>
-
-
-### Coming Soon
-
-- Interactive visualizations of subreddit networks
-- Predictive models for post engagement
-- Timing optimization tools
-- Title effectiveness analyzer
-- Controversy vs. engagement trade-off analysis
 
 ## About the Project
 

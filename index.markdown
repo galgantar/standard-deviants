@@ -4,35 +4,48 @@ title: Toxic Stew
 subtitle: A cookbook on how to go viral on Reddit
 ---
 
-# Introduction
+# Preface
 
-TODO: Jane
+Every cookbook preface is unnecessarily long and emotional. We will spare you that part. <br>
+Every cookbook preface ends with a simple promise: follow these recipes, and you’ll create something unforgettable. <br>
+This one keeps that promise - although what you create might be unforgettable for… different reasons.
+Welcome to **Toxic Stew**, a data-powered guide to the secret ingredients behind _virality_ on Reddit.
+Before diving into the dishes, let’s prepare our ingredients.
 
-# Dataset
 
-## Base dataset
+# Ingredients / Dataset
 
-Our analysis uses data from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
+## Basic Ingredients - Base Dataset
+
+The basic ingredients are extracted from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
 
 - **858,490 hyperlinks** between 55,863 subreddits
 - Sentiment analysis of cross-subreddit posts
 - Text properties including readability, sentiment, and linguistic features
 - User and subreddit embeddings
 - Temporal data spanning January 2014 to April 2017
+- **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**: A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 
-1. **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**: A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
+## Recommended Ingredients - API enhancment
 
-## Api enhancment
+The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. [todo: more about scraping] <br>
+Ultimately, end up with additional ingredients:
 
-We scrapped all that we could. We were scraping for 7 days...
+- `ups` (number of upvotes)
+- `num_comments` (number of comments)
+- `score` (number of upvotes - number of downvotes)
+- `upvote_ratio` (number of upvotes / number of votes)
+- `subreddit_subscribers` (number of subscribers to source subreddit)
 
-## Define virality
+## Secret Ingredient - Virality
+For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is virality. More particularly, _virality relative score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
+`virality_rss` = `score` / (`subreddit_subscribers` + 1) * 10000 <br><br>
+What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator being subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. Ultimately, virality adapts to any dish and is always in perfect proportion.
 
-We considered fiels `ups`, `num_comments`, `score` ($\text{max}(0, (\text{upvotes} - \text{downvotes}))$), `upvote_ratio`, `subreddit_subscribers`. Our final chosen metric for virality score is Virality RSS (RSS stands for relative score per subscriber) $\text{virality_rss} = (\text{score} / (\text{subreddit_subscribers}+1)) * 10000$ which incorporates the difference between upvotes and downvotes per 10k subscribesrs of that subreddit. TODO: talk about how this metrics helps us detect which posts got an above average amount of upvotes for their subreddit (eg a post in smaller subreddit with score 1000 is more "viral" than the post in super huge subreddit with score 2000).
+## Kitchen Organization - Community detection
 
-## Community detection
-
-We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddins for (TODO: around 9%). We then perform Leiden clustering with params (...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
+As you are cooking, it is important to keep your space clean. Any chef knows that dry and wet ingredients must be mixed separately, and proper cleaning practices need to be observed to prevent cross-contamination, food poisoning, and death. <br>
+We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddings for (TODO: around 9%). We then perform Leiden clustering with params (...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
 
 Click into the clusters to explore them.
 
@@ -41,17 +54,24 @@ TODO: Jack include superclusters
 <div class="flourish-embed flourish-hierarchy" data-src="visualisation/25685009"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25685009/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
 
-# Initial analysis
+# Apéritif - Initial Analysis
+We begin the meal with a light appetizer: a first glimpse at our secret ingredient, _virality_. Before diving into complex modeling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
+
 
 TODO: plot of the Virality RSS distributino on log log scale. Prove that there exist viral post but of course their frequency is low.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-From this plot it seems like there is a difference between the mean of the virality score (Virality RSS) is different among communities. Lets do a statistical test to prove this. 
 
-... Description of how t-test works.
+It seems like there is a difference between the mean of the virality score (Virality RSS) is different among communities. Lets do a statistical test to prove this. <br>
 
-TODO: Jane's plot for p-values (they are all below 0.5). This proves that the differences are statistically significant.
+We will use a **t-test** between all cluster pairs to understand whether the differences in average virality between these clusters are statistically significant. A _t-test_ compares the means between 2 groups to determine whether their difference is more than what is expected from random variation alone. It returns a _p-value_, where p < 0.05 is the standard for designating the result as statistically significant. <br>
+In the context of our dataset, the _t-test_ shows us if the observed difference in average `virality_rss` of clusters is statistically significant. After performing pairwise _t-tests_ on all clusters, we obtain the following covariance matrix of p-values.
+
+![p-value heatmap](assets/virality_rss_pvalue_heatmap.png)
+*All p-values outside main diagonal are below 0.05. Some are much closer to 0 than others, which we convey with a -log scale on the colorbar axis.*
+
+Since all p-values are below 0.05, we conclude that the differences in means between our different communities are statistically significant.
 
 # Temporal analysis
 

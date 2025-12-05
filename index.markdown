@@ -43,7 +43,7 @@ TODO: Jack include superclusters
 
 # Initial analysis
 
-TODO: plot of the Virality RSS distributino on log log scale. Prove that there exist viral post but of course their frequency is low.
+<image src="assets/images/virality_rss_log_log.svg">
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 

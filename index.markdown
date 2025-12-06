@@ -135,9 +135,9 @@ First lets see what are some trending posts over time across communities:
 
 Now lets also condsider the communitiy's popularity over time:
 
-TODO: Aziz change the race to be against clusters (7 clusters racing against each othe).
+ (7 clusters racing against each other )(mean upvotes per cluster considered ).
 
-<div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/25923109"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25923109/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
+<div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26668884"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26668884/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
 
 # Virality factors

@@ -8,9 +8,7 @@ let QUIZ_DATA = "";
  * @param {string} nodeId - The ID of the node to render.
  */
 function renderQuestion(nodeId, quizContainer) {
-    console.log(nodeId)
     const node = QUIZ_DATA[nodeId];
-    console.log(QUIZ_DATA)
 
     if (node.is_leaf) {
         quizContainer.innerHTML = `
@@ -82,7 +80,6 @@ function handleAnswer(choice, cluster) {
     }
     else{
         if (FIRST_CLUSTER == ""){
-            console.log("Henrik")
             FIRST_CLUSTER = choice;
             currentNodeId = "q_target"
             renderQuestion(currentNodeId, quizContainer);

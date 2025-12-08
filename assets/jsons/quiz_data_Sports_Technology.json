@@ -8,7 +8,7 @@
     "clusters": "false"
   },
   "q_2": {
-    "question": "Should the proportion of socially oriented words be more or less than  0.0544",
+    "question": "Should the proportion of socially oriented words be more or less than  5.44%",
     "option_A": "Lower",
     "path_A": "q_3",
     "option_B": "Higher",
@@ -16,7 +16,7 @@
     "clusters": "false"
   },
   "q_3": {
-    "question": "Should the fraction of whitespace characters be higher or lower than  0.1452",
+    "question": "Should the fraction of whitespace characters be higher or lower than  14.52%",
     "option_A": "Lower",
     "path_A": "q_4",
     "option_B": "Higher",
@@ -24,7 +24,7 @@
     "clusters": "false"
   },
   "q_4": {
-    "question": "Should the fraction of whitespace characters be higher or lower than  0.1325",
+    "question": "Should the fraction of whitespace characters be higher or lower than  13.25%",
     "option_A": "Lower",
     "path_A": "result_5",
     "option_B": "Higher",
@@ -32,15 +32,15 @@
     "clusters": "false"
   },
   "result_5": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "result_6": {
-    "question": "Your chance to go viral is 75.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 75.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "q_7": {
-    "question": "Should the proportion of tentative words (e.g., \"maybe\", \"perhaps\") be more or less than  0.0250",
+    "question": "Should the proportion of tentative words (e.g., \"maybe\", \"perhaps\") be more or less than  2.5%",
     "option_A": "Lower",
     "path_A": "result_8",
     "option_B": "Higher",
@@ -48,15 +48,15 @@
     "clusters": "false"
   },
   "result_8": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "result_9": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "q_10": {
-    "question": "Should the proportion of negative emotion words be more or less than  0.0417",
+    "question": "Should the proportion of negative emotion words be more or less than  4.17%",
     "option_A": "Lower",
     "path_A": "result_11",
     "option_B": "Higher",
@@ -64,23 +64,23 @@
     "clusters": "false"
   },
   "result_11": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "result_12": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "result_13": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "result_14": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "q_start": {
-    "question": "Should the proportion of relativity-related words (time, space, motion) be more or less than  0.0073",
+    "question": "Should the proportion of relativity-related words (time, space, motion) be more or less than  0.73%",
     "option_A": "Lower",
     "path_A": "q_1",
     "option_B": "Higher",

@@ -1,10 +1,10 @@
 {
   "result_1": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "q_2": {
-    "question": "Should the proportion of vision-related words (seeing) be more or less than  0.0007",
+    "question": "Should the proportion of vision-related words (seeing) be more or less than  0.07%",
     "option_A": "Lower",
     "path_A": "q_3",
     "option_B": "Higher",
@@ -12,7 +12,7 @@
     "clusters": "false"
   },
   "q_3": {
-    "question": "Should the proportion of socially oriented words be more or less than  0.0957",
+    "question": "Should the proportion of socially oriented words be more or less than  9.57%",
     "option_A": "Lower",
     "path_A": "q_4",
     "option_B": "Higher",
@@ -20,7 +20,7 @@
     "clusters": "false"
   },
   "q_4": {
-    "question": "Should the proportion of cognitive mechanism terms be more or less than  0.0334",
+    "question": "Should the proportion of cognitive mechanism terms be more or less than  3.34%",
     "option_A": "Lower",
     "path_A": "result_5",
     "option_B": "Higher",
@@ -28,11 +28,11 @@
     "clusters": "false"
   },
   "result_5": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "q_6": {
-    "question": "Should the proportion of discrepancy words (e.g., \"should\", \"would\") be more or less than  0.0155",
+    "question": "Should the proportion of discrepancy words (e.g., \"should\", \"would\") be more or less than  1.55%",
     "option_A": "Lower",
     "path_A": "result_7",
     "option_B": "Higher",
@@ -40,11 +40,11 @@
     "clusters": "false"
   },
   "result_7": {
-    "question": "Your chance to go viral is 7.45%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 7.45%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "result_8": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "q_9": {
@@ -56,15 +56,15 @@
     "clusters": "false"
   },
   "result_10": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "result_11": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "q_12": {
-    "question": "Should the proportion of negative emotion words be more or less than  0.0007",
+    "question": "Should the proportion of negative emotion words be more or less than  0.07%",
     "option_A": "Lower",
     "path_A": "result_13",
     "option_B": "Higher",
@@ -72,15 +72,15 @@
     "clusters": "false"
   },
   "result_13": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "result_14": {
-    "question": "Your chance to go viral is 0.00%\n \\ \n                compared to 2% average chance.",
+    "question": "Your chance to go viral is 0.00%\n\n                compared to 2% average chance.",
     "is_leaf": true
   },
   "q_start": {
-    "question": "Should the proportion of prepositions be more or less than  0.0831",
+    "question": "Should the proportion of prepositions be more or less than  8.31%",
     "option_A": "Lower",
     "path_A": "result_1",
     "option_B": "Higher",

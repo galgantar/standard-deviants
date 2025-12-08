@@ -58,7 +58,7 @@ TODO: Jack include superclusters
 We begin the meal with a light appetizer: a first glimpse at our secret ingredient, _virality_. Before diving into complex modeling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
 
 
-<image src="assets/images/virality_rss_log_log.svg">
+<img src="assets/images/virality_rss_log_log.svg">
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
@@ -250,7 +250,7 @@ We perform TFIDF on the titles and than do a regular linear regression and plot 
 #TODO Jack - perform a propensity score matching
 
 
-{% include quiz.html %}
+{{% include quiz.html %}}
 
 ## About the Project
 

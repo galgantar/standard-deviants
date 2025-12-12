@@ -277,8 +277,19 @@ We perform TFIDF on the titles and than do a regular linear regression and plot 
 
 #TODO Jack - perform a propensity score matching
 
+### Which decisions would you take to be viral?
 
 {% include quiz.html %}
+
+### Can you guess which post went viral?
+
+{% include guess_viral.html %}
+
+### Predicting Viratliy of other posts
+In our dataset, we have a lot of posts that cannot be found on Reddit anymore and could not been scraped. Since we have them in our dataset, however, we can use prediction algorithms to estimate which posts could go viral. In the plots below we can see that the algorithm projects, that slightly more than 2% of the posts have gone viral, while also showing the features that have been most important for this prediction.
+
+<img src="assets/images/predicted_class_counts.svg">
+<img src="assets/images/top_10_feature_importances.svg">
 
 ## About the Project
 

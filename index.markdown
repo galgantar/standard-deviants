@@ -147,6 +147,34 @@ Define `is_viral` (0 or 1 - is the virality score among the top 1% in its own cl
 Explain the theory behind logistic regression.
 Train logistic regression use `smf.logreg` on the features that we have (post length), LIWC, ... visualize the coefficients, p-values
 
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Logistic regression</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<p>Logistic regression models the probability of virality using the logistic function:</p>
+
+$$P(\text{is_viral} = 1 | \mathbf{x}) = \sigma(\mathbf{x}^T \boldsymbol{\beta}) = \frac{1}{1 + e^{-(\beta_0 + \sum_{i=1}^{p} \beta_i x_i)}}$$
+
+<p>The log-odds is modeled as a linear combination of features:</p>
+
+$$\text{logit}(p) = \ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_p x_p$$
+
+<p>where $p = P(\text{is_viral} = 1 | \mathbf{x})$. Coefficients are estimated via Maximum Likelihood Estimation, maximizing:</p>
+
+$$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymbol{y})= \sum_{i=1}^{n} \left[ y_i \ln(p_i) + (1-y_i) \ln(1-p_i) \right]$$
+
+<p><strong>Interpretation:</strong> For coefficient $\beta_j$, a one-unit increase in feature $x_j$ multiplies the odds by $e^{\beta_j}$.</p>
+
+<p><strong>Model fit:</strong>Pseudo $R^2 = 0.02387$ (not high but high but $R^2$ is not what we are after).</p>
+
+</div>
+</details>
+
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 # Sentiment analyis

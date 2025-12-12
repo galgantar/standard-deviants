@@ -139,6 +139,13 @@ Getting into the temporal analysis, we consider communities' popularity over tim
 
 [maybe something here hypothesizing why certain trends occur]
 
+We plot virality_rss per community and watch the race to the top:
+
+<div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26772625"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26772625/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
+
+
+
+
 
 # Virality factors
 

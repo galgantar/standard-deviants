@@ -17,9 +17,10 @@
 #posts-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 10px;
+    gap: 5px;
     max-width: 100%;
     margin: auto;
+    font-size: 11px;
 }
 
 
@@ -37,14 +38,15 @@
 
 .body-text {
     color: #333;
-    max-height: 120px;
+    max-height: 90px;
+    min-height: 90px;
     overflow-y: auto;
 }
 
 .title-text {
     color: #333;
-    max-height: 80px;
-    min-height: 80px;
+    max-height: 20px;
+    min-height: 20px;
     overflow-y: auto;
 }
 

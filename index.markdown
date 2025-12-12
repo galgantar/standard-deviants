@@ -73,9 +73,9 @@ In the context of our dataset, the _t-test_ shows us if the observed difference 
 
 Since all p-values are below 0.05, we conclude that the differences in means between our different communities are statistically significant.
 
-# Temporal analysis
+# Let Us Cook - Temporal Analysis
 
-First lets see what are some trending posts over time across communities:
+A stew requires time to simmer, so that the flavours can open up and flourish. In most cases, the tastes blend together in an expected way, but in special situations, one persistent flavour can rise to the top. This brings us to our temporal analysis where we plot `virality_rss` of each cluser overtime. Most posts will end up on the bottom curve, with `virality_rss < 1`, but scattered above, outliers emerge. We study what separates these posts and makes them have the viral factor:
 
 <ul class="nav nav-tabs" id="viewTabsa" role="tablist">
   <li class="nav-item" role="presentation">
@@ -133,11 +133,11 @@ First lets see what are some trending posts over time across communities:
 </div>
 
 
-Now lets also condsider the communitiy's popularity over time:
-
- (7 clusters racing against each other )(mean upvotes per cluster considered ).
+Getting into the temporal analysis, we consider communities' popularity over time. We plot mean upvotes per community and watch the race to the top:
 
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26668884"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26668884/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
+
+[maybe something here hypothesizing why certain trends occur]
 
 
 # Virality factors

@@ -62,7 +62,7 @@ TODO: Jack include superclusters
 
 
 # Apéritif - Initial Analysis
-We begin the meal with a light appetizer: a first glimpse at our secret ingredient, _virality_. Before diving into complex modeling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
+We begin the meal with a light appetizer: a first glimpse at our secret ingredient, _virality_. Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
 
 
 <img src="assets/images/virality_rss_log_log.svg">
@@ -76,13 +76,13 @@ We will use a **t-test** between all cluster pairs to understand whether the dif
 In the context of our dataset, the _t-test_ shows us if the observed difference in average `virality_rss` of clusters is statistically significant. After performing pairwise _t-tests_ on all clusters, we obtain the following covariance matrix of p-values.
 
 ![p-value heatmap](assets/virality_rss_pvalue_heatmap.png)
-*All p-values outside main diagonal are below 0.05. Some are much closer to 0 than others, which we convey with a -log scale on the colorbar axis.*
+*All p-values outside main diagonal are below 0.05. Some are much closer to 0 than others, which we convey with a -log scale on the color bar axis.*
 
 Since all p-values are below 0.05, we conclude that the differences in means between our different communities are statistically significant.
 
 # Let Us Cook - Temporal Analysis
 
-A stew requires time to simmer, so that the flavours can open up and flourish. In most cases, the tastes blend together in an expected way, but in special situations, one persistent flavour can rise to the top. This brings us to our temporal analysis where we plot `virality_rss` of each cluser overtime. Most posts will end up on the bottom curve, with `virality_rss < 1`, but scattered above, outliers emerge. We study what separates these posts and makes them have the viral factor:
+A stew requires time to simmer, so that the flavours can open up and flourish. In most cases, the tastes blend together in an expected way, but in special situations, one persistent flavour can rise to the top. This brings us to our temporal analysis where we plot `virality_rss` of each cluster overtime. Most posts will end up on the bottom curve, with `virality_rss < 1`, but scattered above, outliers emerge. We study what separates these posts and makes them have the viral factor:
 
 <ul class="nav nav-tabs" id="viewTabsa" role="tablist">
   <li class="nav-item" role="presentation">
@@ -191,14 +191,13 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-# Sentiment analyis
+# Sentiment analysis
 
-We suspect that the sentiment plays a big role (TODO: Jane reviewrite better). Here is the general sentiment of communities:
+We suspect that the sentiment plays a big role (TODO: Jane review/write better). Here is the general sentiment of communities:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 
-TODO: henrik - fancy looking circular plot.
 <div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
 
 Gal also made a hate graph, which subreddits (not communities) hate each other.
@@ -207,9 +206,9 @@ Gal also made a hate graph, which subreddits (not communities) hate each other.
 
 
 
-# Textual analys
+# Textual analysis
 
-We perform TFIDF on the titles and than do a regular linear regression and plot the results (explain linear regression theory), we used an R^2 metric (explain the theory) to asses the amount of variance explained
+We perform TFIDF on the titles and than do a regular linear regression and plot the results (TODO: explain linear regression theory), we used an $R^2$ metric (TODO: explain the theory) to asses the amount of variance explained
 
 <ul class="nav nav-tabs" id="viewTabs" role="tablist">
   <li class="nav-item" role="presentation">

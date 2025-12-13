@@ -22,13 +22,20 @@ The basic ingredients are extracted from the [Stanford SNAP Reddit datasets](htt
 - **858,490 hyperlinks** between 55,863 subreddits
 - Sentiment analysis of cross-subreddit posts
 - Text properties including readability, sentiment, and linguistic features
-- User and subreddit embeddings
 - Temporal data spanning January 2014 to April 2017
 - **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**: A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 
-## Recommended Ingredients - API enhancment
+## The Seasoning - Subreddit Embeddings
+The seasoning, which makes the stew more enjoyable is also extracted from [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
 
-The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. [todo: more about scraping] <br>
+- **300 Embeddings each** for more than 30,000 subreddits
+- Covers more than 90% of the crosslinking posts
+- Allows for similarity analysis of subreddits
+- Used for clustering
+
+## The Topping - API enhancement
+
+The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from the official Reddit API. <br>
 Ultimately, end up with additional ingredients:
 
 - `ups` (number of upvotes)
@@ -38,9 +45,9 @@ Ultimately, end up with additional ingredients:
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
 ## Secret Ingredient - Virality
-For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is virality. More particularly, _virality relative score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
-`virality_rss` = `score` / (`subreddit_subscribers` + 1) * 10000 <br><br>
-What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator being subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. Ultimately, virality adapts to any dish and is always in perfect proportion.
+For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is virality. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
+TO-DO FIX THIS: `virality_rss` = `score` / (`subreddit_subscribers` + 1) * 10000 <br><br>
+What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. Ultimately, virality adapts to any dish and is always in perfect proportion.
 
 ## Kitchen Organization - Community detection
 

@@ -22,13 +22,20 @@ The basic ingredients are extracted from the [Stanford SNAP Reddit datasets](htt
 - **858,490 hyperlinks** between 55,863 subreddits
 - Sentiment analysis of cross-subreddit posts
 - Text properties including readability, sentiment, and linguistic features
-- User and subreddit embeddings
 - Temporal data spanning January 2014 to April 2017
 - **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**: A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 
-## Recommended Ingredients - API enhancment
+## The Seasoning - Subreddit Embeddings
+The seasoning, which makes the stew more enjoyable is also extracted from [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
 
-The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. [todo: more about scraping] <br>
+- **300 Embeddings each** for more than 30,000 subreddits
+- Covers more than 90% of the crosslinking posts
+- Allows for similarity analysis of subreddits
+- Used for clustering
+
+## The Topping - API enhancement
+
+The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from the official Reddit API. <br>
 Ultimately, end up with additional ingredients:
 
 - `ups` (number of upvotes)
@@ -38,9 +45,9 @@ Ultimately, end up with additional ingredients:
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
 ## Secret Ingredient - Virality
-For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is virality. More particularly, _virality relative score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
-`virality_rss` = `score` / (`subreddit_subscribers` + 1) * 10000 <br><br>
-What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator being subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. Ultimately, virality adapts to any dish and is always in perfect proportion.
+For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is virality. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
+TO-DO FIX THIS: `virality_rss` = `score` / (`subreddit_subscribers` + 1) * 10000 <br><br>
+What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. Ultimately, virality adapts to any dish and is always in perfect proportion.
 
 ## Kitchen Organization - Community detection
 
@@ -55,7 +62,7 @@ TODO: Jack include superclusters
 
 
 # Apéritif - Initial Analysis
-We begin the meal with a light appetizer: a first glimpse at our secret ingredient, _virality_. Before diving into complex modeling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
+We begin the meal with a light appetizer: a first glimpse at our secret ingredient, _virality_. Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
 
 
 <img src="assets/images/virality_rss_log_log.svg">
@@ -69,13 +76,13 @@ We will use a **t-test** between all cluster pairs to understand whether the dif
 In the context of our dataset, the _t-test_ shows us if the observed difference in average `virality_rss` of clusters is statistically significant. After performing pairwise _t-tests_ on all clusters, we obtain the following covariance matrix of p-values.
 
 ![p-value heatmap](assets/virality_rss_pvalue_heatmap.png)
-*All p-values outside main diagonal are below 0.05. Some are much closer to 0 than others, which we convey with a -log scale on the colorbar axis.*
+*All p-values outside main diagonal are below 0.05. Some are much closer to 0 than others, which we convey with a -log scale on the color bar axis.*
 
 Since all p-values are below 0.05, we conclude that the differences in means between our different communities are statistically significant.
 
-# Temporal analysis
+# Let Us Cook - Temporal Analysis
 
-First lets see what are some trending posts over time across communities:
+A stew requires time to simmer, so that the flavours can open up and flourish. In most cases, the tastes blend together in an expected way, but in special situations, one persistent flavour can rise to the top. This brings us to our temporal analysis where we plot `virality_rss` of each cluster overtime. Most posts will end up on the bottom curve, with `virality_rss < 1`, but scattered above, outliers emerge. We study what separates these posts and makes them have the viral factor:
 
 <ul class="nav nav-tabs" id="viewTabsa" role="tablist">
   <li class="nav-item" role="presentation">
@@ -133,11 +140,18 @@ First lets see what are some trending posts over time across communities:
 </div>
 
 
-Now lets also condsider the communitiy's popularity over time:
-
- (7 clusters racing against each other )(mean upvotes per cluster considered ).
+Getting into the temporal analysis, we consider communities' popularity over time. We plot mean upvotes per community and watch the race to the top:
 
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26668884"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26668884/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
+
+[maybe something here hypothesizing why certain trends occur]
+
+We plot virality_rss per community and watch the race to the top:
+
+<div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26772625"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26772625/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
+
+
+
 
 
 # Virality factors
@@ -177,14 +191,13 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-# Sentiment analyis
+# Sentiment analysis
 
-We suspect that the sentiment plays a big role (TODO: Jane reviewrite better). Here is the general sentiment of communities:
+We suspect that the sentiment plays a big role (TODO: Jane review/write better). Here is the general sentiment of communities:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 
-TODO: henrik - fancy looking circular plot.
 <div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
 
 Gal also made a hate graph, which subreddits (not communities) hate each other.
@@ -193,9 +206,9 @@ Gal also made a hate graph, which subreddits (not communities) hate each other.
 
 
 
-# Textual analys
+# Textual analysis
 
-We perform TFIDF on the titles and than do a regular linear regression and plot the results (explain linear regression theory), we used an R^2 metric (explain the theory) to asses the amount of variance explained
+We perform TFIDF on the titles and than do a regular linear regression and plot the results (TODO: explain linear regression theory), we used an $R^2$ metric (TODO: explain the theory) to asses the amount of variance explained
 
 <ul class="nav nav-tabs" id="viewTabs" role="tablist">
   <li class="nav-item" role="presentation">

@@ -156,8 +156,7 @@ We plot virality_rss per community and watch the race to the top:
 
 # Virality factors
 
-TODO:
-Define `is_viral` (0 or 1 - is the virality score among the top 1% in its own cluster)
+As before we use the `virality_rss` metric to define whether the post is viral or not.
 Explain the theory behind logistic regression.
 Train logistic regression use `smf.logreg` on the features that we have (post length), LIWC, ... visualize the coefficients, p-values
 
@@ -167,6 +166,8 @@ Train logistic regression use `smf.logreg` on the features that we have (post le
 </summary>
 
 <div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+All of the coefficients have p-value below 0.05
 
 {% include mathjax-script.html %}
 

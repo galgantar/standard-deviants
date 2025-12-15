@@ -151,9 +151,6 @@ We plot virality_rss per community and watch the race to the top:
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26772625"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26772625/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
 
-
-
-
 # Virality factors
 
 As before we use the `virality_rss` metric to define whether the post is viral or not.
@@ -167,7 +164,7 @@ Train logistic regression use `smf.logreg` on the features that we have (post le
 
 <div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
 
-All of the coefficients have p-value below 0.05
+All of the coefficients have p-value below 0.05.
 
 {% include mathjax-script.html %}
 
@@ -192,6 +189,8 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
+TODO: spider plot for which of the cluster (or perhaps subreddit) has the best metrics according to tha
+
 # Sentiment analysis
 
 We suspect that the sentiment plays a big role (TODO: Jane review/write better). Here is the general sentiment of communities:
@@ -206,6 +205,9 @@ Gal also made a hate graph, which subreddits (not communities) hate each other.
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
 
+# Central graph analysis
+
+<div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
 # Textual analysis
 

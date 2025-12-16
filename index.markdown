@@ -28,7 +28,7 @@ The basic ingredients are extracted from the [Stanford SNAP Reddit datasets](htt
 ## The Seasoning - Subreddit Embeddings
 The seasoning, which makes the stew more enjoyable is also extracted from [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
 
-- **300 Embeddings each** for more than 30,000 subreddits
+- **300 dimensional embeddings for each subreddit** for more than 30,000 subreddits
 - Covers more than 90% of the crosslinking posts
 - Allows for similarity analysis of subreddits
 - Used for clustering
@@ -39,6 +39,7 @@ The following ingredients are optional but highly recommended for more sophistic
 Ultimately, end up with additional ingredients:
 
 - `ups` (number of upvotes)
+- `downs` (number of downvotes)
 - `num_comments` (number of comments)
 - `score` (number of upvotes - number of downvotes)
 - `upvote_ratio` (number of upvotes / number of votes)
@@ -46,7 +47,7 @@ Ultimately, end up with additional ingredients:
 
 ## Secret Ingredient - Virality
 For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is virality. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
-TO-DO FIX THIS: `virality_rss` = `score` / (`subreddit_subscribers` + 1) * 10000 <br><br>
+`virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
 What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. Ultimately, virality adapts to any dish and is always in perfect proportion.
 
 ## Kitchen Organization - Community detection
@@ -55,6 +56,8 @@ As you are cooking, it is important to keep your space clean. Any chef knows tha
 We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddings for (TODO: around 9%). We then perform Leiden clustering with params (...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
 
 Click into the clusters to explore them.
+
+BIG TODO: Write our entire story about crosslinking posts not just posts in general
 
 TODO: Jack include superclusters
 
@@ -147,6 +150,8 @@ Getting into the temporal analysis, we consider communities' popularity over tim
 
 # Virality factors
 
+TODO: talk about link aggregation, the largest post has 167 outdegree (eg links 167 other posts).
+
 As before we use the `virality_rss` metric to define whether the post is viral or not.
 Explain the theory behind logistic regression.
 Train logistic regression use `smf.logreg` on the features that we have (post length), LIWC, ... visualize the coefficients, p-values
@@ -185,6 +190,8 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 TODO: spider plot for which of the cluster (or perhaps subreddit) has the best metrics according to tha
 
+<div class="flourish-embed flourish-radar" data-src="visualisation/26851369"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26851369/thumbnail" width="100%" alt="radar visualization" /></noscript></div>
+
 # Sentiment analysis
 
 We suspect that the sentiment plays a big role (TODO: Jane review/write better). Here is the general sentiment of communities:
@@ -200,6 +207,10 @@ Gal also made a hate graph, which subreddits (not communities) hate each other.
 
 
 # Central graph analysis
+
+For this we used weighted page rank centrality.
+
+Todo: plot of page ranks.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 

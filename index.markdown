@@ -278,9 +278,109 @@ The following plot exhibits cross-link interactions among the top ranked subredd
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
-# Textual analysis
+# Main Course IV - Textual Analysis
 
-We perform TFIDF on the titles and than do a regular linear regression and plot the results (TODO: explain linear regression theory), we used an $R^2$ metric (TODO: explain the theory) to asses the amount of variance explained
+Of course, no menu is complete without Term Frequency - Inverse Document Frequency (TF-IDF). We perform TF-IDF on post titles, follow-up with a regular linear regression, and finally plot the results. The coefficient of determination $R^2$ is used to assess the amount of explained variance a title has on the post's virality. $R^2$ ranges from $0 \le R^2 \le 1$, where $R^2=0$ means the title does not have any effect on virality, and $R^2=1$ means the title explains all the variance.
+
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: TF-IDF + Linear regression</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #6f42c1; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<p>
+To quantify how the wording of post titles relates to virality, we combine
+<strong>TF-IDF text representations</strong> with an
+<strong>ordinary least squares (OLS) linear regression</strong>.
+</p>
+
+<h4>TF-IDF representation</h4>
+
+<p>
+Each post title is transformed into a numerical vector using
+<strong>TF-IDF (Term Frequency–Inverse Document Frequency)</strong>, which assigns higher weight
+to words that are frequent within a title but rare across the corpus.
+</p>
+
+<p>
+For a word $w$ in title $d$, the TF-IDF score is:
+</p>
+
+$$
+\text{TF-IDF}(w, d) = \text{TF}(w, d) \cdot \log\left(\frac{N}{\text{DF}(w)}\right)
+$$
+
+<p>
+where:
+</p>
+
+<ul>
+  <li>$\text{TF}(w, d)$ is the frequency of $w$ in title $d$,</li>
+  <li>$\text{DF}(w)$ is the number of titles containing $w$,</li>
+  <li>$N$ is the total number of titles in the cluster.</li>
+</ul>
+
+<p>
+This weighting downplays common words and highlights terms that are
+<strong>informative and cluster-specific</strong>.
+</p>
+
+<h4>Linear regression model</h4>
+
+<p>
+The TF-IDF vectors are then used as input features in a linear regression model
+predicting the virality score:
+</p>
+
+$$
+y = \beta_0 + \sum_{j=1}^{p} \beta_j x_j + \varepsilon
+$$
+
+<p>
+where $y$ is the virality score and $x_j$ are TF-IDF features.
+Coefficients are estimated by minimizing the sum of squared residuals:
+</p>
+
+$$
+\min_{\boldsymbol{\beta}} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+$$
+
+<p>
+<strong>Interpretation:</strong> Each coefficient $\beta_j$ captures the association between a
+specific word and virality, holding all other words constant.
+Positive coefficients indicate words more strongly associated with higher virality,
+while negative coefficients indicate the opposite.
+</p>
+
+<h4>Model evaluation</h4>
+
+<p>
+Model performance is assessed using the coefficient of determination:
+</p>
+
+$$
+R^2 = 1 - \frac{\sum_i (y_i - \hat{y}_i)^2}{\sum_i (y_i - \bar{y})^2}
+$$
+
+<p>
+The relatively low $R^2$ values are expected: title text explains only a small fraction
+of virality, which is heavily influenced by external factors such as timing,
+community size, and network effects.
+</p>
+
+<p>
+Rather than maximizing predictive power, this approach identifies
+<strong>systematic linguistic patterns</strong> that distinguish viral titles from typical ones
+within each cluster.
+</p>
+
+</div>
+</details>
+
+
 
 <ul class="nav nav-tabs" id="viewTabs" role="tablist">
   <li class="nav-item" role="presentation">
@@ -349,6 +449,8 @@ We perform TFIDF on the titles and than do a regular linear regression and plot 
     <div class="flourish-embed flourish-chart" data-src="visualisation/26564946"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26564946/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
   </div>
 </div>
+
+Thus, the way a post is titled has an especially strong effect on virality in the Sports and Technology communities (accounting for approximately 20% and 25% of variance respectively), a reasonable effect on the Lifestyle, Politics, and Meta spheres (more than 10%), and a lesser but still noteworthy effect in the remaining Gaming and Media clusters (around 5%).
 
 
 # Propensity score matching

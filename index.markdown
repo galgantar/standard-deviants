@@ -207,11 +207,74 @@ Furthermore, we model the sentiment that subreddits have towards one another. Th
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
 
-# Main Course III - Central graph analysis
+# Main Course III - Central Graph Analysis
 
-For this we used weighted page rank centrality.
+The next course on the menu is investigating interactions between the most popular subreddits. To determine which subreddits recieve the most attention, we used the _weighted PageRank centrality_ algorithm.
 
-Todo: plot of page ranks.
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Weighted PageRank centrality</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #28a745; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<p>
+To analyze the structural importance of subreddits in the interaction graph, we use
+<strong>weighted PageRank centrality</strong>. Unlike degree-based measures, PageRank captures not
+only how many connections a node has, but also how important its neighbors are.
+</p>
+
+<p>
+Given a directed, weighted graph with adjacency matrix $W$, the PageRank score of node $i$
+is defined recursively as:
+</p>
+
+$$
+PR(i) = \frac{1 - \alpha}{N} + \alpha \sum_{j \in \mathcal{N}_{\text{in}}(i)} \frac{w_{ji}}{\sum_{k} w_{jk}} PR(j)
+$$
+
+<p>
+where:
+</p>
+
+<ul>
+  <li>$\alpha \in (0,1)$ is the damping factor (typically $\alpha = 0.85$),</li>
+  <li>$N$ is the total number of nodes,</li>
+  <li>$w_{ji}$ is the weight of the directed edge from node $j$ to node $i$,</li>
+  <li>$\mathcal{N}_{\text{in}}(i)$ denotes the set of nodes pointing to $i$.</li>
+</ul>
+
+<p>
+In this formulation, a node receives high PageRank if it is pointed to by other nodes
+that themselves have high PageRank, with edge weights modulating the strength of influence.
+</p>
+
+<p>
+<strong>Interpretation:</strong> In our context, a subreddit with high weighted PageRank acts as a
+central aggregation point for attention: it consistently receives interaction or content
+flow from many other influential subreddits.
+</p>
+
+<p>
+This explains why general-interest subreddits (e.g. content aggregation or discovery hubs)
+emerge as highly central, even if they are not topically similar to their neighbors.
+PageRank captures <em>attention flow</em>, not thematic proximity.
+</p>
+
+<p>
+<strong>Why weighted?</strong> Using edge weights ensures that repeated or strong interactions
+contribute more to centrality than incidental or rare links, yielding a more faithful
+representation of influence in the network.
+</p>
+
+</div>
+</details>
+
+
+Todo: plot of page ranks.<br>
+The following plot exhibits cross-link interactions among the top ranked subreddits.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 

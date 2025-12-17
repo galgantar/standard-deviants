@@ -143,18 +143,17 @@ A stew requires time to simmer, so that the flavours can open up and flourish. I
 </div>
 
 
-Getting into the temporal analysis, we consider communities' popularity over time. We plot the geometric mean of virality_rss per cluster over time and watch the race to the top:
+Getting into the temporal analysis, we consider communities' popularity over time. We plot the geometric mean of `virality_rss` per cluster over time and watch the race to the top:
 
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26820962"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26820962/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
 
-# Virality factors
+# Main Course I - Virality Factors
+
+What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using logistic regression. We rely on `virality_rss` to define whether a post is viral or not (how is it defined?) and other post properties (e.g. num_words, avg_word_length, sentiment, LIWC features, etc.) to be the features. We use `smf.logreg` to train our model and come up with the coefficients displayed in the plot below.
 
 TODO: talk about link aggregation, the largest post has 167 outdegree (eg links 167 other posts).
 
-As before we use the `virality_rss` metric to define whether the post is viral or not.
-Explain the theory behind logistic regression.
-Train logistic regression use `smf.logreg` on the features that we have (post length), LIWC, ... visualize the coefficients, p-values
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -186,27 +185,29 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 </div>
 </details>
 
+
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-TODO: spider plot for which of the cluster (or perhaps subreddit) has the best metrics according to tha
+TODO: smth on spider plots 🕷️
 
 <div class="flourish-embed flourish-radar" data-src="visualisation/26851369"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26851369/thumbnail" width="100%" alt="radar visualization" /></noscript></div>
 
-# Sentiment analysis
+# Main Course II - Sentiment Analysis
 
-We suspect that the sentiment plays a big role (TODO: Jane review/write better). Here is the general sentiment of communities:
+Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... but viral, nonetheless. The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
+(figure out what this is - negative sentiment??)
 
 <div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
 
-Gal also made a hate graph, which subreddits (not communities) hate each other.
+Furthermore, we model the sentiment that subreddits have towards one another. The following directed graph shows which subreddits hate each other.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
 
-# Central graph analysis
+# Main Course III - Central graph analysis
 
 For this we used weighted page rank centrality.
 

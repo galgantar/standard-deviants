@@ -147,6 +147,10 @@ Getting into the temporal analysis, we consider communities' popularity over tim
 
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26820962"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26820962/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
+These major events played a key role in shaping the dynamics of the virality race over time : 
+
+<div class="flourish-embed flourish-cards" data-src="visualisation/26826210"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26826210/thumbnail" width="100%" alt="cards visualization" /></noscript></div>
+
 
 # Main Course I - Virality Factors 💫
 

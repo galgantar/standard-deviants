@@ -461,6 +461,10 @@ Thus, the way a post is titled has an especially strong effect on virality in th
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26902981"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26902981/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
+# Standard mean deviation analysis of covariate of num_charachters propensity score model before vs. after matching
+
+<div class="flourish-embed flourish-chart" data-src="visualisation/26903671"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26903671/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
 ### Which decisions would you take to be viral?
 
 {% include quiz.html %}

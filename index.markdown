@@ -46,7 +46,7 @@ Ultimately, end up with additional ingredients:
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
 ## Secret Ingredient - Virality 🪺
-For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. 🧞 This ingredient is virality. 🤩 More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
+For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
 What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. <br>
 Virality is studied through the lens of a hyperlink network. Rather than treating virality as popularity within a single community, we account for the spread of content between communities. Engagement signals (e.g. upvotes) are taken in the context of cross-linked posts, so a post that attracts disproportionately high engagement relative to typical posts in its community (i.e. following exposure through a hyperlink from another community) is more viral, capturing how attention propagates across Reddit.
@@ -111,8 +111,8 @@ Leiden iteratively shuffles nodes between clusters to push $Q$ higher, moving in
 <div class="flourish-embed flourish-hierarchy" data-src="visualisation/25685009"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25685009/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
 
-# Aperitivo - Initial Analysis 🫒
-We begin the meal with a light appetizer: a first glimpse at our secret ingredient, _virality_ 😋. Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
+# Aperitivo - Initial Analysis 🍷
+We begin the meal with a light refreshment: a first glimpse at our secret ingredient, _virality_. Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
 
 
 <img src="assets/images/virality_rss_log_log.svg">
@@ -132,7 +132,7 @@ In the context of our dataset, the _t-test_ shows us if the observed difference 
 
 # Let Us Cook - Temporal Analysis 🍳
 
-A stew requires time to simmer 🛁, so that the flavours can open up and flourish 🌱. In most cases, the tastes blend together in an expected way, but in special situations, one persistent flavour can rise to the top. This brings us to our temporal analysis where we plot `virality_rss` of each cluster overtime. Most posts will end up on the bottom curve, with `virality_rss < 1`, but scattered above, outliers emerge 🦅. We study what separates these posts and makes them have the ✨viral factor✨:
+A stew requires time to simmer 🛁, so that the flavours can open up and flourish. In most cases, the tastes blend together in an expected way, but in special situations, one persistent flavour can rise to the top. This brings us to our temporal analysis where we plot `virality_rss` of each cluster overtime. Most posts will end up on the bottom curve, with `virality_rss < 1`, but scattered above, outliers emerge 🦅. We study what separates these posts and makes them have the viral factor:
 
 <ul class="nav nav-tabs" id="viewTabsa" role="tablist">
   <li class="nav-item" role="presentation">
@@ -199,11 +199,11 @@ Getting into the temporal analysis, we consider communities' popularity over tim
 <div class="flourish-embed flourish-cards" data-src="visualisation/26826210"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26826210/thumbnail" width="100%" alt="cards visualization" /></noscript></div>
 
 
-# Antipasti - Virality Factors 💫
+# Antipasti - Virality Factors 🫒
 
 What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not (how is it defined?) and other post properties (e.g. num_words, avg_word_length, sentiment, LIWC features, etc.) to be the features. 
 
-## Logistic Regression
+## Logistic Regression 🪵
 We first train a logistic regression model using `smf.logreg`. This yields the coefficients displayed in the plot below.
 
 <details>
@@ -244,7 +244,7 @@ Extending our finding from logistic regression, we generate the following spider
 
 <div class="flourish-embed flourish-radar" data-src="visualisation/26851369"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26851369/thumbnail" width="100%" alt="radar visualization" /></noscript></div>
 
-## Random Forest
+## Random Forest 🌳
 
 Then we train a random forest classifier using `sklearn.ensemble.RandomForestClassifier`, and find the following features to be of most importance.
 
@@ -295,7 +295,7 @@ $$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}
 
 <img src="assets/images/top_10_feature_importances.svg">
 
-### Predicting Virality of Unscraped Posts
+### Predicting Virality of Unscraped Posts 🔮
 Through scraping the dataset, we come across posts that cannot be found on Reddit anymore, and thus could not have been scraped. <br>
 To not lose insight from these posts, we extend our analysis and apply our random forest regressor to predict whether these posts have virality potential. Hence from our algorithm, we obtain that slightly more than 2% of the posts went viral.
 
@@ -306,7 +306,7 @@ To not lose insight from these posts, we extend our analysis and apply our rando
 
 # Primi - Sentiment Analysis 😃😐🙁
 
-Some viral posts care positive and uplifting 😇, but the reality is that they are also often negative 😈, hence the stew being... toxic... ☠️ but viral 🤑, nonetheless. The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
+Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
@@ -319,7 +319,7 @@ To wrap up the sentiment analysis, we model the sentiment that subreddits have t
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
 
-# Secondi - Central Graph Analysis 🥩
+# Secondi - Central Graph Analysis 🍛
 
 The next course on the menu is investigating interactions between the most popular subreddits. To determine which subreddits recieve the most attention, we used the _weighted PageRank centrality_ algorithm. Then we plot interactions among the top ranked subreddits.
 
@@ -388,9 +388,9 @@ representation of influence in the network.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
-# Contorni - Textual Analysis 🤌
+# Contorni - Textual Analysis 🥗
 
-Of course, no menu is complete without Term Frequency - Inverse Document Frequency (TF-IDF). We perform TF-IDF on post titles, follow-up with a regular linear regression, and finally plot the results. The coefficient of determination $R^2$ is used to assess the amount of explained variance a title has on the post's virality. $R^2$ ranges from $0 \le R^2 \le 1$, where $R^2=0$ means the title does not have any effect on virality, and $R^2=1$ means the title explains all the variance.
+Of course, no menu is complete without Term Frequency - Inverse Document Frequency (TF-IDF) 😋. We perform TF-IDF on post titles, follow-up with a regular linear regression, and finally plot the results. The coefficient of determination $R^2$ is used to assess the amount of explained variance a title has on the post's virality. $R^2$ ranges from $0 \le R^2 \le 1$, where $R^2=0$ means the title does not have any effect on virality, and $R^2=1$ means the title explains all the variance.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -563,7 +563,7 @@ within each cluster.
 Thus, the way a post is titled has an especially strong effect on virality in the Sports and Technology communities (accounting for approximately 20% and 25% of variance respectively), a reasonable effect on the Lifestyle, Politics, and Meta spheres (more than 10%), and a lesser but still noteworthy effect in the remaining Gaming and Media clusters (around 5%).
 
 
-# Dolci - Propensity Score Matching
+# Dolci - Propensity Score Matching 🍰
 We would never leave you without a sweet treat. To estimate more credible causal effects, we use propensity score matching (PSM). The goal is to compare posts that are similar across observed characteristics, differing mainly in a single feature of interest (the “treatment”).
 
 <details>
@@ -638,9 +638,9 @@ This figure evaluates covariate balance before and after propensity score matchi
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26903671"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26903671/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-# Kid's Menu - Games
+# Kid's Menu - Games 🍕
 
-Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds' sections, so instead, you can learn about virality through a games.
+Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds sections, so instead, you can learn about virality through a games.
 
 ### What decisions would you make to be viral?
 
@@ -650,11 +650,11 @@ Whether you are a child or a picky eater, we understand that not everyone has th
 
 {% include guess_viral.html %}
 
-# Epilogue
+# Epilogue 🌚
 
-And with this, we conclude the tasting menu of it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love". <br>
-We, on the other hand, are no such gatekeepers. We have discovered that the "magic" really comes down to patterns, algorithms, and data. So straighten your apron, sharpen your knives, and don't just copy yesterday's special like any other sous-chef; be intentional to make yourself stand out. <br>
-Bon appétit!
+And with this, we conclude the tasting menu of it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love" 😒. <br>
+We, on the other hand, are no such gatekeepers. We have discovered that the "magic" really comes down to patterns, algorithms, and data. So straighten your apron, sharpen your knives, and don't just copy yesterday's special like any other sous-chef; be intentional to make yourself stand out 🤌. <br>
+Bon appétit! 😉
 
 
 ## About the Project

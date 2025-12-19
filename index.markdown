@@ -640,7 +640,7 @@ This figure evaluates covariate balance before and after propensity score matchi
 
 # Kid's Menu - Games 🍕
 
-Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds sections, so instead, you can learn about virality through a games.
+Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds' sections, so instead, you can learn about virality through a games.
 
 ### What decisions would you make to be viral?
 

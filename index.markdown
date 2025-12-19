@@ -48,18 +48,65 @@ Ultimately, end up with additional ingredients:
 ## Secret Ingredient - Virality 🕵️‍♀️🪺
 For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. 🧞 This ingredient is virality. 🤩 More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
-What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. Ultimately, virality adapts to any dish and is always in perfect proportion.
+What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. <br>
+Virality is studied through the lens of a hyperlink network. Rather than treating virality as popularity within a single community, we account for the spread of content between communities. Engagement signals (e.g. upvotes) are taken in the context of cross-linked posts, so a post that attracts disproportionately high engagement relative to typical posts in its community (i.e. following exposure through a hyperlink from another community) is more viral, capturing how attention propagates across Reddit.
+
+
+
 
 ## Kitchen Organization - Community detection 🌍
 
 As you are cooking, it is important to keep your space clean. Any chef knows that dry and wet ingredients must be mixed separately, and proper cleaning practices need to be observed to prevent cross-contamination, food poisoning, and death 🪦. <br>
 We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddings for (TODO: around 9%). We then perform Leiden clustering with params (...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
 
-Click into the clusters to explore them.
 
-BIG TODO: Write our entire story about crosslinking posts not just posts in general
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Leiden clustering</strong>
+</summary>
 
-TODO: Jack include superclusters
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #20c997; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<p>
+We use <strong>Leiden clustering</strong> to find groups of similar subreddits. The algorithm works by maximizing <strong>modularity</strong> — basically, it tries to group nodes so that communities have lots of internal connections but few connections between them.
+</p>
+
+<p>
+The modularity score looks like this:
+</p>
+
+$$
+Q = \frac{1}{2m} \sum_{i,j} \left( w_{ij} - \frac{k_i k_j}{2m} \right)\,\mathbb{1}(c_i = c_j)
+$$
+
+<p>
+Breaking this down:
+</p>
+
+<ul>
+  <li>$Q$ is the <strong>modularity</strong> (higher = better clustering),</li>
+  <li>$w_{ij}$ is how strongly nodes $i$ and $j$ are connected,</li>
+  <li>$k_i = \sum_j w_{ij}$ is the total weight of all edges touching node $i$,</li>
+  <li>$m = \frac{1}{2} \sum_{i,j} w_{ij}$ is the total weight of all edges,</li>
+  <li>$c_i$ is which cluster node $i$ belongs to,</li>
+  <li>$\mathbb{1}(c_i = c_j)$ equals 1 when nodes $i$ and $j$ are in the same cluster, 0 otherwise.</li>
+</ul>
+
+<p>
+The key idea: modularity compares actual connections between nodes to what we'd <em>expect</em> if edges were randomly placed (but keeping the same number of connections per node). High modularity means communities are way more connected internally than random chance would predict.
+</p>
+
+<p>
+Leiden iteratively shuffles nodes between clusters to push $Q$ higher, moving individual nodes and sometimes entire groups. We run this at multiple resolution levels to catch both big thematic clusters and smaller niche communities.
+</p>
+
+</div>
+</details>
+
+
+
 
 <div class="flourish-embed flourish-hierarchy" data-src="visualisation/25685009"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25685009/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
@@ -475,6 +522,48 @@ Thus, the way a post is titled has an especially strong effect on virality in th
 
 ### Predicting Viratliy of other posts
 In our dataset, we have a lot of posts that cannot be found on Reddit anymore and could not been scraped. Since we have them in our dataset, however, we can use prediction algorithms to estimate which posts could go viral. In the plots below we can see that the algorithm projects, that slightly more than 2% of the posts have gone viral, while also showing the features that have been most important for this prediction.
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Random Forest Classification</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<p>We use Random Forest to predict post virality (top 2% by RSS score) using LIWC sentiment features, VADER scores, post properties, and cluster memberships.</p>
+
+<p><strong>Model Architecture:</strong></p>
+<ul>
+<li>300 decision trees (n_estimators=300)</li>
+<li>Maximum depth of 20 levels</li>
+<li>Minimum 5 samples per split, 3 samples per leaf</li>
+<li>Class weights: {0:1, 1:70} to handle severe imbalance (~2% viral posts)</li>
+</ul>
+
+<p>Each tree makes a prediction by recursively splitting on features that maximize information gain:</p>
+
+$$\text{InfoGain} = H(\text{parent}) - \sum_{j=1}^{k} \frac{n_j}{n} H(\text{child}_j)$$
+
+<p>where $H$ is the Gini impurity: $H(S) = 1 - \sum_{i=1}^{c} p_i^2$, and $p_i$ is the proportion of class $i$ in set $S$.</p>
+
+<p>The final prediction aggregates all trees via majority voting:</p>
+
+$$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}(\mathbf{x}) \right\}$$
+
+<p><strong>Performance Metrics:</strong></p>
+<ul>
+<li><strong>Precision:</strong> Of posts predicted as viral, what percentage actually are viral</li>
+<li><strong>Recall:</strong> Of actual viral posts, what percentage we correctly identify</li>
+<li><strong>F1 Score:</strong> Harmonic mean of precision and recall: $F_1 = 2 \cdot \frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$</li>
+</ul>
+
+<p><strong>Feature Importance:</strong> Calculated as the average decrease in Gini impurity across all trees when splitting on that feature. Higher values indicate stronger predictive power.</p>
+
+<p><strong>Application:</strong> We apply the trained model to ~67k posts with missing upvote data to estimate their virality potential by cluster.</p>
+
+</div>
+</details>
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26795802"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26795802/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 

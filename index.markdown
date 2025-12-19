@@ -54,7 +54,7 @@ Virality is studied through the lens of a hyperlink network. Rather than treatin
 
 
 
-## Kitchen Organization - Community detection 🌍
+# Setting the Table - Community detection 🍽️
 
 As you are cooking, it is important to keep your space clean. Any chef knows that dry and wet ingredients must be mixed separately, and proper cleaning practices need to be observed to prevent cross-contamination, food poisoning, and death 🪦. <br>
 We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddings for (TODO: around 9%). We then perform Leiden clustering with params (...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
@@ -111,7 +111,7 @@ Leiden iteratively shuffles nodes between clusters to push $Q$ higher, moving in
 <div class="flourish-embed flourish-hierarchy" data-src="visualisation/25685009"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25685009/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
 
-# Apéritif - Initial Analysis 🫒
+# Aperitivo - Initial Analysis 🫒
 We begin the meal with a light appetizer: a first glimpse at our secret ingredient, _virality_ 😋. Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
 
 
@@ -199,7 +199,7 @@ Getting into the temporal analysis, we consider communities' popularity over tim
 <div class="flourish-embed flourish-cards" data-src="visualisation/26826210"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26826210/thumbnail" width="100%" alt="cards visualization" /></noscript></div>
 
 
-# Main Course I - Virality Factors 💫
+# Antipasti - Virality Factors 💫
 
 What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not (how is it defined?) and other post properties (e.g. num_words, avg_word_length, sentiment, LIWC features, etc.) to be the features. 
 
@@ -297,31 +297,31 @@ $$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}
 
 ### Predicting Virality of Unscraped Posts
 Through scraping the dataset, we come across posts that cannot be found on Reddit anymore, and thus could not have been scraped. <br>
-To not lose meaning of these posts, we extend our analysis and apply our random forest regressor to predict whether these posts have virality potential. Hence from our algorithm, we obtain that slightly more than 2% of the posts went viral.
+To not lose insight from these posts, we extend our analysis and apply our random forest regressor to predict whether these posts have virality potential. Hence from our algorithm, we obtain that slightly more than 2% of the posts went viral.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26795802"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26795802/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 
 
 
-# Main Course II - Sentiment Analysis 😃😐🙁😡
+# Primi - Sentiment Analysis 😃😐🙁
 
 Some viral posts care positive and uplifting 😇, but the reality is that they are also often negative 😈, hence the stew being... toxic... ☠️ but viral 🤑, nonetheless. The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-(figure out what this is - negative sentiment??)
+The following chord diagram visualizes cross-cluster interaction volume, where ribbon thickness represents the number of words exchanged between clusters. It highlights which communities are most strongly entangled in cross-linked discussions.
 
 <div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
 
-Furthermore, we model the sentiment that subreddits have towards one another. The following directed graph shows which subreddits hate each other.
+To wrap up the sentiment analysis, we model the sentiment that subreddits have towards one another. The following directed graph shows which subreddits hate each other.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
 
-# Main Course III - Central Graph Analysis 🥩
+# Secondi - Central Graph Analysis 🥩
 
-The next course on the menu is investigating interactions between the most popular subreddits. To determine which subreddits recieve the most attention, we used the _weighted PageRank centrality_ algorithm.
+The next course on the menu is investigating interactions between the most popular subreddits. To determine which subreddits recieve the most attention, we used the _weighted PageRank centrality_ algorithm. Then we plot interactions among the top ranked subreddits.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -385,12 +385,10 @@ representation of influence in the network.
 </details>
 
 
-Todo: plot of page ranks.<br>
-The following plot exhibits cross-link interactions among the top ranked subreddits 👯‍♀️.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
-# Main Course IV - Textual Analysis 🤌
+# Contorni - Textual Analysis 🤌
 
 Of course, no menu is complete without Term Frequency - Inverse Document Frequency (TF-IDF). We perform TF-IDF on post titles, follow-up with a regular linear regression, and finally plot the results. The coefficient of determination $R^2$ is used to assess the amount of explained variance a title has on the post's virality. $R^2$ ranges from $0 \le R^2 \le 1$, where $R^2=0$ means the title does not have any effect on virality, and $R^2=1$ means the title explains all the variance.
 
@@ -565,25 +563,98 @@ within each cluster.
 Thus, the way a post is titled has an especially strong effect on virality in the Sports and Technology communities (accounting for approximately 20% and 25% of variance respectively), a reasonable effect on the Lifestyle, Politics, and Meta spheres (more than 10%), and a lesser but still noteworthy effect in the remaining Gaming and Media clusters (around 5%).
 
 
-# Propensity score matching
+# Dolci - Propensity Score Matching
+We would never leave you without a sweet treat. To estimate more credible causal effects, we use propensity score matching (PSM). The goal is to compare posts that are similar across observed characteristics, differing mainly in a single feature of interest (the “treatment”).
+
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Propensity score matching</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #0d6efd; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<h4>Propensity score</h4>
+
+<p>
+For each post, we estimate the propensity score:
+</p>
+
+$$
+e(\mathbf{x}) = P(T = 1 \mid \mathbf{x})
+$$
+
+<p>
+where $T$ is a binary treatment indicator (e.g. high vs. low anger, long vs. short post),
+and $\mathbf{x}$ is a vector of observed covariates. Propensity scores are estimated
+using logistic regression.
+</p>
+
+<h4>Matching</h4>
+
+<p>
+Each treated post is matched to one or more control posts with similar propensity scores
+using nearest-neighbor matching. This creates balanced groups in which the distribution
+of observed covariates is similar between treated and control posts.
+</p>
+
+<h4>Effect estimation</h4>
+
+<p>
+After matching, we estimate the <strong>Average Treatment Effect on the Treated (ATT)</strong>:
+</p>
+
+$$
+\text{ATT} = \mathbb{E}[Y(1) - Y(0) \mid T = 1]
+$$
+
+<p>
+where $Y(1)$ is the observed virality of treated posts and $Y(0)$ is the counterfactual
+virality estimated from matched controls.
+</p>
+
+<h4>Interpretation</h4>
+
+<p>
+ATT measures the expected change in virality attributable to the treatment among posts
+that actually received it. Positive values indicate that the feature causally increases
+virality on average, while negative values indicate a decrease.
+</p>
+
+</div>
+</details>
+
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26902981"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26902981/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-# Finding the treatment definition which maximizes treatment effect
+
+This figure shows how the estimated average treatment effect on virality varies as the post length threshold used to define the treatment is adjusted. We observe the peak of the effect at intermediate lengths and diminishing returns for extreme thresholds.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26907332"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26907332/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-# Standard mean deviation analysis of covariate of num_charachters propensity score model before vs. after matching
+
+This figure evaluates covariate balance before and after propensity score matching using the Absolute Standardized Mean Difference (ASMD). Prior to matching, treated and control posts differ substantially across many covariates, indicating strong confounding and making naive comparisons unreliable. After matching, ASMD values are dramatically reduced and fall below commonly accepted thresholds, showing that treated and control groups are well balanced on observed characteristics. This improvement in balance is critical, indicating that the estimated treatment effects are not driven by systematic differences in post composition, but instead reflect the effect of the treatment itself. This strengthens the credibility of the causal interpretation.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26903671"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26903671/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-### Which decisions would you take to be viral?
+# Kid's Menu - Games
+
+Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds' sections, so instead, you can learn about virality through a games.
+
+### What decisions would you make to be viral?
 
 {% include quiz.html %}
 
 ### Can you guess which post went viral?
 
 {% include guess_viral.html %}
+
+# Epilogue
+
+And with this, we conclude the tasting menu of it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love". <br>
+We, on the other hand, are no such gatekeepers. We have discovered that the "magic" really comes down to patterns, algorithms, and data. So straighten your apron, sharpen your knives, and don't just copy yesterday's special like any other sous-chef; be intentional to make yourself stand out. <br>
+Bon appétit!
 
 
 ## About the Project

@@ -6,16 +6,16 @@ subtitle: A cookbook on how to go viral on Reddit
 
 # Preface 🗿
 
-Every cookbook preface is unnecessarily long 🥱 and emotional 💔. We will spare you that part 😉. <br>
+Every cookbook preface is unnecessarily long and emotional. We will spare you that part 🥱. <br>
 Every cookbook preface ends with a simple promise: follow these recipes, and you’ll create something unforgettable 😏.<br>
 This one keeps that promise - although what you create might be unforgettable for… different reasons. 
-Welcome to **Toxic Stew**, a data-powered guide to the secret ingredients behind _virality_ on Reddit 🤓.
-Before diving into the dishes, let’s prepare our ingredients 🫡.
+Welcome to **Toxic Stew**, a data-powered guide to the secret ingredients behind _virality_ on Reddit.
+Before diving into the dishes, let’s prepare our ingredients.
 
 
-# Ingredients / Dataset 📝
+# Ingredients / Dataset
 
-## Basic Ingredients - Base Dataset 🧑‍🌾🫑
+## Basic Ingredients - Base Dataset 🧑‍🌾
 
 The basic ingredients are extracted from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
 
@@ -25,7 +25,7 @@ The basic ingredients are extracted from the [Stanford SNAP Reddit datasets](htt
 - Temporal data spanning January 2014 to April 2017
 - **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**: A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 
-## The Seasoning - Subreddit Embeddings 🧑‍🍳🧂
+## The Seasoning - Subreddit Embeddings 🧂
 The seasoning, which makes the stew more enjoyable is also extracted from [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
 
 - **300 dimensional embeddings for each subreddit** for more than 30,000 subreddits
@@ -33,7 +33,7 @@ The seasoning, which makes the stew more enjoyable is also extracted from [Stanf
 - Allows for similarity analysis of subreddits
 - Used for clustering
 
-## The Topping - API enhancement 🧑‍🔬🌶️
+## The Topping - API enhancement 🌶️
 
 The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from the official Reddit API. <br>
 Ultimately, end up with additional ingredients:
@@ -45,7 +45,7 @@ Ultimately, end up with additional ingredients:
 - `upvote_ratio` (number of upvotes / number of votes)
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
-## Secret Ingredient - Virality 🕵️‍♀️🪺
+## Secret Ingredient - Virality 🪺
 For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. 🧞 This ingredient is virality. 🤩 More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
 What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. <br>
@@ -194,17 +194,17 @@ Getting into the temporal analysis, we consider communities' popularity over tim
 
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26820962"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26820962/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
-These major events played a key role in shaping the dynamics of the virality race over time : 
+💡These major events played a key role in shaping the dynamics of the virality race over time : 
 
 <div class="flourish-embed flourish-cards" data-src="visualisation/26826210"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26826210/thumbnail" width="100%" alt="cards visualization" /></noscript></div>
 
 
 # Main Course I - Virality Factors 💫
 
-What proportions of ingredients are actually needed to go viral 🤔? We model virality as a binary outcome using logistic regression. We rely on `virality_rss` to define whether a post is viral or not (how is it defined?) and other post properties (e.g. num_words, avg_word_length, sentiment, LIWC features, etc.) to be the features. We use `smf.logreg` to train our model and come up with the coefficients displayed in the plot below.
+What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not (how is it defined?) and other post properties (e.g. num_words, avg_word_length, sentiment, LIWC features, etc.) to be the features. 
 
-TODO: talk about link aggregation, the largest post has 167 outdegree (eg links 167 other posts).
-
+## Logistic Regression
+We first train a logistic regression model using `smf.logreg`. This yields the coefficients displayed in the plot below.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -239,9 +239,70 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-TODO: smth on spider plots 🕷️
+### Spider Plots 🕷️
+Extending our finding from logistic regression, we generate the following spider plots for some isolated posts. Each plot visualizes the normalized feature profile of a post, highlighting how different combinations of linguistic, sentiment, and structural features can lead to high virality.
 
 <div class="flourish-embed flourish-radar" data-src="visualisation/26851369"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26851369/thumbnail" width="100%" alt="radar visualization" /></noscript></div>
+
+## Random Forest
+
+Then we train a random forest classifier using `sklearn.ensemble.RandomForestClassifier`, and find the following features to be of most importance.
+
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Random Forest Classification</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<p>We use Random Forest to predict post virality (top 2% by RSS score) using LIWC sentiment features, VADER scores, post properties, and cluster memberships.</p>
+
+<p><strong>Model Architecture:</strong></p>
+<ul>
+<li>300 decision trees (n_estimators=300)</li>
+<li>Maximum depth of 20 levels</li>
+<li>Minimum 5 samples per split, 3 samples per leaf</li>
+<li>Class weights: {0:1, 1:70} to handle severe imbalance (~2% viral posts)</li>
+</ul>
+
+<p>Each tree makes a prediction by recursively splitting on features that maximize information gain:</p>
+
+$$\text{InfoGain} = H(\text{parent}) - \sum_{j=1}^{k} \frac{n_j}{n} H(\text{child}_j)$$
+
+<p>where $H$ is the Gini impurity: $H(S) = 1 - \sum_{i=1}^{c} p_i^2$, and $p_i$ is the proportion of class $i$ in set $S$.</p>
+
+<p>The final prediction aggregates all trees via majority voting:</p>
+
+$$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}(\mathbf{x}) \right\}$$
+
+<p><strong>Performance Metrics:</strong></p>
+<ul>
+<li><strong>Precision:</strong> Of posts predicted as viral, what percentage actually are viral</li>
+<li><strong>Recall:</strong> Of actual viral posts, what percentage we correctly identify</li>
+<li><strong>F1 Score:</strong> Harmonic mean of precision and recall: $F_1 = 2 \cdot \frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$</li>
+</ul>
+
+<p><strong>Feature Importance:</strong> Calculated as the average decrease in Gini impurity across all trees when splitting on that feature. Higher values indicate stronger predictive power.</p>
+
+<p><strong>Application:</strong> We apply the trained model to ~67k posts with missing upvote data to estimate their virality potential by cluster.</p>
+
+</div>
+</details>
+
+
+
+<img src="assets/images/top_10_feature_importances.svg">
+
+### Predicting Virality of Unscraped Posts
+Through scraping the dataset, we come across posts that cannot be found on Reddit anymore, and thus could not have been scraped. <br>
+To not lose meaning of these posts, we extend our analysis and apply our random forest regressor to predict whether these posts have virality potential. Hence from our algorithm, we obtain that slightly more than 2% of the posts went viral.
+
+<div class="flourish-embed flourish-chart" data-src="visualisation/26795802"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26795802/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+
+
 
 # Main Course II - Sentiment Analysis 😃😐🙁😡
 
@@ -524,54 +585,6 @@ Thus, the way a post is titled has an especially strong effect on virality in th
 
 {% include guess_viral.html %}
 
-### Predicting Viratliy of other posts
-In our dataset, we have a lot of posts that cannot be found on Reddit anymore and could not been scraped. Since we have them in our dataset, however, we can use prediction algorithms to estimate which posts could go viral. In the plots below we can see that the algorithm projects, that slightly more than 2% of the posts have gone viral, while also showing the features that have been most important for this prediction.
-<details>
-<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
-<strong>🧑‍🍳 For cooking nerds: Random Forest Classification</strong>
-</summary>
-
-<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
-
-{% include mathjax-script.html %}
-
-<p>We use Random Forest to predict post virality (top 2% by RSS score) using LIWC sentiment features, VADER scores, post properties, and cluster memberships.</p>
-
-<p><strong>Model Architecture:</strong></p>
-<ul>
-<li>300 decision trees (n_estimators=300)</li>
-<li>Maximum depth of 20 levels</li>
-<li>Minimum 5 samples per split, 3 samples per leaf</li>
-<li>Class weights: {0:1, 1:70} to handle severe imbalance (~2% viral posts)</li>
-</ul>
-
-<p>Each tree makes a prediction by recursively splitting on features that maximize information gain:</p>
-
-$$\text{InfoGain} = H(\text{parent}) - \sum_{j=1}^{k} \frac{n_j}{n} H(\text{child}_j)$$
-
-<p>where $H$ is the Gini impurity: $H(S) = 1 - \sum_{i=1}^{c} p_i^2$, and $p_i$ is the proportion of class $i$ in set $S$.</p>
-
-<p>The final prediction aggregates all trees via majority voting:</p>
-
-$$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}(\mathbf{x}) \right\}$$
-
-<p><strong>Performance Metrics:</strong></p>
-<ul>
-<li><strong>Precision:</strong> Of posts predicted as viral, what percentage actually are viral</li>
-<li><strong>Recall:</strong> Of actual viral posts, what percentage we correctly identify</li>
-<li><strong>F1 Score:</strong> Harmonic mean of precision and recall: $F_1 = 2 \cdot \frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$</li>
-</ul>
-
-<p><strong>Feature Importance:</strong> Calculated as the average decrease in Gini impurity across all trees when splitting on that feature. Higher values indicate stronger predictive power.</p>
-
-<p><strong>Application:</strong> We apply the trained model to ~67k posts with missing upvote data to estimate their virality potential by cluster.</p>
-
-</div>
-</details>
-
-<div class="flourish-embed flourish-chart" data-src="visualisation/26795802"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26795802/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
-
-<img src="assets/images/top_10_feature_importances.svg">
 
 ## About the Project
 

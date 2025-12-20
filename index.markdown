@@ -45,6 +45,8 @@ Ultimately, end up with additional ingredients:
 - `upvote_ratio` (number of upvotes / number of votes)
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
+<div class="flourish-embed flourish-chart" data-src="visualisation/26911736"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911736/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
 ## Secret Ingredient - Virality 🪺
 For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>

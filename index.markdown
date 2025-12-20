@@ -48,7 +48,7 @@ Ultimately, end up with additional ingredients:
 ## Secret Ingredient - Virality 🪺
 For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
-What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing subreddit_subscribers, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. <br>
+What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing <i>subreddit_subscribers</i>, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. <br>
 Virality is studied through the lens of a hyperlink network. Rather than treating virality as popularity within a single community, we account for the spread of content between communities. Engagement signals (e.g. upvotes) are taken in the context of cross-linked posts, so a post that attracts disproportionately high engagement relative to typical posts in its community (i.e. following exposure through a hyperlink from another community) is more viral, capturing how attention propagates across Reddit.
 
 
@@ -57,7 +57,7 @@ Virality is studied through the lens of a hyperlink network. Rather than treatin
 # Setting the Table - Community detection 🍽️
 
 As you are cooking, it is important to keep your space clean. Any chef knows that dry and wet ingredients must be mixed separately, and proper cleaning practices need to be observed to prevent cross-contamination, food poisoning, and death 🪦. <br>
-We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddings for (TODO: around 9%). We then perform Leiden clustering with params (...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
+We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddings for (TODO: around 9%). We then perform Leiden clustering with params (TODO: ...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
 
 
 <details>
@@ -201,7 +201,7 @@ Getting into the temporal analysis, we consider communities' popularity over tim
 
 # Antipasti - Virality Factors 🫒
 
-What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not (how is it defined?) and other post properties (e.g. num_words, avg_word_length, sentiment, LIWC features, etc.) to be the features. 
+What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not (TODO: how is it defined?) and other post properties (e.g. <i>num_words</i>, <i>avg_word_length</i>, <i>sentiment</i>, <i>LIWC features</i>, etc.) to be the features. 
 
 ## Logistic Regression 🪵
 We first train a logistic regression model using `smf.logreg`. This yields the coefficients displayed in the plot below.
@@ -297,7 +297,7 @@ $$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}
 
 ### Predicting Virality of Unscraped Posts 🔮
 Through scraping the dataset, we come across posts that cannot be found on Reddit anymore, and thus could not have been scraped. <br>
-To not lose insight from these posts, we extend our analysis and apply our random forest regressor to predict whether these posts have virality potential. Hence from our algorithm, we obtain that slightly more than 2% of the posts went viral.
+To not lose insight from these posts, we extend our analysis and apply our random forest classifier to predict whether these posts have virality potential. Hence from our algorithm, we obtain that slightly more than 2% of the posts went viral.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26795802"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26795802/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
@@ -309,6 +309,8 @@ To not lose insight from these posts, we extend our analysis and apply our rando
 Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+<div class="flourish-embed flourish-chart" data-src="visualisation/26911604"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911604/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 The following chord diagram visualizes cross-cluster interaction volume, where ribbon thickness represents the number of words exchanged between clusters. It highlights which communities are most strongly entangled in cross-linked discussions.
 

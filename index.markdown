@@ -268,10 +268,13 @@ Getting into the temporal analysis, we consider communities' popularity over tim
 
 # Antipasti - Virality Factors 🫒
 
-What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not (TODO: how is it defined?) and other post properties (e.g. <i>num_words</i>, <i>avg_word_length</i>, <i>sentiment</i>, <i>LIWC features</i>, etc.) to be the features. 
+What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not (TODO: how is it defined?) and other post properties (e.g. <i>num_words</i>, <i>avg_word_length</i>, <i>sentiment</i>, <i>LIWC features</i>, etc.) to be the features.
+
+TODO: explain how we get num_title_links and num_body_links
 
 ## Logistic Regression 🪵
-We first train a logistic regression model using `smf.logreg`. This yields the coefficients displayed in the plot below.
+We first train a logistic regression model using `smf.logreg`. This yields the coefficients displayed in the plot below. All of the shown coefficients have p-value below 0.05 (hover over the coefficient so see its full name and its p-value).
+
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -279,8 +282,6 @@ We first train a logistic regression model using `smf.logreg`. This yields the c
 </summary>
 
 <div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
-
-All of the coefficients have p-value below 0.05.
 
 {% include mathjax-script.html %}
 
@@ -375,7 +376,7 @@ To not lose insight from these posts, we extend our analysis and apply our rando
 
 # Primi - Sentiment Analysis 😃😐🙁
 
-Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
+Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. In the previous chapter we have seen that being negative can improve your chances of becomming viral, but than the question arises - who to hate on? The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 

@@ -124,13 +124,78 @@ We begin the meal with a light refreshment: a first glimpse at our secret ingred
 
 It seems like there is a difference between the mean of the virality score (Virality RSS) among communities. Lets do a statistical test to prove this. <br>
 
-We will use a **t-test** 🫖 between all cluster pairs to understand whether the differences in average virality between these clusters are statistically significant. A _t-test_ compares the means between 2 groups to determine whether their difference is more than what is expected from random variation alone. It returns a _p-value_, where p < 0.05 is the standard for designating the result as statistically significant. <br>
-In the context of our dataset, the _t-test_ shows us if the observed difference in average `virality_rss` of clusters is statistically significant. After performing pairwise _t-tests_ on all clusters, we obtain the following covariance matrix of p-values.
+We will use a **t-test** 🫖 between all cluster pairs to understand whether the differences in average virality between these clusters are statistically significant. After performing pairwise _t-tests_ on all clusters, we obtain the following covariance matrix of p-values.
+
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: t-test</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #6f42c1; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<p>
+To formally test whether differences in average virality between clusters are meaningful,
+we use a <strong>two-sample t-test</strong>. The t-test evaluates whether the observed difference
+in means between two groups is larger than what would be expected from random variation alone.
+</p>
+
+<h4>Test statistic</h4>
+
+<p>
+For two clusters with sample means $\bar{x}_1$, $\bar{x}_2$, variances $s_1^2$, $s_2^2$, and
+sample sizes $n_1$, $n_2$, the t-statistic is:
+</p>
+
+$$
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+$$
+
+<p>
+This statistic measures how far apart the cluster means are relative to their pooled uncertainty.
+</p>
+
+<h4>Hypotheses</h4>
+
+<ul>
+  <li><strong>Null hypothesis ($H_0$):</strong> The two clusters have equal mean virality.</li>
+  <li><strong>Alternative hypothesis ($H_1$):</strong> The mean virality differs between clusters.</li>
+</ul>
+
+<h4>p-value interpretation</h4>
+
+<p>
+The p-value represents the probability of observing a difference at least as extreme as the one
+measured, assuming the null hypothesis is true. A threshold of $p < 0.05$ is used to indicate
+statistical significance.
+</p>
+
+<h4>Application to virality</h4>
+
+<p>
+In our analysis, we perform pairwise t-tests across all cluster pairs using the
+<code>virality_rss</code> metric. Significant p-values indicate that differences in average
+virality between clusters are unlikely to be explained by random fluctuation alone, motivating
+cluster-specific analyses rather than treating Reddit as a homogeneous population.
+</p>
+
+<h4>Limitations</h4>
+
+<p>
+While the t-test detects differences in means, it does not explain <em>why</em> clusters differ,
+nor does it account for confounding factors or non-normality. It serves as a diagnostic tool
+rather than a causal analysis.
+</p>
+
+</div>
+</details>
+
 
 ![p-value heatmap](assets/virality_rss_pvalue_heatmap.png)
-*All p-values outside main diagonal are below 0.05. Some are much closer to 0 than others, which we convey with a -log scale on the color bar axis.*
+*Most p-values outside main diagonal are below 0.05 (one excecption - gaming & interactive entertainment / pop culture & media). Some are much closer to 0 than others, which we convey with a -log scale on the color bar axis.*
 
-💡Since all p-values are below 0.05, we conclude that the differences in means between our different communities are statistically significant.
+💡Since most p-values are below 0.05, we conclude that the differences in means between our different communities are statistically significant.
 
 # Let Us Cook - Temporal Analysis 🍳
 

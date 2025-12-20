@@ -308,7 +308,6 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 Logistic regression also marks another factor important (although not listed in the plot above): **Compound VADER sentiment** - with coefficient of `-0.067836` and a p-value `1.646800e-09` which is well below 0.05. This illustrates that the post having negative compound sentiment positively influences the probabiliy of the post going viral. We will explore this further in the section Sentiment analysis.
 
-TODO: smth on spider plots 🕷️
 ### Spider Plots 🕷️
 Extending our finding from logistic regression, we generate the following spider plots for some isolated posts. Each plot visualizes the normalized feature profile of a post, highlighting how different combinations of linguistic, sentiment, and structural features can lead to high virality.
 

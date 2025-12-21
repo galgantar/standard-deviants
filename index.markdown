@@ -798,7 +798,7 @@ As we walked you through the cookbook, you might have realized that there are ma
 
 # Epilogue 🌚
 
-And with this, we conclude the tasting menu of it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love" 😒. <br>
+And with this, we conclude the tasting menu of what it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love" 😒. <br>
 We, on the other hand, are no such gatekeepers. We have discovered that the "magic" really comes down to patterns, algorithms, and data. So straighten your apron, sharpen your knives, and don't just copy yesterday's special like any other sous-chef; be intentional to make yourself stand out 🤌. <br>
 Bon appétit! 😉
 

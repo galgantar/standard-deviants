@@ -72,11 +72,15 @@ We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.ed
 {% include mathjax-script.html %}
 
 <p>
-<strong>Leiden clustering</strong> works by maximizing <strong>modularity</strong> — basically, it tries to group nodes so that communities have lots of internal connections but few connections between them.
+<strong>Leiden clustering</strong> works by maximizing <strong>modularity</strong> — trying to group nodes so that clusters have strong internal connections but weak connections between them.
 </p>
 
 <p>
-The modularity score looks like this:
+Before applying Leiden clustering, we first construct a <strong>$k$-nearest neighbor ($k$-NN) graph</strong> from the subreddit embeddings. For each subreddit, we connect it to its $k$ most similar subreddits based on <strong>cosine similarity</strong> of their embedding vectors, creating an undirected graph where edge weights represent similarity scores. We then prune edges with similarity below a threshold to keep only strong connections. $k$ is a hyperparameter, in our case we chose $k=15$ and $prune\_threshold = 0.3$.
+</p>
+
+<p>
+The modularity score is defined by:
 </p>
 
 $$
@@ -84,25 +88,15 @@ Q = \frac{1}{2m} \sum_{i,j} \left( w_{ij} - \frac{k_i k_j}{2m} \right)\,\mathbb{
 $$
 
 <p>
-Breaking this down:
+Where:
 </p>
 
 <ul>
-  <li>$Q$ is the <strong>modularity</strong> (higher = better clustering),</li>
-  <li>$w_{ij}$ is how strongly nodes $i$ and $j$ are connected,</li>
-  <li>$k_i = \sum_j w_{ij}$ is the total weight of all edges touching node $i$,</li>
-  <li>$m = \frac{1}{2} \sum_{i,j} w_{ij}$ is the total weight of all edges,</li>
-  <li>$c_i$ is which cluster node $i$ belongs to,</li>
-  <li>$\mathbb{1}(c_i = c_j)$ equals 1 when nodes $i$ and $j$ are in the same cluster, 0 otherwise.</li>
+  <li>$w_{ij}$ is the <strong>cosine similarity</strong> between embeddings of subreddits $i$ and $j$, representing how similar the subreddits are,</li>
+  <li>$k_i = \sum_j w_{ij}$ is the total similarity weight of all edges connected to subreddit $i$ (sum of similarities to all its neighbors in the $k$-NN graph),</li>
+  <li>$m = \frac{1}{2} \sum_{i,j} w_{ij}$ is the total similarity weight of all edges in the $k$-NN graph,</li>
+  <li>$c_i$ is which <strong>cluster</strong> subreddit $i$ belongs to,</li>
 </ul>
-
-<p>
-The key idea: modularity compares actual connections between nodes to what we'd <em>expect</em> if edges were randomly placed (but keeping the same number of connections per node). High modularity means communities are way more connected internally than random chance would predict.
-</p>
-
-<p>
-Leiden iteratively shuffles nodes between clusters to push $Q$ higher, moving individual nodes and sometimes entire groups. We run this at multiple resolution levels to catch both big thematic clusters and smaller niche communities.
-</p>
 
 </div>
 </details>

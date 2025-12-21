@@ -4,12 +4,15 @@ title: Toxic Stew
 subtitle: A cookbook on how to go viral on Reddit
 ---
 
+
+
+Sometimes becoming viral happens by accident — a single post can transform an unknown user into a household name, launch careers, or even [make you a Millionarie](https://www.reddit.com/r/millionairemakers/comments/2na6tu/reddit_lets_make_a_millionaire). Reddit, with its 430+ million monthly active users, has become a breeding ground for viral content that shapes public discourse, from [GameStop's stock surge](https://www.idealogic.io/blog/reddit-vs-wallstreet-gamestop-saga-explained) to [political movements](https://utsc.utoronto.ca/news-events/breaking-research/reddit-experienced-huge-spike-political-polarization-2016-it-wasnt-driven) and [cultural phenomena](https://ephemerajournal.org/contribution/everything-you-need-know-about-wallstreetbets-explainer-online-forum-behind-gamestop). We can see that there is plenty of reasons for wanting to author a viral post but how does one do that? The first thing you should probably do is *talk about something interesting* and add your original view of the matter - in the contex of Reddit this means posting a so-called **cross-linking post** in which you refer to another post and add your own context to it. But just posting any corss-linking post will not be enough, a good viral post mixes a number of imprtant characteristics to stand out from hundreads thousands of posts posted each day. To help you make sense of all this we assembled **Toxic Stew** - a cookbook containing all the ingredients you need to cook up the perfect cross-linking post and become the next Reddit sensation.
+
 # Preface 🗿
 
 Every cookbook preface is unnecessarily long and emotional. We will spare you that part 🥱. <br>
 Every cookbook preface ends with a simple promise: follow these recipes, and you’ll create something unforgettable 😏.<br>
-This one keeps that promise - although what you create might be unforgettable for… different reasons. 
-Welcome to **Toxic Stew**, a data-powered guide to the secret ingredients behind _virality_ on Reddit.
+This one keeps that promise - although what you create might be unforgettable for different reasons.
 Before diving into the dishes, let’s prepare our ingredients. <br>
 Disclaimer: Watch out for 💡 symbols, these are the crucial pieces of information in the cookbook.
 
@@ -19,49 +22,44 @@ A good recipe carefully chooses their ingredients. After long consideration, we 
 
 ## Basic Ingredients - Base Dataset 🧑‍🌾
 
-The basic ingredients are extracted from the **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**:
+The basic ingredients are extracted from the **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)** which contains:
 
-- A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
+- A directed, temporal network of subreddit-to-subreddit hyperlinks
 - **858,490 hyperlinks** between 55,863 subreddits
 - Sentiment analysis of cross-subreddit posts
 - Text properties including readability, sentiment, and linguistic features
 - Temporal data spanning January 2014 to April 2017
 
 ## The Seasoning - Subreddit Embeddings 🧂
-The seasoning, which makes the stew more enjoyable is extracted from [Reddit User and Subreddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html):
+The seasoning, which makes the stew more enjoyable is extracted from **[Reddit User and Subreddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which was chosen because:
 
-- **300 dimensional embeddings for each subreddit** for more than 30,000 subreddits
-- Covers more than 90% of the crosslinking posts
-- Allows for similarity analysis of subreddits
-- Used for clustering
+- it contains **300 dimensional embeddings for each subreddit** for more than 30,000 subreddits
+- Covers more than 90% of the cross-linking posts from the base dataset
 
 ## The Topping - API enhancement 🌶️
 
-The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from [The official Reddit API](https://www.reddit.com/api/v1) . <br>
-With this, we get the following additional ingredients:
+The following ingredient is optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from **[The official Reddit API](https://www.reddit.com/api/v1)**. <br>
+With this, we get the following additional ingredients for each of the cross-linking posts:
 
 - `ups` (number of upvotes)
 - `downs` (number of downvotes)
-- `num_comments` (number of comments)
 - `score` (number of upvotes - number of downvotes)
-- `upvote_ratio` (number of upvotes / number of votes)
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
 ## Ingredient Summary
-We made sure that the ingredients of our cookbook work well together. In the following plot, we show that these ingredients leave us with a large share of posts that we can integrate in our stew. We lost some posts that cannot be mapped to clusters, as we are missing the subreddit embeddings, and some that are not available to be scraped on Reddit since they have been removed. These can be considered like the bad part of an avocado that we have to sacrifice in order to make the overall stew better. And who knows, some of these posts might be used later in the cookbook again. Additionally, we used plots that appear multiple times in the dataset (due to multiple links) only once, as they would otherwise add a heavy bias. But this information is not completely unused, as we elaborate on later. 👀
+We made sure that the ingredients of our cookbook work well together. In the following plot, we show that these ingredients leave us with a large share of posts that we can integrate in our stew. We lost some posts that cannot are missing the subreddit embeddings, and some that are not available to be scraped on Reddit since they have been removed. These can be considered like the bad part of an avocado that we have to sacrifice in order to make the overall stew better. And who knows, some of these posts might be used later in the cookbook again. Additionally, we used posts that appear multiple times in the dataset (due to multiple links) only once, as they would otherwise add a heavy bias. But this information is not completely unused, as we elaborate on later. 👀 The following chart summarizes what we are left with:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911736"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911736/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 ## Secret Ingredient - Virality 🪺
 Oh, and we almost forgot the most important part. For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
-What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing <i>subreddit_subscribers</i>, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. <br>
-Virality is studied through the lens of a hyperlink network. Rather than treating virality as popularity within a single community, we account for the spread of content between communities. Engagement signals (e.g. upvotes) are taken in the context of cross-linked posts, so a post that attracts disproportionately high engagement relative to typical posts in its community (i.e. following exposure through a hyperlink from another community) is more viral, capturing how attention propagates across Reddit.
-revolve around a low virality rss score. Only a few outliers can be spotted on the viral part of the metric. 
+What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. The post is viral if it received many reactions, however upvotes are more important than downvotes therefore we multiply them by 2. With the denominator containing <i>subreddit_subscribers</i>, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller.
+
 # Setting the Table - Community detection 🍽️
 
 As you are cooking, it is important to keep your space clean. Any chef knows that dry and wet ingredients must be mixed separately, and proper cleaning practices need to be observed to prevent cross-contamination, food poisoning, and death 🪦. <br>
-We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We then perform Leiden clustering with params (TODO: ...) and organize them formally to get the following clusters. A complex Gemini LLM pipeline helped us to name the clusters of all levels by (TODO ...). At the end this gives us 7 distinct clusters which can be viewed as larger Reddit communities.
+We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits for and use the principles of **Unsupervised learning** on them. We hierarchially perform Leiden clustering on the subreddit embeddings to obtain 4 levels of clusters. With the help of Gemini LLM we name all of the clusters at all levels based on the names of the subreddits they contain. At the highest level we end up with 7 distinct clusters which can be viewed as larger Reddit communities. The following plot shows the first two levels of clusters along with some representative subreddits inside each of them - click into the clusters to explore further.
 
 
 <details>
@@ -74,7 +72,7 @@ We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.ed
 {% include mathjax-script.html %}
 
 <p>
-We use <strong>Leiden clustering</strong> to find groups of similar subreddits. The algorithm works by maximizing <strong>modularity</strong> — basically, it tries to group nodes so that communities have lots of internal connections but few connections between them.
+<strong>Leiden clustering</strong> works by maximizing <strong>modularity</strong> — basically, it tries to group nodes so that communities have lots of internal connections but few connections between them.
 </p>
 
 <p>
@@ -261,6 +259,8 @@ A stew requires time to simmer 🛁, so that the flavours can open up and flouri
 💡As we can see, some specific clusters have a trend of having a higher virality score over time. For example the pop culture cluster seems to steadily rise across the 3 years of data. We definitely have to take this into account to not add bias!<br>
 Let's give this a closer look, can we find out when exactly the different clusters had peaks? What can we relate them to? We consider communities' popularity over time. We plot the geometric mean of `virality_rss` per cluster over time and watch the race to the top 🐇🐢. 
 
+TODO: define geometric average somewhere
+
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26820962"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26820962/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
 💡Oh seems like there is quite a bit of change! What could have driven these? We made sure to do some research on what might have caused the swaps in position of average virality score. Our conclusion? These major events played a key role in shaping the dynamics of the virality race over time, hover over them and find out what impact they had: 
@@ -270,17 +270,45 @@ Let's give this a closer look, can we find out when exactly the different cluste
 
 # Antipasti - Virality Factors 🫒
 
-Now it's finally time to get into the nitty-gritty of virality. What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not. As we described above, we have to consider the communities and also factor in time, as becoming viral does not mean the same in all places and at all times. We defined the binary variable `is_viral` to tell us whether a given post in our dataset is viral. The rest of the variables are used in the furhter analysis to determine which ones actually determine virality. We also added two more features, <i>num_title_links</i> and <i>num_body_links</i>, which follows our promise that data on duplicate posts is not lost entirely. Could linking multiple posts impact virality, what about other features? We bet you can't wait to find out! 😎
+Now it's finally time to get into the nitty-gritty of virality. What proportions of ingredients are actually needed to go viral? We rely on `virality_rss` to define whether a post is viral or not. As we described above, we have to consider the communities and also factor in time (for example from the temporal analysis plot we can see that the average `virality_rss` is increasing over time in the Politics cluster meaning that higher virality score should be required for the post to be marked as viral in 2017 compared to 2014). We define the binary variable `is_viral` to tell us whether a given post in our dataset is viral. To do this we first calculate the moving average and moving standard deviation with the 60-day window for each cluster. For each datapoint we than calculate the **z-score** that tells us how many moving standard deviations above moving average the datapoint lies. In each cluster we mark a post as viral if it lies in the top 2% of points by the z-score.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
-<strong>🧑‍🍳 For cooking nerds: How we defined virality</strong>
+<strong>🧑‍🍳 For cooking nerds: Moving average, z-score</strong>
 </summary>
 
-TODO for Gal, could you please just put the formula here how you defined virality
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<h3>Moving Average</h3>
+
+<p>The moving average (also called rolling average) at time $t$ over a window of size $w$ is defined as:</p>
+
+$$\bar{x}_t^{(w)} = \frac{1}{w} \sum_{i=t-w+1}^{t} x_i$$
+
+<p>where $x_i$ represents the value at time $i$. This gives the mean of the $w$ most recent observations at that time.</p>
+
+<h3>Moving Standard Deviation</h3>
+
+<p>The moving standard deviation at time $t$ over a window of size $w$ is:</p>
+
+$$\sigma_t^{(w)} = \sqrt{\frac{1}{w-1} \sum_{i=t-w+1}^{t} (x_i - \bar{x}_t^{(w)})^2}$$
+
+<p>This measures the variability of the $w$ most recent observations around their rolling mean.</p>
+
+<h3>Z-Score</h3>
+
+<p>The z-score (standard score) normalizes a value by expressing how many moving standard deviations it is away from the moving mean:</p>
+
+$$z_t = \frac{x_t - \bar{x}_t^{(w)}}{\sigma_t^{(w)}}$$
+
+<p>where $x_t$ is the current value, $\bar{x}_t^{(w)}$ is the rolling mean, and $\sigma_t^{(w)}$ is the rolling standard deviation. A z-score of 0 means the value equals the mean, while positive (negative) z-scores indicate values above (below) the mean.</p>
 
 </div>
 </details>
+
+The rest of the variables are used in the furhter analysis to determine which ones actually determine virality. We also added two more features, <i>num_title_links</i> and <i>num_body_links</i>, which follows our promise that data on duplicate posts is not lost entirely. Could linking multiple posts impact virality, what about other features? We bet you can't wait to find out! 😎
 
 
 
@@ -797,7 +825,7 @@ As we walked you through the cookbook, you might have realized that there are ma
 
 # Epilogue 🌚
 
-And with this, we conclude the tasting menu of it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love" 😒. <br>
+And with this, we conclude the tasting menu of what it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love" 😒. <br>
 We, on the other hand, are no such gatekeepers. We have discovered that the "magic" really comes down to patterns, algorithms, and data. So straighten your apron, sharpen your knives, and don't just copy yesterday's special like any other sous-chef; be intentional to make yourself stand out 🤌. <br>
 Bon appétit! 😉
 

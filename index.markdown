@@ -4,12 +4,15 @@ title: Toxic Stew
 subtitle: A cookbook on how to go viral on Reddit
 ---
 
+
+
+Sometimes becoming viral happens by accident — a single post can transform an unknown user into a household name, launch careers, or even [make you a Millionarie](https://www.reddit.com/r/millionairemakers/comments/2na6tu/reddit_lets_make_a_millionaire). Reddit, with its 430+ million monthly active users, has become a breeding ground for viral content that shapes public discourse, from [GameStop's stock surge](https://www.idealogic.io/blog/reddit-vs-wallstreet-gamestop-saga-explained) to [political movements](https://utsc.utoronto.ca/news-events/breaking-research/reddit-experienced-huge-spike-political-polarization-2016-it-wasnt-driven) and [cultural phenomena](https://ephemerajournal.org/contribution/everything-you-need-know-about-wallstreetbets-explainer-online-forum-behind-gamestop). We can see that there is plenty of reasons for wanting to author a viral post but how does one do that? The first thing you should probably do is *talk about something interesting* and add your original view of the matter - in the contex of Reddit this means posting a so-called **cross-linking post** in which you refer to another post and add your own context to it. But just posting any corss-linking post will not be enough, a good viral post mixes a number of imprtant characteristics to stand out from hundreads thousands of posts posted each day. To help you make sense of all this we assembled **Toxic Stew** - a cookbook containing all the ingredients you need to cook up the perfect cross-linking post and become the next Reddit sensation.
+
 # Preface 🗿
 
 Every cookbook preface is unnecessarily long and emotional. We will spare you that part 🥱. <br>
 Every cookbook preface ends with a simple promise: follow these recipes, and you’ll create something unforgettable 😏.<br>
-This one keeps that promise - although what you create might be unforgettable for… different reasons. 
-Welcome to **Toxic Stew**, a data-powered guide to the secret ingredients behind _virality_ on Reddit.
+This one keeps that promise - although what you create might be unforgettable for different reasons.
 Before diving into the dishes, let’s prepare our ingredients.
 
 
@@ -18,49 +21,44 @@ A good recipe carefully chooses their ingredients. After long consideration, we 
 
 ## Basic Ingredients - Base Dataset 🧑‍🌾
 
-The basic ingredients are extracted from the **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**:
+The basic ingredients are extracted from the **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)** which contains:
 
-- A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
+- A directed, temporal network of subreddit-to-subreddit hyperlinks
 - **858,490 hyperlinks** between 55,863 subreddits
 - Sentiment analysis of cross-subreddit posts
 - Text properties including readability, sentiment, and linguistic features
 - Temporal data spanning January 2014 to April 2017
 
 ## The Seasoning - Subreddit Embeddings 🧂
-The seasoning, which makes the stew more enjoyable is extracted from [Reddit User and Subreddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html):
+The seasoning, which makes the stew more enjoyable is extracted from **[Reddit User and Subreddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which was chosen because:
 
-- **300 dimensional embeddings for each subreddit** for more than 30,000 subreddits
-- Covers more than 90% of the crosslinking posts
-- Allows for similarity analysis of subreddits
-- Used for clustering
+- it contains **300 dimensional embeddings for each subreddit** for more than 30,000 subreddits
+- Covers more than 90% of the cross-linking posts from the base dataset
 
 ## The Topping - API enhancement 🌶️
 
-The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from [The official Reddit API](https://www.reddit.com/api/v1) . <br>
-With this, we get the following additional ingredients:
+The following ingredient is optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from **[The official Reddit API](https://www.reddit.com/api/v1)**. <br>
+With this, we get the following additional ingredients for each of the cross-linking posts:
 
 - `ups` (number of upvotes)
 - `downs` (number of downvotes)
-- `num_comments` (number of comments)
 - `score` (number of upvotes - number of downvotes)
-- `upvote_ratio` (number of upvotes / number of votes)
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
 ## Ingredient Summary
-We made sure that the ingredients of our cookbook work well together. In the following plot, we show that these ingredients leave us with a large share of posts that we can integrate in our stew. We lost some posts that cannot be mapped to clusters, as we are missing the subreddit embeddings, and some that are not available to be scraped on Reddit since they have been removed. These can be considered like the bad part of an avocado that we have to sacrifice in order to make the overall stew better. And who knows, some of these posts might be used later in the cookbook again. Additionally, we used plots that appear multiple times in the dataset (due to multiple links) only once, as they would otherwise add a heavy bias. But this information is not completely unused, as we elaborate on later. 👀
+We made sure that the ingredients of our cookbook work well together. In the following plot, we show that these ingredients leave us with a large share of posts that we can integrate in our stew. We lost some posts that cannot are missing the subreddit embeddings, and some that are not available to be scraped on Reddit since they have been removed. These can be considered like the bad part of an avocado that we have to sacrifice in order to make the overall stew better. And who knows, some of these posts might be used later in the cookbook again. Additionally, we used posts that appear multiple times in the dataset (due to multiple links) only once, as they would otherwise add a heavy bias. But this information is not completely unused, as we elaborate on later. 👀 The following chart summarizes what we are left with:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911736"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911736/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 ## Secret Ingredient - Virality 🪺
 Oh, and we almost forgot the most important part. For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
-What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing <i>subreddit_subscribers</i>, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. <br>
-Virality is studied through the lens of a hyperlink network. Rather than treating virality as popularity within a single community, we account for the spread of content between communities. Engagement signals (e.g. upvotes) are taken in the context of cross-linked posts, so a post that attracts disproportionately high engagement relative to typical posts in its community (i.e. following exposure through a hyperlink from another community) is more viral, capturing how attention propagates across Reddit.
-revolve around a low virality rss score. Only a few outliers can be spotted on the viral part of the metric. 
+What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. The post is viral if it received many reactions, however upvotes are more important than downvotes therefore we multiply them by 2. With the denominator containing <i>subreddit_subscribers</i>, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller.
+
 # Setting the Table - Community detection 🍽️
 
 As you are cooking, it is important to keep your space clean. Any chef knows that dry and wet ingredients must be mixed separately, and proper cleaning practices need to be observed to prevent cross-contamination, food poisoning, and death 🪦. <br>
-We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We then perform Leiden clustering with params (TODO: ...) and organize them formally to get the following clusters. A complex Gemini LLM pipeline helped us to name the clusters of all levels by (TODO ...). At the end this gives us 7 distinct clusters which can be viewed as larger Reddit communities.
+We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits for and use the principles of **Unsupervised learning** on them. We hierarchially perform Leiden clustering on the subreddit embeddings to obtain 4 levels of clusters. With the help of Gemini LLM we name all of the clusters at all levels based on the names of the subreddits they contain. At the highest level we end up with 7 distinct clusters which can be viewed as larger Reddit communities. The following plot shows the first two levels of clusters along with some representative subreddits inside each of them - click into the clusters to explore further.
 
 
 <details>
@@ -73,7 +71,7 @@ We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.ed
 {% include mathjax-script.html %}
 
 <p>
-We use <strong>Leiden clustering</strong> to find groups of similar subreddits. The algorithm works by maximizing <strong>modularity</strong> — basically, it tries to group nodes so that communities have lots of internal connections but few connections between them.
+<strong>Leiden clustering</strong> works by maximizing <strong>modularity</strong> — basically, it tries to group nodes so that communities have lots of internal connections but few connections between them.
 </p>
 
 <p>

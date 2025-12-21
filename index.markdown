@@ -8,6 +8,8 @@ subtitle: A cookbook on how to go viral on Reddit
 
 Sometimes becoming viral happens by accident — a single post can transform an unknown user into a household name, launch careers, or even [make you a Millionarie](https://www.reddit.com/r/millionairemakers/comments/2na6tu/reddit_lets_make_a_millionaire). Reddit, with its 430+ million monthly active users, has become a breeding ground for viral content that shapes public discourse, from [GameStop's stock surge](https://www.idealogic.io/blog/reddit-vs-wallstreet-gamestop-saga-explained) to [political movements](https://utsc.utoronto.ca/news-events/breaking-research/reddit-experienced-huge-spike-political-polarization-2016-it-wasnt-driven) and [cultural phenomena](https://ephemerajournal.org/contribution/everything-you-need-know-about-wallstreetbets-explainer-online-forum-behind-gamestop). We can see that there is plenty of reasons for wanting to author a viral post but how does one do that? The first thing you should probably do is *talk about something interesting* and add your original view of the matter - in the contex of Reddit this means posting a so-called **cross-linking post** in which you refer to another post and add your own context to it. But just posting any corss-linking post will not be enough, a good viral post mixes a number of imprtant characteristics to stand out from hundreads thousands of posts posted each day. To help you make sense of all this we assembled **Toxic Stew** - a cookbook containing all the ingredients you need to cook up the perfect cross-linking post and become the next Reddit sensation.
 
+<img src="assets/images/toxic_stew_bowl.png">
+
 # Preface 🗿
 
 Every cookbook preface is unnecessarily long and emotional. We will spare you that part 🥱. <br>
@@ -442,9 +444,6 @@ $$
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911604"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911604/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 💡 There is a slightly higher proportion of negativity in the unscraped posts than in the scraped ones of the same cluster. However, it is not significant enough to confidently say that many posts were deleted because they were too negative.
-<br>
-
-💡 The largest (and most divisive) clusters had the largest volume of removed posts.
 
 <br><br>
 

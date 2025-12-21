@@ -690,8 +690,8 @@ virality estimated from matched controls.
 
 <p>
 ATT measures the expected change in virality attributable to the treatment among posts
-that actually received it. Positive values indicate that the feature causally increases
-virality on average, while negative values indicate a decrease.
+that actually received it. Positive values indicate that an increase in the feature
+causally increases virality on average, while negative values indicate a decrease.
 </p>
 
 </div>

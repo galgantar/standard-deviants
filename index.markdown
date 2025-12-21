@@ -386,19 +386,31 @@ To not lose insight from these posts, we extend our analysis and apply our rando
 Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. In the previous chapter we have seen that being negative can improve your chances of becomming viral, but than the question arises - who to hate on? The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+💡 Most posts are positive or neutral, but Politics & Society and Reddit Meta & Community have the highest proportion of negative posts. <br>
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911604"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911604/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
+💡 There is a higher proportion of negativity in the unscraped posts than in the scraped ones of the same cluster.
+<br>
+
 <div class="flourish-embed flourish-chart" data-src="visualisation/26923918"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26923918/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+💡 The largest (and most divisive) clusters had the largest volume of removed posts.
+<br><br>
 
 The following chord diagram visualizes cross-cluster interaction volume, where ribbon thickness represents the number of words exchanged between clusters. It highlights which communities are most strongly entangled in cross-linked discussions.
 
 <div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
 
+💡 Every cluster has a lot of intra-cluster interactions, and exchange inter-cluster interactions with other large clusters, prominintely Reddit Meta.
+
+<br><br>
+
 To wrap up the sentiment analysis, we model the sentiment that subreddits have towards one another. The following directed graph shows which subreddits hate each other.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
+💡 As we explore the pathways of hate, we see some unsurprising results. For example, r/anarchism hates r/protectandserve (a community for law enforcement officers) and r/gamerghazi, a far-left community, hates r/8chan, a far-right community.
 
 # Secondi - Central Graph Analysis 🍛
 
@@ -468,6 +480,9 @@ representation of influence in the network.
 
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
+
+💡 It comes without a surprise that the prominent subreddits are huge communities in general, such as r/india, otherwise divise communities that inherently drive engagement, such as r/politics or r/wtf, or those that really put reddit on the map, maximally exploiting the platform's interactive structure, such as r/iama and r/ama.
+
 
 # Contorni - Textual Analysis 🥗
 

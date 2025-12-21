@@ -403,7 +403,7 @@ $$p\text{-value} = P(|Z| \geq |z_{\text{obs}}| \mid H_0)$$
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-💡Logistic regression shows that having many words and especially using a high number of function words (the words with little lexical meaning eg. articles, prepositions ...) and timing words has a large positive impact on virality while having a large share of relative pronouns, auxiliary verbs and word "I" decreases the chance. This tells us that having lenghtier and more precise descriptions that are treated in a more objective way are generally correlated to higher chances of virality. Positive effect of timing words suggest it is better to talk about topics that require time perspective (eg.important present, past or future event). It is also beneficial for the post to have a high number of cross-links (for example because the post is a comprehensive review of a topic potentially linking dozens of other posts).<br>
+💡Logistic regression shows that having many words and especially using a high number of function words (the words with little lexical meaning eg. articles, prepositions ...) and timing words has a large positive impact on virality while having a large share of relative pronouns (common in storytelling), auxiliary verbs and word "I" decreases the chance. This tells us that having lenghtier and more precise descriptions that are treated in a more objective way are generally correlated to higher chances of virality. Positive effect of timing words suggest it is better to talk about topics that require time perspective (eg.important present, past or future event). It is also beneficial for the post to have a high number of cross-links (for example because the post is a comprehensive review of a topic potentially linking dozens of other posts).<br>
 
 Interestingly, this analysis marks another factor important (although not listed in the plot above): **Compound VADER sentiment** - with coefficient of `-0.060563` and a p-value `6.251003e-08` which is well below 0.05. This illustrates that the post having negative compound sentiment positively influences the probabiliy of the post going viral. We will explore this further in the section Sentiment analysis.
 
@@ -922,7 +922,7 @@ This project is part of the Applied Data Analysis (ADA) course at EPFL. Our team
 
 ## The Team
 
-- Aziz Hamza
+- Mohamed Aziz Hamza
 - Gal Gantar
 - Henrik Gruber
 - Jack Naimer

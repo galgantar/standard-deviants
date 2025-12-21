@@ -107,10 +107,7 @@ Leiden iteratively shuffles nodes between clusters to push $Q$ higher, moving in
 </div>
 </details>
 
-
-
-
-<div class="flourish-embed flourish-hierarchy" data-src="visualisation/25685009"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25685009/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
+<div class="flourish-embed flourish-hierarchy" data-src="visualisation/25686032"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25686032/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
 
 
 # Aperitivo - Initial Analysis 🍷

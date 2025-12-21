@@ -14,19 +14,20 @@ Before diving into the dishes, let’s prepare our ingredients.
 
 
 # Ingredients / Dataset
+A good recipe carefully chooses their ingredients. After long consideration, we decided to source the base ingredients and seasoning from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html), and getting the toppings from [The official Reddit API](https://www.reddit.com/api/v1).
 
 ## Basic Ingredients - Base Dataset 🧑‍🌾
 
-The basic ingredients are extracted from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
+The basic ingredients are extracted from the **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**:
 
+- A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 - **858,490 hyperlinks** between 55,863 subreddits
 - Sentiment analysis of cross-subreddit posts
 - Text properties including readability, sentiment, and linguistic features
 - Temporal data spanning January 2014 to April 2017
-- **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**: A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 
 ## The Seasoning - Subreddit Embeddings 🧂
-The seasoning, which makes the stew more enjoyable is also extracted from [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
+The seasoning, which makes the stew more enjoyable is extracted from [Reddit User and Subreddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html):
 
 - **300 dimensional embeddings for each subreddit** for more than 30,000 subreddits
 - Covers more than 90% of the crosslinking posts
@@ -35,8 +36,8 @@ The seasoning, which makes the stew more enjoyable is also extracted from [Stanf
 
 ## The Topping - API enhancement 🌶️
 
-The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from the official Reddit API. <br>
-Ultimately, end up with additional ingredients:
+The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from [The official Reddit API](https://www.reddit.com/api/v1) . <br>
+With this, we get the following additional ingredients:
 
 - `ups` (number of upvotes)
 - `downs` (number of downvotes)
@@ -311,7 +312,6 @@ The rest of the variables are used in the furhter analysis to determine which on
 ## Logistic Regression 🪵
 We first train a logistic regression model using `smf.logreg`. This yields the coefficients displayed in the plot below. All of the shown coefficients have p-value below 0.05 (hover over the coefficient so see its full name and its p-value).
 
-
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
 <strong>🧑‍🍳 For cooking nerds: Logistic regression</strong>
@@ -343,12 +343,16 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-Logistic regression also marks another factor important (although not listed in the plot above): **Compound VADER sentiment** - with coefficient of `-0.067836` and a p-value `1.646800e-09` which is well below 0.05. This illustrates that the post having negative compound sentiment positively influences the probabiliy of the post going viral. We will explore this further in the section Sentiment analysis.
+Logistic regression shows that having many words and especially using a high number of function and timing words has a large positive impact on virality while having a large share of relative pronouns decreases the chance. This tells us that having lenghtier and more precise descriptions that are treated in a more objective way are generally correlated to higher chances of virality. <br>
+Interestingly, this analysis marks another factor important (although not listed in the plot above): **Compound VADER sentiment** - with coefficient of `-0.067836` and a p-value `1.646800e-09` which is well below 0.05. This illustrates that the post having negative compound sentiment positively influences the probabiliy of the post going viral. We will explore this further in the section Sentiment analysis.
 
 ### Spider Plots 🕷️
-Extending our finding from logistic regression, we generate the following spider plots for some isolated posts. Each plot visualizes the normalized feature profile of a post, highlighting how different combinations of linguistic, sentiment, and structural features can lead to high virality.
+Extending our finding from logistic regression, we generate the following spider plots for some isolated highly viral posts. Each plot visualizes the normalized feature profile of a post, highlighting how different combinations of linguistic, sentiment, and structural features can lead to high virality.
 
 <div class="flourish-embed flourish-radar" data-src="visualisation/26851369"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26851369/thumbnail" width="100%" alt="radar visualization" /></noscript></div>
+
+We can see that each of these posts exceeds in multiple factors of coefficients that were deemed important by the logistic regression above. In at three two out of the five main measures <i>Num_words</i>, <i>Negated_sentiment_comp</i>, <i>Negated_LIWC_Relativ</i>, <i>LIWC_Time</i> and negated <i>LIWC_Relativ</i> they place in a very high percentile. None of them exceeds in all measures, but this gives exactly you 🫵 the chance to become viral.
+
 
 ## Random Forest 🌳
 
@@ -415,19 +419,31 @@ To not lose insight from these posts, we extend our analysis and apply our rando
 Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. In the previous chapter we have seen that being negative can improve your chances of becomming viral, but than the question arises - who to hate on? The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+💡 Most posts are positive or neutral, but Politics & Society and Reddit Meta & Community have the highest proportion of negative posts. <br>
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911604"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911604/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
+💡 There is a higher proportion of negativity in the unscraped posts than in the scraped ones of the same cluster.
+<br>
+
 <div class="flourish-embed flourish-chart" data-src="visualisation/26923918"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26923918/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+💡 The largest (and most divisive) clusters had the largest volume of removed posts.
+<br><br>
 
 The following chord diagram visualizes cross-cluster interaction volume, where ribbon thickness represents the number of words exchanged between clusters. It highlights which communities are most strongly entangled in cross-linked discussions.
 
 <div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
 
+💡 Every cluster has a lot of intra-cluster interactions, and exchange inter-cluster interactions with other large clusters, prominintely Reddit Meta.
+
+<br><br>
+
 To wrap up the sentiment analysis, we model the sentiment that subreddits have towards one another. The following directed graph shows which subreddits hate each other.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
+💡 As we explore the pathways of hate, we see some unsurprising results. For example, r/anarchism hates r/protectandserve (a community for law enforcement officers) and r/gamerghazi, a far-left community, hates r/8chan, a far-right community.
 
 # Secondi - Central Graph Analysis 🍛
 
@@ -497,6 +513,9 @@ representation of influence in the network.
 
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
+
+💡 It comes without a surprise that the prominent subreddits are huge communities in general, such as r/india, otherwise divise communities that inherently drive engagement, such as r/politics or r/wtf, or those that really put reddit on the map, maximally exploiting the platform's interactive structure, such as r/iama and r/ama.
+
 
 # Contorni - Textual Analysis 🥗
 

@@ -18,6 +18,7 @@ This one keeps that promise - although what you create might be unforgettable fo
 Before diving into the dishes, let’s prepare our ingredients. <br>
 Disclaimer: Watch out for 💡 symbols, these are the crucial pieces of information in the cookbook.
 
+<img src="assets/images/gordon_grocery.png">
 
 # Ingredients / Dataset
 A good recipe carefully chooses their ingredients. After long consideration, we decided to source the base ingredients and seasoning from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html), and getting the toppings from [The official Reddit API](https://www.reddit.com/api/v1).
@@ -57,6 +58,8 @@ We made sure that the ingredients of our cookbook work well together. In the fol
 Oh, and we almost forgot the most important part. For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
 What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. The post is viral if it received many reactions, however upvotes are more important than downvotes therefore we multiply them by 2. With the denominator containing <i>subreddit_subscribers</i>, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller.
+
+<img src="assets/images/be_our_guest_engineers.png">
 
 # Setting the Table - Community detection 🍽️
 
@@ -111,7 +114,7 @@ Of course, these clusters have a different share of members within each. We comp
 
 
 # Aperitivo - Initial Analysis 🍷
-We begin the meal with a light refreshment: a first glimpse at our secret ingredient, _virality_. As the plot shows, the majority of posts revolve around a low virality rss score. Only a few outliers can be spotted on the viral part of the metric.<br>
+We begin the meal with a light refreshment: a first glimpse at our secret ingredient, _virality_. As the plot shows, the majority of posts revolve around a low virality rss score. Only a few outliers can be spotted on the viral part of the metric.
 
 
 <img src="assets/images/virality_rss_log_log.svg">
@@ -121,7 +124,7 @@ Before diving into complex modelling, we take a step back and examine how virali
 <div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 
-It seems like there is a difference between the mean of the virality score (Virality RSS) among communities. Lets do a statistical test to prove this. <br>
+💡 It seems like there is a difference between the mean of the virality score (Virality RSS) among communities. Lets do a statistical test to prove this. <br>
 
 We will use a **t-test** 🫖 between all cluster pairs to understand whether the differences in average virality between these clusters are statistically significant. After performing pairwise _t-tests_ on all clusters, we obtain the following covariance matrix of p-values.
 
@@ -195,6 +198,8 @@ rather than a causal analysis.
 *Most p-values outside main diagonal are below 0.05 (one excecption - gaming & interactive entertainment / pop culture & media). Some are much closer to 0 than others, which we convey with a -log scale on the color bar axis.*
 
 💡Since most p-values are below 0.05, we conclude that the differences in means between our different communities are statistically significant.
+
+<img src="assets/images/cooking_with_remi.png">
 
 # Let Us Cook - Temporal Analysis 🍳
 
@@ -411,7 +416,7 @@ To not lose insight from these posts, we extend our analysis and apply our rando
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26795802"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26795802/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-It also once again shows a difference between clusters. We cannot say for sure as Reddit deleted those posts, but seems like many viral posts in the Pop Culture community fell victim to Reddit removing their viral posts. Maybe this gives you 🫵 the chance to become a viral sensation in Pop Culture and Media. Just make sure to not include anything that will get your post deleted.
+💡 It also once again shows a difference between clusters. We cannot say for sure as Reddit deleted those posts, but seems like many viral posts in the Pop Culture community fell victim to Reddit removing their viral posts. Maybe this gives you 🫵 the chance to become a viral sensation in Pop Culture and Media. Just make sure to not include anything that will get your post deleted.
 
 # Primi - Sentiment Analysis 😃😐🙁
 
@@ -445,13 +450,16 @@ $$
 
 💡 There is a slightly higher proportion of negativity in the unscraped posts than in the scraped ones of the same cluster. However, it is not significant enough to confidently say that many posts were deleted because they were too negative.
 
-<br><br>
+
+<img src="assets/images/angry_reddit_mods.png">
 
 To wrap up the sentiment analysis, we model the sentiment that subreddits have towards one another. The following directed graph shows which subreddits hate each other.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
 💡 As we explore the pathways of hate, we see some unsurprising results. For example, r/anarchism hates r/protectandserve (a community for law enforcement officers) and r/gamerghazi, a far-left community, hates r/8chan, a far-right community.
+
+<img src="assets/images/subreddits_hating_each_other.png">
 
 # Secondi - Central Graph Analysis 🍛
 
@@ -822,6 +830,7 @@ Although, you can also play these games as a cooking nerd and check whether you 
 
 {% include quiz.html %}
 
+
 ### Can you guess which post went viral?
 
 <details>
@@ -854,6 +863,8 @@ As we walked you through the cookbook, you might have realized that there are ma
 And with this, we conclude the tasting menu of what it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love" 😒. <br>
 We, on the other hand, are no such gatekeepers. We have discovered that the "magic" really comes down to patterns, algorithms, and data. So straighten your apron, sharpen your knives, and don't just copy yesterday's special like any other sous-chef; be intentional to make yourself stand out 🤌. <br>
 Bon appétit! 😉
+
+<img src="assets/images/toxic_stew_training.png">
 
 
 ## About the Project

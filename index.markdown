@@ -634,7 +634,7 @@ within each cluster.
   </div>
 </div>
 
-Thus, the way a post is titled has an especially strong effect on virality in the Sports and Technology communities (accounting for approximately 20% and 25% of variance respectively), a reasonable effect on the Lifestyle, Politics, and Meta spheres (more than 10%), and a lesser but still noteworthy effect in the remaining Gaming and Media clusters (around 5%).
+💡 Thus, the way a post is titled has an especially strong effect on virality in the Sports and Technology communities (accounting for approximately 20% and 25% of variance respectively), a reasonable effect on the Lifestyle, Politics, and Meta spheres (more than 10%), and a lesser but still noteworthy effect in the remaining Gaming and Media clusters (around 5%).
 
 
 # Dolci - Propensity Score Matching 🍰
@@ -702,15 +702,21 @@ causally increases virality on average, while negative values indicate a decreas
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26902981"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26902981/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
+💡 Post length variables exhibit the strongest positive effects, indicating that longer posts causally increase virality. In contrast, overall positive sentiment has a negative effect, while linguistic complexity and swearing show limited or negligible impact.<br><br>
+
 
 This figure shows how the estimated average treatment effect on virality varies as the post length threshold used to define the treatment is adjusted. We observe the peak of the effect at intermediate lengths and diminishing returns for extreme thresholds.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26907332"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26907332/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
+💡 The treatment effect peaks at 0.07 when Num_characters = 135.
+<br><br>
 
 This figure evaluates covariate balance before and after propensity score matching using the Absolute Standardized Mean Difference (ASMD). Prior to matching, treated and control posts differ substantially across many covariates, introducing confounding variables and making naive comparisons unreliable. After matching, ASMD values are dramatically reduced and fall below commonly accepted thresholds, showing that treated and control groups are well balanced on observed characteristics. This improvement in balance is critical, indicating that the estimated treatment effects are not driven by systematic differences in post composition, but instead reflect the effect of the treatment itself. This strengthens the credibility of the causal interpretation.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26903671"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26903671/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+💡 After matching, absolute standardized mean differences are substantially reduced across all covariates, indicating that treated and control groups are well balanced. This confirms that propensity score matching was effective and supports the validity of the estimated treatment effects.
 
 # Kids' Menu - Games 🍕
 

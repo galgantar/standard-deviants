@@ -14,19 +14,20 @@ Before diving into the dishes, let’s prepare our ingredients.
 
 
 # Ingredients / Dataset
+A good recipe carefully chooses their ingredients. After long consideration, we decided to source the base ingredients and seasoning from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html), and getting the toppings from [The official Reddit API](https://www.reddit.com/api/v1).
 
 ## Basic Ingredients - Base Dataset 🧑‍🌾
 
-The basic ingredients are extracted from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
+The basic ingredients are extracted from the **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**:
 
+- A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 - **858,490 hyperlinks** between 55,863 subreddits
 - Sentiment analysis of cross-subreddit posts
 - Text properties including readability, sentiment, and linguistic features
 - Temporal data spanning January 2014 to April 2017
-- **[Reddit Hyperlinks Network](https://snap.stanford.edu/data/soc-RedditHyperlinks.html)**: A directed, signed, temporal network of subreddit-to-subreddit hyperlinks with rich text features and sentiment annotations.
 
 ## The Seasoning - Subreddit Embeddings 🧂
-The seasoning, which makes the stew more enjoyable is also extracted from [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html):
+The seasoning, which makes the stew more enjoyable is extracted from [Reddit User and Subreddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html):
 
 - **300 dimensional embeddings for each subreddit** for more than 30,000 subreddits
 - Covers more than 90% of the crosslinking posts
@@ -35,8 +36,8 @@ The seasoning, which makes the stew more enjoyable is also extracted from [Stanf
 
 ## The Topping - API enhancement 🌶️
 
-The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from the official Reddit API. <br>
-Ultimately, end up with additional ingredients:
+The following ingredients are optional but highly recommended for more sophisticated and advanced taste palettes. It cannot be found in the basic dataset, one must go to data scraping. The data has been lawfully scraped across **150 hours** from [The official Reddit API](https://www.reddit.com/api/v1) . <br>
+With this, we get the following additional ingredients:
 
 - `ups` (number of upvotes)
 - `downs` (number of downvotes)

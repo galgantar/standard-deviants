@@ -804,11 +804,44 @@ This figure evaluates covariate balance before and after propensity score matchi
 Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds' sections, so instead, you can learn about virality through a couple of games.<br>
 Although, you can also play these games as a cooking nerd and check whether you have remembered what you learned in the sections above and see if you can achieve a high score!
 
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Behind the Scenes: How the game was created</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #20c997; margin: 10px 0;">
+
+<p> This game makes use of the `sklearn.tree` library to create a decision tree. For this game, we used a shallow decision tree to make the game shorter and more concise. Firstly, are asking the question of where the user wants to post in and which cluster to use. Since there is no way in a decision tree to force what the first choices should be we created a shallow decision tree for each of the clicked possibilities.</p>
+<p>For each of the trees, the following parameters were used:</p>
+
+<ul>
+  <li>Max Depth: 5</li>
+  <li>Class Weight: Balanced</li>
+  <li>Subset of Data: Depends on the first two choices</li>
+</ul>
+
+<p>The resulting percentage is fully based on the empirical dataset. The path the user takes corresponds to traversing down the tree step by step. We calculate the share of viral posts on the leaf the user lands on and return this as the result. The idea is to make the game as similar as possible to the strong results obtained from the random forest before, however, it is not possible to traverse down a forest, therefore we have used a tree.</p>
+
+</div>
+</details>
+
 ### What decisions would you make to be viral?
 
 {% include quiz.html %}
 
 ### Can you guess which post went viral?
+
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Behind the Scenes: How the game was created</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #20c997; margin: 10px 0;">
+
+<p>>This game simply samples viral and non-viral posts from the dataset and lets the user guess, which one of them is viral.</p>
+
+</div>
+</details>
 
 {% include guess_viral.html %}
 

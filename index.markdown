@@ -382,6 +382,8 @@ Some viral posts care positive and uplifting, but the reality is that they are a
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911604"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911604/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
+<div class="flourish-embed flourish-chart" data-src="visualisation/26923918"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26923918/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
 The following chord diagram visualizes cross-cluster interaction volume, where ribbon thickness represents the number of words exchanged between clusters. It highlights which communities are most strongly entangled in cross-linked discussions.
 
 <div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>

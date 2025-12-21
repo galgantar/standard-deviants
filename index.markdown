@@ -255,6 +255,8 @@ A stew requires time to simmer 🛁, so that the flavours can open up and flouri
 As we can see, some specific clusters have a trend of having a higher virality score over time. For example the pop culture cluster seems to steadily rise across the 3 years of data. We definitely have to take this into account to not add bias!<br>
 Let's give this a closer look, can we find out when exactly the different clusters had peaks? What can we relate them to? We consider communities' popularity over time. We plot the geometric mean of `virality_rss` per cluster over time and watch the race to the top 🐇🐢. 
 
+TODO: define geometric average somewhere
+
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26820962"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26820962/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
 💡Oh seems like there is quite a bit of change! What could have driven these? We made sure to do some research on what might have caused the swaps in position of average virality score. Our conclusion? These major events played a key role in shaping the dynamics of the virality race over time, hover over them and find out what impact they had: 
@@ -264,17 +266,45 @@ Let's give this a closer look, can we find out when exactly the different cluste
 
 # Antipasti - Virality Factors 🫒
 
-Now it's finally time to get into the nitty-gritty of virality. What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not. As we described above, we have to consider the communities and also factor in time, as becoming viral does not mean the same in all places and at all times. We defined the binary variable `is_viral` to tell us whether a given post in our dataset is viral. The rest of the variables are used in the furhter analysis to determine which ones actually determine virality. We also added two more features, <i>num_title_links</i> and <i>num_body_links</i>, which follows our promise that data on duplicate posts is not lost entirely. Could linking multiple posts impact virality, what about other features? We bet you can't wait to find out! 😎
+Now it's finally time to get into the nitty-gritty of virality. What proportions of ingredients are actually needed to go viral? We rely on `virality_rss` to define whether a post is viral or not. As we described above, we have to consider the communities and also factor in time (for example from the temporal analysis plot we can see that the average `virality_rss` is increasing over time in the Politics cluster meaning that higher virality score should be required for the post to be marked as viral in 2017 compared to 2014). We define the binary variable `is_viral` to tell us whether a given post in our dataset is viral. To do this we first calculate the moving average and moving standard deviation with the 60-day window for each cluster. For each datapoint we than calculate the **z-score** that tells us how many moving standard deviations above moving average the datapoint lies. In each cluster we mark a post as viral if it lies in the top 2% of points by the z-score.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
-<strong>🧑‍🍳 For cooking nerds: How we defined virality</strong>
+<strong>🧑‍🍳 For cooking nerds: Moving average, z-score</strong>
 </summary>
 
-TODO for Gal, could you please just put the formula here how you defined virality
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<h3>Moving Average</h3>
+
+<p>The moving average (also called rolling average) at time $t$ over a window of size $w$ is defined as:</p>
+
+$$\bar{x}_t^{(w)} = \frac{1}{w} \sum_{i=t-w+1}^{t} x_i$$
+
+<p>where $x_i$ represents the value at time $i$. This gives the mean of the $w$ most recent observations at that time.</p>
+
+<h3>Moving Standard Deviation</h3>
+
+<p>The moving standard deviation at time $t$ over a window of size $w$ is:</p>
+
+$$\sigma_t^{(w)} = \sqrt{\frac{1}{w-1} \sum_{i=t-w+1}^{t} (x_i - \bar{x}_t^{(w)})^2}$$
+
+<p>This measures the variability of the $w$ most recent observations around their rolling mean.</p>
+
+<h3>Z-Score</h3>
+
+<p>The z-score (standard score) normalizes a value by expressing how many moving standard deviations it is away from the moving mean:</p>
+
+$$z_t = \frac{x_t - \bar{x}_t^{(w)}}{\sigma_t^{(w)}}$$
+
+<p>where $x_t$ is the current value, $\bar{x}_t^{(w)}$ is the rolling mean, and $\sigma_t^{(w)}$ is the rolling standard deviation. A z-score of 0 means the value equals the mean, while positive (negative) z-scores indicate values above (below) the mean.</p>
 
 </div>
 </details>
+
+The rest of the variables are used in the furhter analysis to determine which ones actually determine virality. We also added two more features, <i>num_title_links</i> and <i>num_body_links</i>, which follows our promise that data on duplicate posts is not lost entirely. Could linking multiple posts impact virality, what about other features? We bet you can't wait to find out! 😎
 
 
 

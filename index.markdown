@@ -611,12 +611,12 @@ central aggregation point for virality: it consistently receives interaction or 
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
-💡 The subreddit with the highest PageRank is `r/iama`, and as expected its neighbourhood is well connected (because of the recursive definition of PageRank). The most prominent subreddits in our network analysis are either massive communities with millions of subscribers (such as `r/india`, one of the largest country-specific subreddits), divisive communities that inherently drive engagement through controversial or emotionally charged content (such as `r/politics` with political debates or `r/wtf`, which curates shocking and attention-grabbing content), and communities with interactive Q&A structure (such as `r/iama` and `r/ama`, where celebrities and notable figures answer questions in real-time, creating threads that can receive tens of thousands of upvotes and become cultural touchstones). As mentioned since these communities are huge our cookbook recipe does not necessarily force you to post into one of them (it might be better to focus on the nieche subreddits) but the analysis certainly proves that those are the one to follow if you want to come across as many viral posts as possible and draw the inspiration for your own creations.
+💡 The subreddit with the highest PageRank is `r/iama`, and as expected its neighbourhood is well connected (because of the recursive definition of PageRank). The most prominent subreddits in our network analysis are either massive communities with millions of subscribers (such as `r/india`, one of the largest country-specific subreddits), divisive communities that inherently drive engagement through controversial or emotionally charged content (such as `r/politics` with political debates or `r/wtf`, which curates shocking and attention-grabbing content), and communities with interactive Q&A structure (such as `r/iama` and `r/ama`, where celebrities and notable figures answer questions in real-time, creating threads that can receive tens of thousands of upvotes and become cultural touchstones). As mentioned since these communities are huge our cookbook recipe does not necessarily force you to post into one of them (it might be better to focus on the niche subreddits) but the analysis certainly proves that those are the one to follow if you want to come across as many viral posts as possible and draw the inspiration for your own creations.
 
 
-# Contorni - Textual Analysis of the title 🥗
+# Contorni - Textual Analysis of Post Titles 🥗
 
-The most important dish that no menu is complete without is of course **the Title** - it represents the first thing your user sees once he is making a split-second decision wether to allocate more attention to your post. To analyze what makes a good title we perform **Term Frequency - Inverse Document Frequency** (TF-IDF) on post titles and follow-up with a **linear regression**, to see what words in the title correspond to increase in virality. The $R^2$ metric is used to assess the amount of explained variance a title has on the post's virality.
+Of course, no menu is complete without Term Frequency - Inverse Document Frequency (TF-IDF) 😋. A post's title is the first thing a Reddit user sees, and largely motivates the split-second decision of whether to click on the post. To analyze what makes a good title we perform **Term Frequency - Inverse Document Frequency** (TF-IDF) on post titles and follow-up with a **linear regression**, to see what words in the title correspond to increase in virality. The $R^2$ metric is used to assess the amount of explained variance a title has on the post's virality.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -896,15 +896,20 @@ And of course if you are a nerd, you can still participate. It is a good check t
 
 {% include guess_viral.html %}
 
-# Presenting the Menu
-As we walked you through the cookbook, you might have realized that there are many important parts to watch out for when preparing the ideal dish. To leave a good aftertaste of the menu, we will summarize the recipe of the most crucial ingredients for you to view them at once glance.
-- Be aware of where you are posting
-- Carefully choose the target of your post
-- Watch out for real-life events that drive virality
-- Make sure to publish comprehensive posts - longer posts have a bigger chance of going viral
-- Don't be afraid to be negative - Criticism drives interaction more than pure positivity
-- Be sure about yourself - asking for help or advice is less likely to go viral
-- Be consistent - going viral might not happen at your first time of trying. Stay with it and follow the cookbook, we are sure it will work for you
+## Summary of Findings (or as they say on Reddit, 👉TLDR)
+
+To leave a good aftertaste, we will summarize the crucial discoveries for you to view them at once glance. **TLDR**:
+
+1. Different clusters of subreddits are statistically significant in their mean virality score.
+2. The (geometric) mean virality score evolves differently across clusters over time, and global events influence these trends.
+3. Logistic regression shows that the most important features for virality are functional words and time-related words, the number of links, the number of words, and that properties harming virality are relative pronouns and auxiliary verbs.
+4. Random forest models confirm the importance of post length and functional words, and additionally highlight the role of social words and alphanumeric characters.
+5. Negative sentiment can increase virality, and the structure of Reddit communities forms a structured graph of hate.
+6. Whether a post cross-links within the same cluster or across different clusters does not significantly impact virality.
+7. Subreddits that are most central to virality tend to be large communities with high activity.
+8. For each community, we can identify words that increase the virality score when included in the post title.
+9. Propensity score matching confirms the positive impact of post length and negative sentiment on virality.
+
 
 
 # Epilogue 🌚

@@ -724,6 +724,17 @@ Whether you are a child or a picky eater, we understand that not everyone has th
 
 {% include guess_viral.html %}
 
+# Presenting the Menu
+As we walked you through the cookbook, you might have realized that there are many important parts to watch out for when preparing the ideal dish. To leave a good aftertaste of the menu, we will summarize the recipe of the most crucial ingredients for you to view them at once glance.
+- Be aware of where you are posting
+- Carefully choose the target of your post
+- Watch out for real-life events that drive virality
+- Make sure to publish comprehensive posts - longer posts have a bigger chance of going viral
+- Don't be afraid to be negative - Criticism drives interaction more than pure positivity
+- Be sure about yourself - asking for help or advice is less likely to go viral
+- Be consistent - going viral might not happen at your first time of trying. Stay with it and follow the cookbook, we are sure it will work for you
+
+
 # Epilogue 🌚
 
 And with this, we conclude the tasting menu of it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love" 😒. <br>

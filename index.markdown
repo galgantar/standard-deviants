@@ -6,7 +6,7 @@ subtitle: A cookbook on how to go viral on Reddit
 
 
 
-Sometimes becoming viral happens by accident — a single post can transform an unknown user into a household name, launch careers, or even [make you a Millionarie](https://www.reddit.com/r/millionairemakers/comments/2na6tu/reddit_lets_make_a_millionaire). Reddit, with its 430+ million monthly active users, has become a breeding ground for viral content that shapes public discourse, from [GameStop's stock surge](https://www.idealogic.io/blog/reddit-vs-wallstreet-gamestop-saga-explained) to [political movements](https://utsc.utoronto.ca/news-events/breaking-research/reddit-experienced-huge-spike-political-polarization-2016-it-wasnt-driven) and [cultural phenomena](https://ephemerajournal.org/contribution/everything-you-need-know-about-wallstreetbets-explainer-online-forum-behind-gamestop). We can see that there is plenty of reasons for wanting to author a viral post but how does one do that? The first thing you should probably do is *talk about something interesting* and add your original view of the matter - in the contex of Reddit this means posting a so-called **cross-linking post** in which you refer to another post and add your own context to it. But just posting any corss-linking post will not be enough, a good viral post mixes a number of imprtant characteristics to stand out from hundreads thousands of posts posted each day. To help you make sense of all this we assembled **Toxic Stew** - a cookbook containing all the ingredients you need to cook up the perfect cross-linking post and become the next Reddit sensation.
+Sometimes becoming viral happens by accident — a single post can transform an unknown user into a household name, launch careers, or even [make you a Millionaire](https://www.reddit.com/r/millionairemakers/comments/2na6tu/reddit_lets_make_a_millionaire). Reddit, with its 430+ million monthly active users, has become a breeding ground for viral content that shapes public discourse, from [GameStop's stock surge](https://www.idealogic.io/blog/reddit-vs-wallstreet-gamestop-saga-explained) to [political movements](https://utsc.utoronto.ca/news-events/breaking-research/reddit-experienced-huge-spike-political-polarization-2016-it-wasnt-driven) and [cultural phenomena](https://ephemerajournal.org/contribution/everything-you-need-know-about-wallstreetbets-explainer-online-forum-behind-gamestop). There are plenty of reasons for wanting to author a viral post but how does one do that? The first thing you should probably do is *talk about something interesting* and add your original view of the matter, which in the context of Reddit implies making a so-called **cross-linking post** in which you refer to another post and add your own context to it. But just posting any cross-linking post is not enough, a good viral post mixes a number of important characteristics to stand out from hundreds of thousands of new posts each day. To help you make sense of all this we present **Toxic Stew** - a cookbook containing all the ingredients you need to cook up the perfect cross-linking post and become the next Reddit sensation.
 
 <img src="assets/images/toxic_stew_bowl.png">
 
@@ -15,13 +15,12 @@ Sometimes becoming viral happens by accident — a single post can transform an 
 Every cookbook preface is unnecessarily long and emotional. We will spare you that part 🥱. <br>
 Every cookbook preface ends with a simple promise: follow these recipes, and you’ll create something unforgettable 😏.<br>
 This one keeps that promise - although what you create might be unforgettable for different reasons.
-Before diving into the dishes, let’s prepare our ingredients. <br>
-Disclaimer: Watch out for 💡 symbols, these are the crucial pieces of information in the cookbook.
+Before diving into the dishes, let’s prepare our ingredients.
 
 <img src="assets/images/gordon_grocery.png">
 
 # Ingredients / Dataset
-A good recipe carefully chooses their ingredients. After long consideration, we decided to source the base ingredients and seasoning from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html), and getting the toppings from [The official Reddit API](https://www.reddit.com/api/v1).
+A good recipe carefully chooses their ingredients. After long consideration, we decided to source the base ingredients and seasoning from the [Stanford SNAP Reddit datasets](https://snap.stanford.edu/data/index.html), and the toppings from [The official Reddit API](https://www.reddit.com/api/v1).
 
 ## Basic Ingredients - Base Dataset 🧑‍🌾
 
@@ -50,12 +49,12 @@ With this, we get the following additional ingredients for each of the cross-lin
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
 ## Ingredient Summary
-We made sure that the ingredients of our cookbook work well together. In the following plot, we show that these ingredients leave us with a large share of posts that we can integrate in our stew. We lost some posts that cannot are missing the subreddit embeddings, and some that are not available to be scraped on Reddit since they have been removed. These can be considered like the bad part of an avocado that we have to sacrifice in order to make the overall stew better. And who knows, some of these posts might be used later in the cookbook again. Additionally, we used posts that appear multiple times in the dataset (due to multiple links) only once, as they would otherwise add a heavy bias. But this information is not completely unused, as we elaborate on later. 👀 The following chart summarizes what we are left with:
+We made sure that the ingredients of our cookbook work well together. In the following plot, we show that these ingredients leave us with a large share of posts that can be integrated in the stew. We forfeit some posts are missing the subreddit embeddings, and some that are not available for scraping on Reddit as they have been removed. But it's no biggie, consider these posts like the bad part of an avocado that we have to sacrifice in order to make the overall stew better. And who knows, some of these posts might be used later in the cookbook again (we are pro-compost here). Additionally, we make sure to use posts that appear multiple times in the dataset (due to multiple links) only once, as they would otherwise add a heavy bias. But this information is not completely unused, as we elaborate on later. 👀 The following chart summarizes what we are left with.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911736"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911736/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 ## Secret Ingredient - Virality 🪺
-Oh, and we almost forgot the most important part. For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
+Oh, and we almost forgot the most important part. For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets around the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
 What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. The post is viral if it received many reactions, however upvotes are more important than downvotes therefore we multiply them by 2. With the denominator containing <i>subreddit_subscribers</i>, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller.
 
@@ -119,7 +118,7 @@ We begin the meal with a light refreshment: a first glimpse at our secret ingred
 
 <img src="assets/images/virality_rss_log_log.svg">
 
-Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others. This tells us that we cannot treat viral posts the same across all clusters. We need to be careful to separate them as being "viral" might have a different meaning in a cluster with higher engagement rates. This, however, does not mean that we cannot be viral at all in the others.<br>
+Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others. This tells us that we cannot treat viral posts the same across all clusters. We need to be careful to separate them as being "viral" might have a different meaning in a cluster with higher engagement rates. This, however, does not mean that we cannot reach virality in other clusters.<br>
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
@@ -169,8 +168,7 @@ This statistic measures how far apart the cluster means are relative to their po
 
 <p>
 The p-value represents the probability of observing a difference at least as extreme as the one
-measured, assuming the null hypothesis is true. A threshold of $p < 0.05$ is used to indicate
-statistical significance.
+measured, assuming the null hypothesis is true. A threshold of $p < 0.05$ is used to indicate statistical significance.
 </p>
 
 <h4>Application to virality</h4>
@@ -257,21 +255,21 @@ A stew requires time to simmer 🛁, so that the flavours can open up and flouri
   </div>
 </div>
 
-💡As we can see, some specific clusters have a trend of having a higher virality score over time. For example the pop culture cluster seems to steadily rise across the 3 years of data. We definitely have to take this into account to not add bias!<br>
-Let's give this a closer look, can we find out when exactly the different clusters had peaks? What can we relate them to? We consider communities' popularity over time. We plot the geometric mean of `virality_rss` per cluster over time and watch the race to the top 🐇🐢. 
+💡 Certain clusters have a trend of having a higher virality score over time. For instance, the Pop Culture & Media cluster seems to steadily rise across the 3 years of data. We must take this into account to not add bias!<br>
+Taking a closer look, can we find when exactly the different clusters have their peaks? What can we relate them to? We consider communities' popularity over time. We plot the geometric mean of `virality_rss` per cluster over time and watch the race to the top 🐇🐢. 
 
 TODO: define geometric average somewhere
 
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26820962"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26820962/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
-💡Oh seems like there is quite a bit of change! What could have driven these? We made sure to do some research on what might have caused the swaps in position of average virality score. Our conclusion? These major events played a key role in shaping the dynamics of the virality race over time, hover over them and find out what impact they had: 
+💡 Oh seems like there is quite a bit of change! What could be the driving force? After some research, we conclude that these major events played a key role in shaping the dynamics of the virality race over time (hover over them and find out what impact they had). 
 
 <div class="flourish-embed flourish-cards" data-src="visualisation/26826210"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26826210/thumbnail" width="100%" alt="cards visualization" /></noscript></div>
 
 
 # Antipasti - Virality Factors 🫒
 
-Now it's finally time to get into the nitty-gritty of virality. What proportions of ingredients are actually needed to go viral? We rely on `virality_rss` to define whether a post is viral or not. As we described above, we have to consider the communities and also factor in time (for example from the temporal analysis plot we can see that the average `virality_rss` is increasing over time in the Politics cluster meaning that higher virality score should be required for the post to be marked as viral in 2017 compared to 2014). We define the binary variable `is_viral` to tell us whether a given post in our dataset is viral. To do this we first calculate the moving average and moving standard deviation with the 60-day window for each cluster. For each datapoint we than calculate the **z-score** that tells us how many moving standard deviations above moving average the datapoint lies. In each cluster we mark a post as viral if it lies in the top 2% of points by the z-score.
+Now it's finally time to get into the nitty-gritty of virality. What proportions of ingredients are actually needed to go viral? We rely on `virality_rss` to define whether a post is viral or not. As described above, we have to consider the communities and also factor in time (i.e. from the temporal analysis, we know that average `virality_rss` is increasing over time in the Politics & Society cluster, meaning that a higher virality score is needed for a post to be labelled as viral in 2017 compared to 2014). We define the binary variable `is_viral` to tell us whether a given post in our dataset is viral. To do this we first calculate the moving average and moving standard deviation with the 60-day window for each cluster. For each datapoint we then calculate the **z-score** that tells us how many moving standard deviations above moving average the datapoint lies. In each cluster, we mark a post as viral if it lies in the top 2% of points by the z-score.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -309,7 +307,7 @@ $$z_t = \frac{x_t - \bar{x}_t^{(w)}}{\sigma_t^{(w)}}$$
 </div>
 </details>
 
-The rest of the variables are used in the furhter analysis to determine which ones actually determine virality. We also added two more features, <i>num_title_links</i> and <i>num_body_links</i>, which follows our promise that data on duplicate posts is not lost entirely. Could linking multiple posts impact virality, what about other features? We bet you can't wait to find out! 😎
+The rest of the variables are used in the further analysis to determine which ones actually determine virality. We also added two more features, <i>num_title_links</i> and <i>num_body_links</i>, which follows our promise that data on duplicate posts is not lost entirely. Could linking multiple posts impact virality? What about other features? We bet you can't wait to find out! 😎
 
 
 
@@ -347,15 +345,15 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-💡Logistic regression shows that having many words and especially using a high number of function and timing words has a large positive impact on virality while having a large share of relative pronouns decreases the chance. This tells us that having lenghtier and more precise descriptions that are treated in a more objective way are generally correlated to higher chances of virality. <br>
-Interestingly, this analysis marks another factor important (although not listed in the plot above): **Compound VADER sentiment** - with coefficient of `-0.067836` and a p-value `1.646800e-09` which is well below 0.05. This illustrates that the post having negative compound sentiment positively influences the probabiliy of the post going viral. We will explore this further in the section Sentiment analysis.
+💡 Logistic regression shows that having many words and especially using a high number of function and timing words has a large positive impact on virality while having a large share of relative pronouns decreases the chance. This tells us that having lengthier and more precise descriptions that are treated in a more objective way are generally correlated to higher chances of virality. <br>
+Interestingly, this analysis marks another crucial factor (although not listed in the plot above): **Compound VADER sentiment** - with coefficient of `-0.067836` and a p-value `1.646800e-09` which is well below 0.05. This illustrates that the post having negative compound sentiment positively influences the probabiliy of the post going viral. We will explore this further in the Sentiment Analysis section.
 
 ### Spider Plots 🕷️
-Extending our finding from logistic regression, we generate the following spider plots for some isolated highly viral posts. Each plot visualizes the normalized feature profile of a post, highlighting how different combinations of linguistic, sentiment, and structural features can lead to high virality.
+Extending our findings from logistic regression, we generate the following spider plots for some isolated highly viral posts. Each plot visualizes the normalized feature profile of a post, highlighting how different combinations of linguistic, sentiment, and structural features can lead to high virality.
 
 <div class="flourish-embed flourish-radar" data-src="visualisation/26851369"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26851369/thumbnail" width="100%" alt="radar visualization" /></noscript></div>
 
-💡We can see that each of these posts exceeds in multiple factors of coefficients that were deemed important by the logistic regression above. In at three two out of the five main measures <i>Num_words</i>, <i>Negated_sentiment_comp</i>, <i>Negated_LIWC_Relativ</i>, <i>LIWC_Time</i> and negated <i>LIWC_Relativ</i> they place in a very high percentile. None of them exceeds in all measures, but this gives exactly you 🫵 the chance to become viral.
+💡 We can see that each of these posts exceeds in multiple factors of coefficients that were deemed important by the logistic regression above. In at three two out of the five main measures <i>Num_words</i>, <i>Negated_sentiment_comp</i>, <i>Negated_LIWC_Relativ</i>, <i>LIWC_Time</i> and negated <i>LIWC_Relativ</i> they place in a very high percentile. None of them exceeds in all measures, but this gives exactly you 🫵 the chance to become viral.
 
 
 ## Random Forest 🌳
@@ -408,7 +406,7 @@ $$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}
 <img src="assets/images/top_10_feature_importances.svg">
 
 
-💡The feature importances largely match the ones found with the logistic regression, giving us more confidence that these correlations are actually valid. We can see that multiple measures corresponding to the length of posts reappear (such as <i>Num_characters_no_space</i>, <i>Num_characters</i>, <i>Avg_word_length</i>) as well as the functional words. There are, however, some other metrics, such as <i>Frac_special</I> and <i>Frac_uppercase</I>, both of which were also statistically significant in the logistic regression (albeit with lower coefficients) for positively impacting virality. Therefore, having a higher share of those characters might also help to become viral!
+💡 The feature importances largely match the ones found with the logistic regression, giving us more confidence that these correlations are actually valid. We can see that multiple measures corresponding to the length of posts reappear (such as <i>Num_characters_no_space</i>, <i>Num_characters</i>, <i>Avg_word_length</i>) as well as the functional words. There are, however, some other metrics, such as <i>Frac_special</I> and <i>Frac_uppercase</I>, both of which were also statistically significant in the logistic regression (albeit with lower coefficients) for positively impacting virality. Therefore, having a higher share of those characters might also help to become viral!
 
 ### Predicting Virality of Unscraped Posts 🔮
 Through scraping the dataset, we come across posts that cannot be found on Reddit anymore, and thus could not have been scraped. <br>
@@ -420,7 +418,7 @@ To not lose insight from these posts, we extend our analysis and apply our rando
 
 # Primi - Sentiment Analysis 😃😐🙁
 
-Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. In the previous chapter we have seen that being negative can improve your chances of becomming viral, but than the question arises - who to hate on? The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
+Some viral posts can be positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. In the previous chapter we have seen that being negative can improve your chances of becomming viral, but than the question arises - who to hate on? The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -429,7 +427,7 @@ Some viral posts care positive and uplifting, but the reality is that they are a
 
 <div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
 
-For defining the sentiment of a post, we relied on the VADER properties of the posts. VADER (Valence Aware Dictionary and sEntiment Reasoner) gives every post a normalized compound rating from -1 to +1 in terms of sentiment. +1 denotes a overwhelmingly positive post while -1 means a whole lot of negativity. We have defined the sentiment according to the <i>Sentiment_compound_vader</i> property as follows:
+For defining the sentiment of a post, we relied on the VADER properties of the posts. VADER (Valence Aware Dictionary and Sentiment Reasoner) gives every post a normalized compound rating from -1 to +1 in terms of sentiment. +1 denotes a overwhelmingly positive post while -1 means a whole lot of negativity. We have defined the sentiment according to the <i>Sentiment_compound_vader</i> property as follows:
 
 $$
 \text{label}(x)=
@@ -802,8 +800,8 @@ This figure evaluates covariate balance before and after propensity score matchi
 
 # Kids' Menu - Games 🍕
 
-Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds' sections, so instead, you can learn about virality through a couple of games.<br>
-Although, you can also play these games as a cooking nerd and check whether you have remembered what you learned in the sections above and see if you can achieve a high score!
+Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds' sections, so instead, you can learn about virality through a couple of games!<br>
+And of course if you are a nerd, you can still participate. It is a good check to see whether you have learned the theory and are ready to go viral in the practical sense.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -869,7 +867,7 @@ Bon appétit! 😉
 
 ## About the Project
 
-This project is part of the ADA (Applied Data Analysis) course at EPFL. Our team, the **Standard Deviants**, is passionate about understanding social media dynamics through data.
+This project is part of the Applied Data Analysis (ADA) course at EPFL. Our team, the **Standard Deviants**, is passionate about understanding social media dynamics through data.
 
 ## The Team
 

@@ -111,7 +111,6 @@ Of course, these clusters have a different share of members within each. We comp
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26925242"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26925242/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-TODO: add what we can infer from that plot
 
 # Aperitivo - Initial Analysis 🍷
 We begin the meal with a light refreshment: a first glimpse at our secret ingredient, _virality_. As the plot shows, the majority of posts revolve around a low virality rss score (since we expect virality score distribution to be a [power law](https://en.wikipedia.org/wiki/Power_law) we plot it on log-log scale). Only a few outliers can be spotted on the viral part of the metric.<br>

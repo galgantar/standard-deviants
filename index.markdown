@@ -563,7 +563,9 @@ The next course on the menu is investigating interactions between subreddits. We
 
 💡However, we can see that for the purpose of virality analysis, it does not really matter if a post targets its own Community or another one. Therefore, our analysis has to go deeper. <br><br>
 
-To determine which subreddits recieve the most attention, we used the _weighted PageRank centrality_ algorithm. Then we plot interactions among the top ranked subreddits.
+## Centrality of virality
+
+We want to see which of the subreddits are the most "central" to virality (meaning that they themselves post many viral posts and also many viral posts in other subreddits are cross-linking them). You as the user of our cookbook can use this info to perhaps follow what is happening on those subreddits to have a better chance of spotting an emerging viral trend. Also if you are deciding where to post it makes sense to post and cross-link a post with high centrality. To determine which subreddits are the most central, we used the _weighted PageRank centrality_ algorithm. In the same manner as above we construct a graph where each edge represents the aggregated weight using geometric mean for aggregation and `virality_rss` as the edge weights in the multigraph. We then run a PageRank algorithm on that graph. We plot interactions among the top ranked subreddits - click on the individual node to inspect its neighbourhood.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -575,14 +577,7 @@ To determine which subreddits recieve the most attention, we used the _weighted 
 {% include mathjax-script.html %}
 
 <p>
-To analyze the structural importance of subreddits in the interaction graph, we use
-<strong>weighted PageRank centrality</strong>. Unlike degree-based measures, PageRank captures not
-only how many connections a node has, but also how important its neighbors are.
-</p>
-
-<p>
-Given a directed, weighted graph with adjacency matrix $W$, the PageRank score of node $i$
-is defined recursively as:
+Given a directed, weighted graph with adjacency matrix $W$ (representing the aggregated virality_rss weights), the PageRank score of node $i$ is defined recursively as:
 </p>
 
 $$
@@ -594,33 +589,19 @@ where:
 </p>
 
 <ul>
-  <li>$\alpha \in (0,1)$ is the damping factor (typically $\alpha = 0.85$),</li>
+  <li>$\alpha \in (0,1)$ is the damping factor (in our case $\alpha = 0.85$),</li>
   <li>$N$ is the total number of nodes,</li>
   <li>$w_{ji}$ is the weight of the directed edge from node $j$ to node $i$,</li>
   <li>$\mathcal{N}_{\text{in}}(i)$ denotes the set of nodes pointing to $i$.</li>
 </ul>
 
 <p>
-In this formulation, a node receives high PageRank if it is pointed to by other nodes
-that themselves have high PageRank, with edge weights modulating the strength of influence.
+A node receives high PageRank if it is pointed to by other nodes that themselves have high PageRank, with edge weights modulating the strength of influence.
 </p>
 
 <p>
 <strong>Interpretation:</strong> In our context, a subreddit with high weighted PageRank acts as a
-central aggregation point for attention: it consistently receives interaction or content
-flow from many other influential subreddits.
-</p>
-
-<p>
-This explains why general-interest subreddits (e.g. content aggregation or discovery hubs)
-emerge as highly central, even if they are not topically similar to their neighbors.
-PageRank captures <em>attention flow</em>, not thematic proximity.
-</p>
-
-<p>
-<strong>Why weighted?</strong> Using edge weights ensures that repeated or strong interactions
-contribute more to centrality than incidental or rare links, yielding a more faithful
-representation of influence in the network.
+central aggregation point for virality: it consistently receives interaction or content flow from many other influential subreddits.
 </p>
 
 </div>
@@ -630,12 +611,12 @@ representation of influence in the network.
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26800696"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26800696/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
-💡 It comes without a surprise that the prominent subreddits are huge communities in general, such as r/india, otherwise divise communities that inherently drive engagement, such as r/politics or r/wtf, or those that really put reddit on the map, maximally exploiting the platform's interactive structure, such as r/iama and r/ama.
+💡 The subreddit with the highest PageRank is `r/iama`, and as expected its neighbourhood is well connected (because of the recursive definition of PageRank). The most prominent subreddits in our network analysis are either massive communities with millions of subscribers (such as `r/india`, one of the largest country-specific subreddits), divisive communities that inherently drive engagement through controversial or emotionally charged content (such as `r/politics` with political debates or `r/wtf`, which curates shocking and attention-grabbing content), and communities with interactive Q&A structure (such as `r/iama` and `r/ama`, where celebrities and notable figures answer questions in real-time, creating threads that can receive tens of thousands of upvotes and become cultural touchstones). As mentioned since these communities are huge our cookbook recipe does not necessarily force you to post into one of them (it might be better to focus on the nieche subreddits) but the analysis certainly proves that those are the one to follow if you want to come across as many viral posts as possible and draw the inspiration for your own creations.
 
 
-# Contorni - Textual Analysis 🥗
+# Contorni - Textual Analysis of the title 🥗
 
-Of course, no menu is complete without Term Frequency - Inverse Document Frequency (TF-IDF) 😋. We perform TF-IDF on post titles, follow-up with a regular linear regression, and finally plot the results. The coefficient of determination $R^2$ is used to assess the amount of explained variance a title has on the post's virality. $R^2$ ranges from $0 \le R^2 \le 1$, where $R^2=0$ means the title does not have any effect on virality, and $R^2=1$ means the title explains all the variance.
+The most important dish that no menu is complete without is of course **the Title** - it represents the first thing your user sees once he is making a split-second decision wether to allocate more attention to your post. To analyze what makes a good title we perform **Term Frequency - Inverse Document Frequency** (TF-IDF) on post titles and follow-up with a **linear regression**, to see what words in the title correspond to increase in virality. The $R^2$ metric is used to assess the amount of explained variance a title has on the post's virality.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -645,12 +626,6 @@ Of course, no menu is complete without Term Frequency - Inverse Document Frequen
 <div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #6f42c1; margin: 10px 0;">
 
 {% include mathjax-script.html %}
-
-<p>
-To quantify how the wording of post titles relates to virality, we combine
-<strong>TF-IDF text representations</strong> with an
-<strong>ordinary least squares (OLS) linear regression</strong>.
-</p>
 
 <h4>TF-IDF representation</h4>
 
@@ -678,20 +653,15 @@ where:
   <li>$N$ is the total number of titles in the cluster.</li>
 </ul>
 
-<p>
-This weighting downplays common words and highlights terms that are
-<strong>informative and cluster-specific</strong>.
-</p>
-
 <h4>Linear regression model</h4>
 
 <p>
 The TF-IDF vectors are then used as input features in a linear regression model
-predicting the virality score:
+predicting the logarithm of virality score (we first transform virality score using log because of vast span of values virality score can take):
 </p>
 
 $$
-y = \beta_0 + \sum_{j=1}^{p} \beta_j x_j + \varepsilon
+\log(y) = \beta_0 + \sum_{j=1}^{p} \beta_j x_j + \varepsilon
 $$
 
 <p>
@@ -703,33 +673,22 @@ $$
 \min_{\boldsymbol{\beta}} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
 $$
 
-<p>
-<strong>Interpretation:</strong> Each coefficient $\beta_j$ captures the association between a
-specific word and virality, holding all other words constant.
-Positive coefficients indicate words more strongly associated with higher virality,
-while negative coefficients indicate the opposite.
-</p>
-
 <h4>Model evaluation</h4>
 
 <p>
-Model performance is assessed using the coefficient of determination:
+Model performance is assessed using the $R^2$ metric:
 </p>
 
 $$
 R^2 = 1 - \frac{\sum_i (y_i - \hat{y}_i)^2}{\sum_i (y_i - \bar{y})^2}
 $$
 
+$R^2$ ranges from $0 \le R^2 \le 1$, where $R^2=0$ means the title does not have any effect on virality, and $R^2=1$ means the title explains all the variance.
+
 <p>
 The relatively low $R^2$ values are expected: title text explains only a small fraction
 of virality, which is heavily influenced by external factors such as timing,
 community size, and network effects.
-</p>
-
-<p>
-Rather than maximizing predictive power, this approach identifies
-<strong>systematic linguistic patterns</strong> that distinguish viral titles from typical ones
-within each cluster.
 </p>
 
 </div>
@@ -950,11 +909,11 @@ As we walked you through the cookbook, you might have realized that there are ma
 
 # Epilogue 🌚
 
+<img src="assets/images/toxic_stew_training.png">
+
 And with this, we conclude the tasting menu of what it takes to go viral. You may try a dish from a chef and it be pure bliss, but when you compliment them or ask for the recipe, they start spewing some crap about it being "made with love" 😒. <br>
 We, on the other hand, are no such gatekeepers. We have discovered that the "magic" really comes down to patterns, algorithms, and data. So straighten your apron, sharpen your knives, and don't just copy yesterday's special like any other sous-chef; be intentional to make yourself stand out 🤌. <br>
 Bon appétit! 😉
-
-<img src="assets/images/toxic_stew_training.png">
 
 
 ## About the Project

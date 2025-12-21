@@ -28,11 +28,11 @@ function renderQuestion(nodeId, quizContainer) {
         quizContainer.innerHTML = `
             <h3>${node.question}</h3>
             <div class="options-container">
-                <button class="option-button" onclick="handleAnswer('A', false)">
-                    ${node.option_A}
-                </button>
                 <button class="option-button" onclick="handleAnswer('B', false)">
                     ${node.option_B}
+                </button>
+                <button class="option-button" onclick="handleAnswer('A', false)">
+                    ${node.option_A}
                 </button>
             </div>
         `;

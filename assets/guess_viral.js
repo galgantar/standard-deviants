@@ -120,6 +120,5 @@ async function newRound() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("new-round-btn").onclick = newRound;
     newRound();
 });

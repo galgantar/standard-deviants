@@ -10,7 +10,8 @@ Every cookbook preface is unnecessarily long and emotional. We will spare you th
 Every cookbook preface ends with a simple promise: follow these recipes, and you’ll create something unforgettable 😏.<br>
 This one keeps that promise - although what you create might be unforgettable for… different reasons. 
 Welcome to **Toxic Stew**, a data-powered guide to the secret ingredients behind _virality_ on Reddit.
-Before diving into the dishes, let’s prepare our ingredients.
+Before diving into the dishes, let’s prepare our ingredients. <br>
+Disclaimer: Watch out for 💡 symbols, these are the crucial pieces of information in the cookbook.
 
 
 # Ingredients / Dataset
@@ -109,6 +110,10 @@ Leiden iteratively shuffles nodes between clusters to push $Q$ higher, moving in
 </details>
 
 <div class="flourish-embed flourish-hierarchy" data-src="visualisation/25686032"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25686032/thumbnail" width="100%" alt="hierarchy visualization" /></noscript></div>
+
+Of course, these clusters have a different share of members within each. We compare the share of scraped posts per cluster by the share of unscraped posts per cluster.
+
+<div class="flourish-embed flourish-chart" data-src="visualisation/26925242"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26925242/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 
 # Aperitivo - Initial Analysis 🍷
@@ -253,7 +258,7 @@ A stew requires time to simmer 🛁, so that the flavours can open up and flouri
   </div>
 </div>
 
-As we can see, some specific clusters have a trend of having a higher virality score over time. For example the pop culture cluster seems to steadily rise across the 3 years of data. We definitely have to take this into account to not add bias!<br>
+💡As we can see, some specific clusters have a trend of having a higher virality score over time. For example the pop culture cluster seems to steadily rise across the 3 years of data. We definitely have to take this into account to not add bias!<br>
 Let's give this a closer look, can we find out when exactly the different clusters had peaks? What can we relate them to? We consider communities' popularity over time. We plot the geometric mean of `virality_rss` per cluster over time and watch the race to the top 🐇🐢. 
 
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26820962"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26820962/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
@@ -313,7 +318,7 @@ $$\ell(\boldsymbol{\beta}) = \log P(\boldsymbol{\beta}|\boldsymbol{X}, \boldsymb
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26640283"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26640283/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-Logistic regression shows that having many words and especially using a high number of function and timing words has a large positive impact on virality while having a large share of relative pronouns decreases the chance. This tells us that having lenghtier and more precise descriptions that are treated in a more objective way are generally correlated to higher chances of virality. <br>
+💡Logistic regression shows that having many words and especially using a high number of function and timing words has a large positive impact on virality while having a large share of relative pronouns decreases the chance. This tells us that having lenghtier and more precise descriptions that are treated in a more objective way are generally correlated to higher chances of virality. <br>
 Interestingly, this analysis marks another factor important (although not listed in the plot above): **Compound VADER sentiment** - with coefficient of `-0.067836` and a p-value `1.646800e-09` which is well below 0.05. This illustrates that the post having negative compound sentiment positively influences the probabiliy of the post going viral. We will explore this further in the section Sentiment analysis.
 
 ### Spider Plots 🕷️
@@ -321,7 +326,7 @@ Extending our finding from logistic regression, we generate the following spider
 
 <div class="flourish-embed flourish-radar" data-src="visualisation/26851369"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26851369/thumbnail" width="100%" alt="radar visualization" /></noscript></div>
 
-We can see that each of these posts exceeds in multiple factors of coefficients that were deemed important by the logistic regression above. In at three two out of the five main measures <i>Num_words</i>, <i>Negated_sentiment_comp</i>, <i>Negated_LIWC_Relativ</i>, <i>LIWC_Time</i> and negated <i>LIWC_Relativ</i> they place in a very high percentile. None of them exceeds in all measures, but this gives exactly you 🫵 the chance to become viral.
+💡We can see that each of these posts exceeds in multiple factors of coefficients that were deemed important by the logistic regression above. In at three two out of the five main measures <i>Num_words</i>, <i>Negated_sentiment_comp</i>, <i>Negated_LIWC_Relativ</i>, <i>LIWC_Time</i> and negated <i>LIWC_Relativ</i> they place in a very high percentile. None of them exceeds in all measures, but this gives exactly you 🫵 the chance to become viral.
 
 
 ## Random Forest 🌳
@@ -337,14 +342,14 @@ Then we train a random forest classifier using `sklearn.ensemble.RandomForestCla
 
 {% include mathjax-script.html %}
 
-<p>We use Random Forest to predict post virality (top 2% by RSS score) using LIWC sentiment features, VADER scores, post properties, and cluster memberships.</p>
+<p>We use Random Forest to predict binary post virality using LIWC sentiment features, VADER scores, post properties, and cluster memberships.</p>
 
 <p><strong>Model Architecture:</strong></p>
 <ul>
 <li>300 decision trees (n_estimators=300)</li>
 <li>Maximum depth of 20 levels</li>
 <li>Minimum 5 samples per split, 3 samples per leaf</li>
-<li>Class weights: {0:1, 1:70} to handle severe imbalance (~2% viral posts)</li>
+<li>Class weights: {0:1, 1:70} to handle severe imbalance (2% viral posts)</li>
 </ul>
 
 <p>Each tree makes a prediction by recursively splitting on features that maximize information gain:</p>
@@ -371,41 +376,53 @@ $$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}
 </div>
 </details>
 
-
-
 <img src="assets/images/top_10_feature_importances.svg">
+
+
+💡The feature importances largely match the ones found with the logistic regression, giving us more confidence that these correlations are actually valid. We can see that multiple measures corresponding to the length of posts reappear (such as <i>Num_characters_no_space</i>, <i>Num_characters</i>, <i>Avg_word_length</i>) as well as the functional words. There are, however, some other metrics, such as <i>Frac_special</I> and <i>Frac_uppercase</I>, both of which were also statistically significant in the logistic regression (albeit with lower coefficients) for positively impacting virality. Therefore, having a higher share of those characters might also help to become viral!
 
 ### Predicting Virality of Unscraped Posts 🔮
 Through scraping the dataset, we come across posts that cannot be found on Reddit anymore, and thus could not have been scraped. <br>
-To not lose insight from these posts, we extend our analysis and apply our random forest classifier to predict whether these posts have virality potential. Hence from our algorithm, we obtain that slightly more than 2% of the posts went viral.
+To not lose insight from these posts, we extend our analysis and apply our random forest classifier to predict whether these posts have virality potential. Hence, using the same random forest algorithm (with parameters described in the cooking for nerds section), we obtain that slightly more than 2% of the posts went viral.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26795802"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26795802/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-
-
+It also once again shows a difference between clusters. We cannot say for sure as Reddit deleted those posts, but seems like many viral posts in the Pop Culture community fell victim to Reddit removing their viral posts. Maybe this gives you 🫵 the chance to become a viral sensation in Pop Culture and Media. Just make sure to not include anything that will get your post deleted.
 
 # Primi - Sentiment Analysis 😃😐🙁
 
 Some viral posts care positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. In the previous chapter we have seen that being negative can improve your chances of becomming viral, but than the question arises - who to hate on? The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
+
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: What defines the sentiment of a post</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+For defining the sentiment of a post, we relied on the VADER properties of the posts. VADER (Valence Aware Dictionary and sEntiment Reasoner) gives every post a normalized compound rating from -1 to +1 in terms of sentiment. +1 denotes a overwhelmingly positive post while -1 means a whole lot of negativity. We have defined the sentiment according to the <i>Sentiment_compound_vader</i> property as follows:
+
+$$
+\text{label}(x)=
+\begin{cases}
+\text{positive}, & x>0.05,\\
+\text{neutral}, & -0.05 \ge x < 0.05 \\
+\text{negative}, & x \le -0.05.
+\end{cases}
+$$
+
+</div>
+</details>
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 💡 Most posts are positive or neutral, but Politics & Society and Reddit Meta & Community have the highest proportion of negative posts. <br>
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911604"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911604/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
-💡 There is a higher proportion of negativity in the unscraped posts than in the scraped ones of the same cluster.
+💡 There is a slightly higher proportion of negativity in the unscraped posts than in the scraped ones of the same cluster. However, it is not significant enough to confidently say that many posts were deleted because they were too negative.
 <br>
 
-<div class="flourish-embed flourish-chart" data-src="visualisation/26923918"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26923918/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
-
 💡 The largest (and most divisive) clusters had the largest volume of removed posts.
-<br><br>
-
-The following chord diagram visualizes cross-cluster interaction volume, where ribbon thickness represents the number of words exchanged between clusters. It highlights which communities are most strongly entangled in cross-linked discussions.
-
-<div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
-
-💡 Every cluster has a lot of intra-cluster interactions, and exchange inter-cluster interactions with other large clusters, prominintely Reddit Meta.
 
 <br><br>
 
@@ -417,7 +434,17 @@ To wrap up the sentiment analysis, we model the sentiment that subreddits have t
 
 # Secondi - Central Graph Analysis 🍛
 
-The next course on the menu is investigating interactions between the most popular subreddits. To determine which subreddits recieve the most attention, we used the _weighted PageRank centrality_ algorithm. Then we plot interactions among the top ranked subreddits.
+The next course on the menu is investigating interactions between subreddits. We start by analyzing, which community is typically linked by the posts. The following chord diagram visualizes cross-cluster interaction volume, where ribbon thickness represents the number of words exchanged between clusters. It highlights which communities are most strongly entangled in cross-linked discussions.
+
+<div class="flourish-embed flourish-chord" data-src="visualisation/26631957"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26631957/thumbnail" width="100%" alt="chord visualization" /></noscript></div>
+
+💡 Every cluster has a lot of intra-cluster interactions, and exchange inter-cluster interactions with other large clusters, prominintely Reddit Meta.
+
+<div class="flourish-embed flourish-chart" data-src="visualisation/26925428"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26925428/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+
+💡However, we can see that for the purpose of virality analysis, it does not really matter if a post targets its own Community or another one. Therefore, our analysis has to go deeper. <br><br>
+
+To determine which subreddits recieve the most attention, we used the _weighted PageRank centrality_ algorithm. Then we plot interactions among the top ranked subreddits.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -659,7 +686,8 @@ within each cluster.
   </div>
 </div>
 
-💡 Thus, the way a post is titled has an especially strong effect on virality in the Sports and Technology communities (accounting for approximately 20% and 25% of variance respectively), a reasonable effect on the Lifestyle, Politics, and Meta spheres (more than 10%), and a lesser but still noteworthy effect in the remaining Gaming and Media clusters (around 5%).
+💡 Thus, the way a post is titled has an especially strong effect on virality in the Sports and Technology communities (accounting for approximately 20% and 25% of variance respectively), a reasonable effect on the Lifestyle, Politics, and Meta spheres (more than 10%), and a lesser but still noteworthy effect in the remaining Gaming and Media clusters (around 5%).<br>
+💡 One important finding is that posts that include words like <i>question</i>, <i>help</i>, <i>asking</i> all have negative effects on the virality score. This means that you should be sure of what you are saying. Asking questions or for help does usually not resonate well with the readers.
 
 
 # Dolci - Propensity Score Matching 🍰
@@ -745,7 +773,8 @@ This figure evaluates covariate balance before and after propensity score matchi
 
 # Kids' Menu - Games 🍕
 
-Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds' sections, so instead, you can learn about virality through a couple of games.
+Whether you are a child or a picky eater, we understand that not everyone has the intellect to understand the 'For cooking nerds' sections, so instead, you can learn about virality through a couple of games.<br>
+Although, you can also play these games as a cooking nerd and check whether you have remembered what you learned in the sections above and see if you can achieve a high score!
 
 ### What decisions would you make to be viral?
 
@@ -779,9 +808,12 @@ This project is part of the ADA (Applied Data Analysis) course at EPFL. Our team
 
 ## The Team
 
-- Team Member 1
-- Team Member 2
-- Team Member 3
+- Aziz Hamza
+- Gal Gantar
+- Henrik Gruber
+- Jack Naimer
+- Jane Klavir
+
 
 ---
 

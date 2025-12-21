@@ -335,7 +335,36 @@ The rest of the variables are used in the furhter analysis to determine which on
 
 
 ## Logistic Regression 🪵
-Now we bring out the heavy ML machinery. We first train a **logistic regression model**. This yields the coefficients displayed in the plot below - each coefficient tells us how significantly the value of a numerical coefficient impacts virality. Since we are using a statistical library [statsmodels](https://www.statsmodels.org/stable/index.html) to fit a linear model each coefficient also comes with a p-value, describing the probability of observing such an extreme coefficient value under the null hypothesis that the true coefficient is zero. All of the shown coefficients have p-value below 0.05 (hover over the coefficient so see its full name and its p-value).
+Now we bring out the heavy ML machinery. We first train a **logistic regression model**. This yields the coefficients displayed in the plot below - each coefficient tells us how significantly the value of a numerical coefficient impacts virality. Since we are using a statistical library [statsmodels](https://www.statsmodels.org/stable/index.html) to fit a linear model each coefficient also comes with a p-value, describing the probability of observing such an extreme coefficient value under the null hypothesis that the true coefficient is zero. All of the shown coefficients have p-value below 0.05 (hover over the coefficient so see its full name and its p-value). Before we apply the logistic regression we make sure to remove the features that heavily correlated since such features might cause the coefficients to become unstable - for this we use **Pearson correlation coefficient** and remove one feature out of a pair of features with absolute correlation coefficient above 0.9 (example of such features is `num_characters` and `num_characters_no_space`). 
+
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Pearson correlation coefficient</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<h3>Pearson Correlation Coefficient</h3>
+
+<p>The Pearson correlation coefficient $r$ measures the linear relationship between two variables $X$ and $Y$. It is defined as:</p>
+
+$$r = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(y_i - \bar{y})^2}} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}$$
+
+<p>where $\bar{x}$ and $\bar{y}$ are the sample means, $\text{Cov}(X,Y)$ is the covariance, and $\sigma_X$, $\sigma_Y$ are the standard deviations of $X$ and $Y$ respectively.</p>
+
+<p>The correlation coefficient ranges from $-1$ to $+1$:</p>
+<ul>
+<li>$r = +1$: Perfect positive linear relationship</li>
+<li>$r = 0$: No linear relationship</li>
+<li>$r = -1$: Perfect negative linear relationship</li>
+</ul>
+
+<p>Values closer to $\pm 1$ indicate stronger linear relationships, while values closer to $0$ suggest weak or no linear association. Note that correlation measures only linear relationships and does not capture nonlinear associations which means we have to assume that all the correlations in our data are linear.</p>
+
+</div>
+</details>
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -388,7 +417,7 @@ Extending our findings from logistic regression, we generate the following spide
 
 ## Random Forest 🌳
 
-Then we train a random forest classifier using `sklearn.ensemble.RandomForestClassifier`, and find the following features to be of most importance.
+Logistic regression is a useful and interpteable tool but it requires the assumption of the linear relation between the logits of virality probability and coefficients. It might be that the relation between features and virality is more complicated than that. There we employ the big guns of ML: **Ansamble methods**, specifically the Random forest classifiers. We train a random forest classifier using [SciKit learn library](https://scikit-learn.org/), and find the following features to be of most importance.
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -428,19 +457,17 @@ $$\hat{y} = \text{mode}\left\{ h_1(\mathbf{x}), h_2(\mathbf{x}), \ldots, h_{300}
 
 <p><strong>Feature Importance:</strong> Calculated as the average decrease in Gini impurity across all trees when splitting on that feature. Higher values indicate stronger predictive power.</p>
 
-<p><strong>Application:</strong> We apply the trained model to ~67k posts with missing upvote data to estimate their virality potential by cluster.</p>
-
 </div>
 </details>
 
 <img src="assets/images/top_10_feature_importances.svg">
 
 
-💡 The feature importances largely match the ones found with the logistic regression, giving us more confidence that these correlations are actually valid. We can see that multiple measures corresponding to the length of posts reappear (such as <i>Num_characters_no_space</i>, <i>Num_characters</i>, <i>Avg_word_length</i>) as well as the functional words. There are, however, some other metrics, such as <i>Frac_special</I> and <i>Frac_uppercase</I>, both of which were also statistically significant in the logistic regression (albeit with lower coefficients) for positively impacting virality. Therefore, having a higher share of those characters might also help to become viral!
+💡 The feature importances largely match the ones found with the logistic regression, giving us more confidence that these correlations are actually valid. We can see that multiple measures corresponding to the length of posts reappear (such as <i>Num_characters_no_space</i>, <i>Num_characters</i>, <i>Avg_word_length</i>) as well as the functional words. There are, however, some other metrics, such as <i>Frac_special</I> and <i>Frac_uppercase</I>, both of which were also statistically significant in the logistic regression (although with lower coefficients) for positively impacting virality. Therefore, having a higher share of those characters might also help to become viral!
 
 ### Predicting Virality of Unscraped Posts 🔮
 Through scraping the dataset, we come across posts that cannot be found on Reddit anymore, and thus could not have been scraped. <br>
-To not lose insight from these posts, we extend our analysis and apply our random forest classifier to predict whether these posts have virality potential. Hence, using the same random forest algorithm (with parameters described in the cooking for nerds section), we obtain that slightly more than 2% of the posts went viral.
+To not lose insight from these posts, we extend our analysis and apply our random forest classifier to predict whether these posts have virality potential. Hence, using the same random forest algorithm (with parameters described in the cooking for nerds section), we predict that slightly more than 2% of the missing posts went viral.
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26795802"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26795802/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
@@ -448,7 +475,9 @@ To not lose insight from these posts, we extend our analysis and apply our rando
 
 # Primi - Sentiment Analysis 😃😐🙁
 
-Some viral posts can be positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. In the previous chapter we have seen that being negative can improve your chances of becomming viral, but than the question arises - who to hate on? The seasoning behind the message is defined by the [VADER sentiment](https://github.com/cjhutto/vaderSentiment) of posts. As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
+<img src="assets/images/angry_reddit_mods.png">
+
+Some viral posts can be positive and uplifting, but the reality is that they are also often negative, hence the stew being... toxic... ☠️ but viral, nonetheless. In the previous chapter we have seen that being negative can improve your chances of becomming viral, but than the question arises - who to hate on? The toxicity of the post is defined by the negative compound [VADER sentiment](https://github.com/cjhutto/vaderSentiment). As we suspect that sentiment plays a big role in virality, we begin by looking at sentiment comprising our various clusters:
 
 <details>
 <summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
@@ -474,20 +503,53 @@ $$
 <div class="flourish-embed flourish-chart" data-src="visualisation/26532988"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26532988/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 💡 Most posts are positive or neutral, but Politics & Society and Reddit Meta & Community have the highest proportion of negative posts. <br>
 
+Lets also analyze the sentiment of the posts that could not be scraped to see if there are any imbalances present among the removed posts.
+
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911604"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911604/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 💡 There is a slightly higher proportion of negativity in the unscraped posts than in the scraped ones of the same cluster. However, it is not significant enough to confidently say that many posts were deleted because they were too negative.
 
+### Who to hate on?
 
-<img src="assets/images/angry_reddit_mods.png">
+<img src="assets/images/subreddits_hating_each_other.png">
 
-To wrap up the sentiment analysis, we model the sentiment that subreddits have towards one another. The following directed graph shows which subreddits hate each other.
+
+If you are one of those people who doesn't mind to become viral by all means and decide to post a negative cross-linking post you might be interested where to find an existing post to talk negatively about? You should probably talk negatively about subreddit which is is already hated on by the majority of the subreddit in which you are planning to post into. To help you decide we turn to [Graph theory](https://en.wikipedia.org/wiki/Graph_theory) and construct a **directed Hate graph** between subreddits using [NetworkX Python library](https://networkx.org/en/).
+
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: Directed Graphs, Multigraphs, hate graphs</strong>
+</summary>
+
+<div style="padding: 20px; background-color: #fafafa; border-left: 4px solid #007bff; margin: 10px 0;">
+
+{% include mathjax-script.html %}
+
+<p><strong>Directed Weighted Graph:</strong> A graph $G = (V, E)$ where $V$ is a set of nodes and $E \subseteq V \times V$ is a set of ordered pairs $(u, v)$ representing directed edges from node $u$ to node $v$. Each edge $(u, v)$ has an associated weight $w(u, v) \in \mathbb{R}$</p>
+<p><strong>Directed Multigraph:</strong> A generalization of a directed graph where multiple edges can exist between the same ordered pair of nodes.</p>
+<p><strong>Hate graph:</strong>
+Firstly we use the dataset directly to construct NetworkX multigraph where nodes are subreddits and each edge represents a single post linking from a source subreddit to a target subreddit. Multiple edges can exist between the same $(u, v)$ pair, representing all posts from subreddit $u$ to subreddit $v$.</p>
+
+<p>To each of the edges of the multigraph we assign <strong>Emotional Toxicity Metric:</strong></p>
+
+$$\text{emotional_toxicity}_p = \frac{1}{6}\left(\text{vader_negative}_p + \text{negemo}_p + \text{anger}_p + \text{anxiety}_p + \text{sad}_p + \text{swear}_p\right)$$
+
+<p>where each component is extracted from the post's LIWC and VADER sentiment analysis of the post $p$</p>
+
+<p>We want to measure the amount of hate between communities. For this we use the input multigraph and aggregate parllel edges to obtain a NetworkX directed weighted graph.</p>
+
+<p>For each directed edge $(u, v)$ in the output graph, we aggregate all posts from subreddit $u$ to subreddit $v$ that match the target sentiment. The edge weight is computed as the arithmetic mean of emotional toxicity scores across all such posts:</p>
+
+$$w(u, v) = \frac{1}{|P_{u,v}|} \sum_{p \in P_{u,v}} \text{emotional_toxicity}_p$$
+
+<p>where $P_{u,v}$ is the set of all posts from subreddit $u$ to subreddit $v$ with the specified sentiment value.</p>
+
+</div>
+</details>
 
 <div class="flourish-embed flourish-network" data-src="visualisation/26533122"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26533122/thumbnail" width="100%" alt="network visualization" /></noscript></div>
 
-💡 As we explore the pathways of hate, we see some unsurprising results. For example, r/anarchism hates r/protectandserve (a community for law enforcement officers) and r/gamerghazi, a far-left community, hates r/8chan, a far-right community.
-
-<img src="assets/images/subreddits_hating_each_other.png">
+💡 As we explore the pathways of hate, we see some unsurprising results. For example, `r/anarchism` hates `r/protectandserve` (a community for law enforcement officers) and `r/gamerghazi`, a far-left community, hates `r/8chan`, a far-right community.
 
 # Secondi - Central Graph Analysis 🍛
 

@@ -45,21 +45,21 @@ Ultimately, end up with additional ingredients:
 - `upvote_ratio` (number of upvotes / number of votes)
 - `subreddit_subscribers` (number of subscribers to source subreddit)
 
+## Ingredient Summary
+We made sure that the ingredients of our cookbook work well together. In the following plot, we show that these ingredients leave us with a large share of posts that we can integrate in our stew. We lost some posts that cannot be mapped to clusters, as we are missing the subreddit embeddings, and some that are not available to be scraped on Reddit since they have been removed. These can be considered like the bad part of an avocado that we have to sacrifice in order to make the overall stew better. And who knows, some of these posts might be used later in the cookbook again. Additionally, we used plots that appear multiple times in the dataset (due to multiple links) only once, as they would otherwise add a heavy bias. But this information is not completely unused, as we elaborate on later. 👀
+
 <div class="flourish-embed flourish-chart" data-src="visualisation/26911736"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26911736/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
 ## Secret Ingredient - Virality 🪺
-For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
+Oh, and we almost forgot the most important part. For the first time in history, we  reveal the top secret of our trade. This is truly the ingredient that will make your stew irresistible to all your friends (and enemies) alike. It is something you can only make yourself; it is not sold by any gypsies in any markets anywhere in the world. This ingredient is ✨virality✨. More particularly, _relative virality score per subscriber_ (`virality_rss`) And the secret formula to make this metric is as follows: <br><br>
 `virality_rss` = (2* `ups` + `downs`) / sqrt(`subreddit_subscribers` + 1) <br><br>
 What makes this metric so special is that is really captures the essence of what it is to be viral in a given community. With the denominator containing <i>subreddit_subscribers</i>, the virality standard accounts for the size of the subreddit in which the post originates. To be considered viral in a bigger community, a bigger score is needed, and virality is not penalized if the community itself is smaller. <br>
 Virality is studied through the lens of a hyperlink network. Rather than treating virality as popularity within a single community, we account for the spread of content between communities. Engagement signals (e.g. upvotes) are taken in the context of cross-linked posts, so a post that attracts disproportionately high engagement relative to typical posts in its community (i.e. following exposure through a hyperlink from another community) is more viral, capturing how attention propagates across Reddit.
-
-
-
-
+revolve around a low virality rss score. Only a few outliers can be spotted on the viral part of the metric. 
 # Setting the Table - Community detection 🍽️
 
 As you are cooking, it is important to keep your space clean. Any chef knows that dry and wet ingredients must be mixed separately, and proper cleaning practices need to be observed to prevent cross-contamination, food poisoning, and death 🪦. <br>
-We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We discard subreddits that we don't have embeddings for (TODO: around 9%). We then perform Leiden clustering with params (TODO: ...) and get the following clusters. We use Gemini LLM to name the clusters based on (TODO ...). At the end we are left with 7 clusters (communities).
+We take subreddit embeddings from **[Reddit Embeddings](https://snap.stanford.edu/data/web-RedditEmbeddings.html)** which includes vector representations of subreddits and users for advanced analysis. We then perform Leiden clustering with params (TODO: ...) and organize them formally to get the following clusters. A complex Gemini LLM pipeline helped us to name the clusters of all levels by (TODO ...). At the end this gives us 7 distinct clusters which can be viewed as larger Reddit communities.
 
 
 <details>
@@ -114,10 +114,12 @@ Leiden iteratively shuffles nodes between clusters to push $Q$ higher, moving in
 
 
 # Aperitivo - Initial Analysis 🍷
-We begin the meal with a light refreshment: a first glimpse at our secret ingredient, _virality_. Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others.<br>
+We begin the meal with a light refreshment: a first glimpse at our secret ingredient, _virality_. As the plot shows, the majority of posts revolve around a low virality rss score. Only a few outliers can be spotted on the viral part of the metric.<br>
 
 
 <img src="assets/images/virality_rss_log_log.svg">
+
+Before diving into complex modelling, we take a step back and examine how virality behaves across the different clusters of Reddit communities. The bar chart gives us an early hint: the mean virality score isn’t uniform at all. Some clusters consistently produce more “viral-leaning” posts than others. This tells us that we cannot treat viral posts the same across all clusters. We need to be careful to separate them as being "viral" might have a different meaning in a cluster with higher engagement rates. This, however, does not mean that we cannot be viral at all in the others.<br>
 
 <div class="flourish-embed flourish-chart" data-src="visualisation/26558729"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26558729/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
 
@@ -227,17 +229,14 @@ A stew requires time to simmer 🛁, so that the flavours can open up and flouri
 
 <div class="tab-content" id="viewTabsContenta" style="margin-top: 20px;">
   <div class="tab-pane fade show active" id="viewa1" role="tabpanel" aria-labelledby="view1-tab">
-    <h4>View 1 Content</h4>
     <div class="flourish-embed flourish-scatter" data-src="visualisation/26561176"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26561176/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
   </div>
   
   <div class="tab-pane fade" id="viewa2" role="tabpanel" aria-labelledby="view2-tab">
-    <h4>View 2 Content</h4>
     <div class="flourish-embed flourish-scatter" data-src="visualisation/26563051"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26563051/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
   </div>
   
   <div class="tab-pane fade" id="viewa3" role="tabpanel" aria-labelledby="view3-tab">
-    <h4>View 3 Content</h4>
     <div class="flourish-embed flourish-scatter" data-src="visualisation/26564979"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26564979/thumbnail" width="100%" alt="scatter visualization" /></noscript></div>
   </div>
   
@@ -256,21 +255,31 @@ A stew requires time to simmer 🛁, so that the flavours can open up and flouri
   </div>
 </div>
 
-
-Getting into the temporal analysis, we consider communities' popularity over time. We plot the geometric mean of `virality_rss` per cluster over time and watch the race to the top 🐇🐢. 
+As we can see, some specific clusters have a trend of having a higher virality score over time. For example the pop culture cluster seems to steadily rise across the 3 years of data. We definitely have to take this into account to not add bias!<br>
+Let's give this a closer look, can we find out when exactly the different clusters had peaks? What can we relate them to? We consider communities' popularity over time. We plot the geometric mean of `virality_rss` per cluster over time and watch the race to the top 🐇🐢. 
 
 <div class="flourish-embed flourish-bar-chart-race" data-src="visualisation/26820962"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26820962/thumbnail" width="100%" alt="bar-chart-race visualization" /></noscript></div>
 
-💡These major events played a key role in shaping the dynamics of the virality race over time : 
+💡Oh seems like there is quite a bit of change! What could have driven these? We made sure to do some research on what might have caused the swaps in position of average virality score. Our conclusion? These major events played a key role in shaping the dynamics of the virality race over time, hover over them and find out what impact they had: 
 
 <div class="flourish-embed flourish-cards" data-src="visualisation/26826210"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/26826210/thumbnail" width="100%" alt="cards visualization" /></noscript></div>
 
 
 # Antipasti - Virality Factors 🫒
 
-What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not (TODO: how is it defined?) and other post properties (e.g. <i>num_words</i>, <i>avg_word_length</i>, <i>sentiment</i>, <i>LIWC features</i>, etc.) to be the features.
+Now it's finally time to get into the nitty-gritty of virality. What proportions of ingredients are actually needed to go viral? We model virality as a binary outcome using machine learning techniques. We rely on `virality_rss` to define whether a post is viral or not. As we described above, we have to consider the communities and also factor in time, as becoming viral does not mean the same in all places and at all times. We defined the binary variable `is_viral` to tell us whether a given post in our dataset is viral. The rest of the variables are used in the furhter analysis to determine which ones actually determine virality. We also added two more features, <i>num_title_links</i> and <i>num_body_links</i>, which follows our promise that data on duplicate posts is not lost entirely. Could linking multiple posts impact virality, what about other features? We bet you can't wait to find out! 😎
 
-TODO: explain how we get num_title_links and num_body_links
+<details>
+<summary style="cursor: pointer; padding: 10px; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 5px; margin: 20px 0;">
+<strong>🧑‍🍳 For cooking nerds: How we defined virality</strong>
+</summary>
+
+TODO for Gal, could you please just put the formula here how you defined virality
+
+</div>
+</details>
+
+
 
 ## Logistic Regression 🪵
 We first train a logistic regression model using `smf.logreg`. This yields the coefficients displayed in the plot below. All of the shown coefficients have p-value below 0.05 (hover over the coefficient so see its full name and its p-value).
